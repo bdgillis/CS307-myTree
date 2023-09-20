@@ -1,0 +1,93 @@
+CS 30700: myTree Project Backlog
+Team Number: 22
+Team Name: myTree
+Name: Annalise Kimura, Brian Gillis, Paul Kraessig, Rishab Koka
+
+Problem Statement:
+As climate change becomes a greater issue in our society, people are becoming more climate-conscious and are looking for a way to track its effects on the planet. A great way to help combat climate change is by lowering your carbon footprint and the best way to do that is to first understand how your choices in your day-to-day life affect your overall footprint. Our goal is to create a carbon awareness platform to monitor levels of carbon output in everyday life. What sets our website, myTree, apart from other personal carbon footprint calculators is that we show how your daily choices affect your carbon score and have social features to foster a more climate-conscious society.
+
+Background Information: 
+The Problem: Every day, we all do things that add to climate change, however minutely. There are many things, such as: driving instead of carpooling, eating a plant-based diet instead of meat-based, and turning the lights off when you leave the house that help to decrease one’s personal carbon footprint. The goal is to spread awareness of the effects of such climate-friendly habits and create a system that can incentivize these behaviors. 
+Target Users: myTree is geared towards anyone. The website will contain information on the subject as well as the core tracking and social features. Thus, users do not need to have prior knowledge of\n climate change or how their habits affect it. People who are well-educated can also use this platform as a means to track and display their actions and lifestyles. For the early stages of development of the website, the platform is geared towards college students. This is done to have a smaller scope for the activities available to be tracked by users. Further, young people and college students seem more likely to be willing and able to change their daily habits. 
+Current Solutions: There are currently a variety of web-based carbon personal footprint calculators available, however, there were not any found that encourage continuous usage. Many were yearly, or monthly carbon footprint calculators that offer a one-time carbon footprint value. 
+Limitations of Current Solutions: The main limitation of the current solutions is that there is nothing implemented for a user to come back, or to incentivize their changing of habits. Further, there is no built-in interface for users to compare with their friends, or set carbon goals for themselves. The calculators serve a single purpose, and that is to offer the user a value for their carbon footprint, but do not encourage the user to return to see how the value has changed. 
+
+Functional Requirements:
+User Account
+As a user, I would like to create an account.
+As a user, I would like to link my email or Facebook to my account
+As a user, I would like my account to save my information and carbon score statistics
+As a user, I would like to login to my account with a username and password.
+As a user, I would like to be authenticated with existing credentials (i.e, google account)
+As a user, I would like to have the option of deleting my account.
+As a user, I would like to reset my password.
+As a user, I would like to take a habit quiz when setting up my account
+As a user, I want to land on a consistent home page when I log in
+As a user, I would like to be able to log out of my account
+User Profile
+As a user, I would like to display my name and information on a profile
+As a user, I would like my profile to be visible to the public
+As a user, I would like my friends to be listed on my profile
+As a user, I would like my awards and badges to be shown on my profile
+As a user, I would like my lifetime carbon habits shown on my profile
+As a user, I would like my weekly stats shown on my profile
+As a user, I would like to see my progress towards my goals
+As a friend, I would like to see the profile page of my friend
+Tracking Carbon Input
+As a user, I would like to be able to input a drive I complete and see the effect on my carbon footprint
+As a user, I would like to edit my habits in case I made a wrong input
+As a user, I would like to choose a category to input my activity
+As a user, I would like to be able to modify my previous entry
+As a user, I would like to see options for goals to set for a given time frame
+As a user, I would like to set goals for a given time frame
+As a user, I would like to see a dashboard of global climate change statistics
+As a user, I would like goals to be suggested to me
+As a user, I would like to understand how the carbon score is calculated so I can improve my habits
+Visualization
+As a user, I would like to visualize my carbon score in the way of an image such as a tree
+As a user, I would like to see my tree grow when I have a good carbon score
+As a user, I would like to see my tree shrink when I have a bad carbon score
+As a user, I would like to see my friends' trees
+As a user, I would like to be able to compare my tree with my friends or group members
+
+Leaderboard
+As a user, I would like to receive a daily challenge
+As a user, I would like to see my ranking on a leaderboard amongst all users 
+As a user, I would like to see my ranking on a leaderboard among friends
+As a user, I would like to see the awards I won
+As a user, I would like to see my current league
+As a user, I would like to see a leaderboard of my current league
+As a user, I would like to “nudge” a friend that is falling behind
+Groups
+As a user, I would like to join a group by searching for one
+As a user, I would like to create a group
+As a user, I would like to see the current members of a group I am not in
+As a user, I would like to see if my friends are current members of a group I am not in
+As a user, I would like to see individual groups and group details on their own page, separate from other groups
+As a group member, I would like to see other members in my group
+As a group member, I would like to invite members to my group
+As a group owner, I would like admin privilege to add members or remove members from my group
+As a group member, I would like to write and update a bio to describe my group
+As a group member, I would like to create a challenge for my group to collectively work towards
+Only one challenge should be active in a group so as a user we aren’t overwhelmed 
+As a group member, I would like to participate and work towards completing my group’s challenge
+As a user, I would like to see all of my group notifications like invites and nudges in one place
+Users:
+User
+Developer
+Friend
+Group Member
+
+Non-Functional Requirements:
+Architecture/Development
+We plan to have a completely separate front and back end, both for the ease of development and for the ability to host several users at once. The back end will use NodeJS and the front end web app will be written in the ReactJS framework and make requests from an API endpoint exposed in the backend. Backend domain logic will initially be based on a closed set of carbon calculations, meaning that only a small amount of activities will affect the carbon calculations, which can be expanded on later. Transportation, eating, and waste management will be three main categories to begin with. However, keeping the set well-defined in this manner makes it easy to expand on once available.
+Security
+Something that is more important than ever is security, this is especially so when you are storing data such as user credentials and other personal data. The main way we plan to safely handle user data is by using Firebase to manage all the data. Firebase is a known and trusted service to safeguard personal user data, thus we can guarantee the security of their accounts. One of the sub-services that Firebase provides is called Cloud Firestore, we plan to use this service in order to store user’s data in a secure and separate manner. Users who set their profile to private can only be viewed by their friends while people who set their profile to public can be viewed by anyone on the platform.
+Response Time
+Add values (data-driven goals)
+DB to the front end or vice versa / response time back to the user after action
+Since the website will be accessed by many at once, it requires a low response time. Delays or lag times would also make the interaction between groups and friends operate poorly, which is something we do not want. We are aiming for response times of under 500ms, but that number will probably shift depending on a number of factors. We will correct the code based on if we notice the lag time when operating our website.
+Usability
+The myTree website should be organized and easy to navigate. The different aspects will be categorized in a drop-down menu way to ensure easy access; everything will be labeled so the users have an easy understanding of how to use the website. The settings button will always be in the top corner in case the user needs to access it. Icons will be recognizable and the general feeling should be comforting and minimal.
+Hosting/Development
+The hosting for the myTree website will be handled by Firebase which hosts the Cloud Firestore database. The complimentary "Spark" Plan offered by Firebase grants 10,000 free phone authentication verifications per month, along with 1 GiB of monthly storage. These quantities appear to be sufficient for the course's requirements. Furthermore, Firebase accommodates scalability needs by facilitating a straightforward switch from the cost-free "Spark" Plan to the pay-as-you-go "Blaze" plan.
