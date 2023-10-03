@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/index';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Home from './pages';
@@ -11,7 +11,7 @@ function App() {
         <Router>
             <Navbar />
             <Routes>
-                <Route exact path='/' exact element={<Home />} />
+                <Route exact path='/' element={<Home />} />
                 /* need to find out why exact isn't working */
                 <Route path='/about' element={<About />} />
             </Routes>
