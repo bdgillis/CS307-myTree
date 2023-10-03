@@ -1,24 +1,22 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-
+import React from 'react';
+import './App.css';
+import Navbar from './components/index';
+import { BrowserRouter as Router, Routes, Route }
+    from 'react-router-dom';
+import Home from './pages';
+import About from './pages/about';
+ 
 function App() {
-  const [data, setData] = React.useState(null);
-
-  React.useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }, []);
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{!data ? "Loading..." : data}</p>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route exact path='/' element={<Home />} />
+                /* need to find out why exact isn't working */
+                <Route path='/about' element={<About />} />
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;
