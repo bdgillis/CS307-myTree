@@ -17,7 +17,7 @@ function App() {
   
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       console.log(user)
 
     } catch (error) {
@@ -28,7 +28,7 @@ function App() {
 
   const login = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, registerEmail, registerPassword);
+      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       console.log(user)
 
     } catch (error) {
