@@ -61,6 +61,7 @@ function App() {
                 const credential = GoogleAuthProvider.credentialFromError(error);
             });
     }
+    
 
     return (
         <div className="App">
@@ -97,8 +98,17 @@ function App() {
                     }} />
 
                 <button onClick={login}> Login</button>
-                <button onClick={googleAuth}>Login with Google</button>
             </div>
+
+            <div>
+
+                <h3>Login with Other Accounts</h3>
+                <button onClick={googleAuth}>Login with Google</button>
+                <button onClick={googleAuth}>Login with Twitter</button>
+                <button onClick={googleAuth}>Login with Github</button>
+
+            </div>
+
 
         </div>
 
