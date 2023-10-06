@@ -1,0 +1,33 @@
+.App {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height:100vh;
+    justify-content:center;
+    background-image: linear-gradient(74deg, green 0  25%, lightGreen 25% 75%, darkGreen 75% 100%);
+  }
+
+  .login-user, .login-pass, .register-user, .register-pass {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  label {
+    text-align: left;
+    padding: 1rem, 0;
+
+  }
+
+  .googleAuth {
+    padding: 50px;
+    text-align: left;
+  }
+
+  .nav {
+    list-style-type: none;
+    width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+  }
