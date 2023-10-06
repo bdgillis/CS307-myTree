@@ -8,6 +8,7 @@ import Groups from './pages/Groups'
 import Friends from './pages/Friends'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
+import Settings from './pages/Settings';
 import Sidebar from './components/Sidebar/Sidebar';
 import { useState } from 'react';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path = '/friends' exact element={<Friends/>} />
         <Route path = '/leaderboards' exact element={<Leaderboards/>} />
         <Route path = '/daily-challenge' exact element={<DailyChallenge/>} />
+        <Route path = '/settings' exact element={<Settings/>} />
       </Routes>
     </Router>
   );
