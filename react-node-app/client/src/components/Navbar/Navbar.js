@@ -11,7 +11,7 @@ import {
 
 const Navbar = ({toggle}) => {
   return (
-    <>
+    <div id="nav-bar">
         <Nav>
         	<NavLink to="/HomeTab">
             	<img src={require('../../Images/myTreeLogo.png')} witdh={50} height={50} alt="logo"/>
@@ -40,7 +40,7 @@ const Navbar = ({toggle}) => {
             	<NavBtnLink to='/settings'>Settings</NavBtnLink>
           	</NavBtn>
         </Nav>
-    </>
+    </div>
   )
 }
 

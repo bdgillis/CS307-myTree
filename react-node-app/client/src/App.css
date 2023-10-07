@@ -7,6 +7,30 @@
     background-image: linear-gradient(74deg, green 0  25%, lightGreen 25% 75%, darkGreen 75% 100%);
   }
 
+.header-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.login-page, .register-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+  width: 400px
+}
+
+.login-button, .register-button {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  margin: 16px;
+  align-items: center;
+}
+
+
   .login-user, .login-pass, .register-user, .register-pass {
     display: flex;
     flex-direction: column;

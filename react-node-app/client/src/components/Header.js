@@ -19,7 +19,7 @@ function ButtonLink({ to, children }) {
 const Header = () => {
 
     return(
-        <>
+        <div class="header-style">
             
             <h1>myTree</h1>
             <ul className="nav">
@@ -31,7 +31,7 @@ const Header = () => {
                     <ButtonLink to='/loginPage'>Login</ButtonLink>
                 </li>
             </ul>
-        </>
+        </div>
     );
 };
 

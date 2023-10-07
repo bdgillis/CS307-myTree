@@ -1,12 +1,23 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
+import Header from '../components/Header';
 import {
-    createUserWithEmailAndPassword,
+
     signInWithEmailAndPassword,
     GoogleAuthProvider,
     signInWithPopup
 } from "firebase/auth";
 
 import { auth } from '../firebase';
+
+function refreshPage() {
+  setTimeout(()=>{
+      window.location.reload(false);
+  }, 100);
+  console.log('page to reload')
+}
+
+
 
 export default function LoginPage(){
 
@@ -21,6 +32,10 @@ export default function LoginPage(){
     } catch (error) {
         console.log(error.message);
     }
+  }
+
+  function ButtonLink({ to, children }) {
+    return <Link to={to} onClick={login}><button>{children}</button></Link>;
   }
 
   const googleAuth = async () => {
@@ -48,8 +63,12 @@ export default function LoginPage(){
 
 
   return (
-    <>
-      <div>
+    
+    <div>
+
+   
+      <div class="login-page">
+        <Header />
 
           <h1>Login to Account</h1>
           <label>Email</label>
@@ -65,11 +84,16 @@ export default function LoginPage(){
               onChange={(event) => {
                   setLoginPassword(event.target.value);
               }} />
-          <button onClick={ login }> Login</button>
+      </div>
+      <div class="login-button">        
+
+              <ButtonLink to='/HomeTab'>Login</ButtonLink>
+          
       </div>
 
         <div className="googleAuth">
           <h3> Login with Other Accounts</h3>
+
           <button onClick={googleAuth}>Login with Google</button>
           <button onClick={googleAuth}>Login with Twitter</button>
           <button onClick={googleAuth}>Login with Github</button>
@@ -77,7 +101,9 @@ export default function LoginPage(){
 
         </div>
 
-    </>
+        
+
+    </div>
 
   );
 };
