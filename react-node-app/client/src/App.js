@@ -1,82 +1,51 @@
-import React, { useState } from 'react'
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword } from "firebase/auth";
+import React from 'react'
+import { BrowserRouter, Route, Switch, withRouter} from "react-router-dom";
+import home from './pages/home';
+import loginPage from './pages/loginPage';
+import redirectHome from './pages/redirectHome';
+import "./App.css";
+import HomeTab from './pages/HomeTab'
+import Activities from './pages/Activities'
+import Groups from './pages/Groups'
+import Friends from './pages/Friends'
+import Leaderboards from './pages/Leaderboards'
+import DailyChallenge from './pages/DailyChallenge';
+import Settings from './pages/Settings';
 
-import {auth} from './firebase';
 
 function App() {
 
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
 
-  const [user, setUser] = useState({});
+    return (
+        <div className="App">
+            
+            <BrowserRouter>
 
-  
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-      console.log(user)
+                <div>
+                
+                    <Switch>
+                        <Route exact path="/" component={withRouter(home)}/>
+                        <Route path="/loginPage" component={withRouter(loginPage)}/>
+                        <Route path="/redirectHome" component={withRouter(redirectHome)}/>
+                        <Route path = '/homeTab' component={withRouter(HomeTab)} />
+                        <Route path = '/activities' component={withRouter(Activities)} />
+                        <Route path = '/groups' component={withRouter(Groups)} />
+                        <Route path = '/friends' component={withRouter(Friends)} />
+                        <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
+                        <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
+                        <Route path = '/settings' exact component={withRouter(Settings)} />
 
-    } catch (error) {
-      console.log(error.message);
-    }
+                    </Switch>
+                </div>    
+            </BrowserRouter>
 
-  }
+            
 
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      console.log(user)
 
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  return (
-    <div className="App">
-
-      <div>
-        <h3> Register User </h3>
-      
-        <input
-          placeholder="Email..." 
-          onChange={(event) => {
-            setRegisterEmail(event.target.value);
-          }} />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setRegisterPassword(event.target.value);
-          }} />
-
-        <button onClick={register}> Create User</button>
-      </div>
-
-      <div>
-        <h3> Login </h3>
-
-        <input
-          placeholder="Email..." 
-          onChange={(event) => {
-            setLoginEmail(event.target.value);
-          }} />
-        <input
-          placeholder="Password..."
-          onChange={(event) => {
-            setLoginPassword(event.target.value);
-          }} />
-
-        <button onClick={login}> Login</button>
-      </div>
-
-    </div>
-
+        </div>
     
-  )
-}
 
-export default App
+    )
+};
+
+export default App;
