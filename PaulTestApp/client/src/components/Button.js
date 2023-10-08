@@ -1,5 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
+
+
+export const Input = styled.input`
+    color: grey;
+    font-size: 1em;
+    border: 2px solid #479d56;
+    border-radius: 3px;
+  `;
 
 export const Button = styled.button`
   background-color: black;
@@ -15,6 +24,22 @@ export const Button = styled.button`
     cursor: default;
   }
 `;
+
+export const ButtonLink = ({ to, children }) => {
+    return <Link to={to}><Button>{children}</Button></Link>;
+}
+
+export const ParameterInput = ({placeholder, to, children}) => {
+    return (
+        <div>
+          <Input placeholder={placeholder} />
+          <ButtonLink to={to}>{children}</ButtonLink>
+        </div>
+      );
+        
+}
+
+
 
 export const ButtonToggle = styled(Button)`
   opacity: 0.6;
