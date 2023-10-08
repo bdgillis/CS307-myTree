@@ -53,7 +53,7 @@ export const NavMenu = styled.div`
 export const NavBtn = styled.nav`
   	display: flex;
   	align-items: center;
-  	margin-right: 24px;
+  	margin-left: 46px;
 
   
 
@@ -73,7 +73,7 @@ export const NavBtnLink = styled(Link)`
   	transition: all 0.2s ease-in-out;
   	text-decoration: none;
 
-  	margin-left: 24px;
+  	margin-left: -22px;
 
   	&:hover {
     	transition: all 0.2s ease-in-out;

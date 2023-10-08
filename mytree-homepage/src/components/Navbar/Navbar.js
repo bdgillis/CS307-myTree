@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { FaBars } from 'react-icons/fa'
+import Dropdown from '../Dropdown/Dropdown'
 import { 
   Nav, 
   Bars, 
@@ -10,6 +11,28 @@ import {
 } from './NavbarElements'
 
 const Navbar = ({toggle}) => {
+
+	//const [click, setClick] = useState(false);
+	const [dropdown, setDropdown] = useState(false);
+  
+  
+	const onMouseEnter = () => {
+	  if (window.innerWidth < 768) {
+		setDropdown(false);
+	  } else {
+		setDropdown(true);
+	  }
+	};
+  
+	const onMouseLeave = () => {
+	  if (window.innerWidth < 768) {
+		setDropdown(false);
+	  } else {
+		setDropdown(false);
+	  }
+	};
+
+
   return (
     <>
         <Nav>
@@ -35,9 +58,21 @@ const Navbar = ({toggle}) => {
             	<NavLink to="/daily-challenge" activeStyle>
               		Daily Challenge
             	</NavLink>
+
           	</NavMenu>
           	<NavBtn>
-            	<NavBtnLink to='/settings'>Settings</NavBtnLink>
+			  	<li
+            		className='nav-item'
+            		onMouseEnter={onMouseEnter}
+            		onMouseLeave={onMouseLeave}
+          		>
+            	<NavBtnLink to='/settings'>
+					Settings <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
+				</NavBtnLink>
+				{dropdown && <Dropdown />}
+
+				</li>
+				
           	</NavBtn>
         </Nav>
     </>
