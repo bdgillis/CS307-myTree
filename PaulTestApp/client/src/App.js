@@ -4,7 +4,7 @@ import Navbar from './components/index';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Home from './pages';
-import About from './pages/about';
+import Activities from './pages/activities';
  
 function App() {
     return (
@@ -12,8 +12,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route exact path='/' element={<Home />} />
-                /* need to find out why exact isn't working */
-                <Route path='/about' element={<About />} />
+                <Route path='/activities' element={<Activities />} />
             </Routes>
         </Router>
     );
