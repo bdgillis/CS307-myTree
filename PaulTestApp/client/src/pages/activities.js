@@ -40,17 +40,17 @@ const Activities = () => {
     }
 
 
-    return (
-        <div>
-            <h1>
-                Activities page!
-            </h1>
-            <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle}/>
-            {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle}/>}
-            {activityParams && <ParameterInput placeholder="Number of Miles" to="../" children={"Confirm"}/>}
-            
-        </div>
-    );
+  return (
+      <div>
+          <h1>
+              Activities page!
+          </h1>
+          <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle}/>
+          {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle}/>}
+          {activityParams && <ParameterInput placeholder="Number of Miles" to="../" children={"Confirm"}/>}
+          
+      </div>
+  );
 };
   
  
