@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
+import {Alert} from 'react-native';
+import '../App.css'
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
 import {
-
+    getAuth,
     signInWithEmailAndPassword,
     GoogleAuthProvider,
-    signInWithPopup
+    signInWithPopup,
+    onAuthStateChanged
 } from "firebase/auth";
 
 import { auth } from '../firebase';
@@ -20,6 +23,7 @@ function refreshPage() {
 
 
 export default function LoginPage(){
+  
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -27,12 +31,16 @@ export default function LoginPage(){
   const login = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-        console.log(user)
+        window.location = '/HomeTab'
 
-    } catch (error) {
-        console.log(error.message);
+    } catch (err) {
+        console.log(err.message);
+        alert("Could not login", err);
+        window.location = '/'
+
+      
     }
-  }
+  };
 
   function ButtonLink({ to, children }) {
     return <Link to={to} onClick={login}><button>{children}</button></Link>;
@@ -85,9 +93,8 @@ export default function LoginPage(){
                   setLoginPassword(event.target.value);
               }} />
       </div>
-      <div class="login-button">        
-
-              <ButtonLink to='/HomeTab'>Login</ButtonLink>
+      <div class="login-button">   
+              <button onClick={login}>Login</button>
           
       </div>
 

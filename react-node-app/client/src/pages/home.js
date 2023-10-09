@@ -4,7 +4,6 @@ import {
 
 } from "firebase/auth";
 import { auth } from '../firebase';
-import { Link } from "react-router-dom";
 import Header from '../components/Header';
 
 
@@ -19,16 +18,18 @@ export default function Home(){
         try {
             const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
             console.log(user)
+            window.location = '/HomeTab'
+          
 
         } catch (error) {
             console.log(error.message);
+            alert(error.message);
+            window.location = '/'
+            
         }
 
     }
 
-    function ButtonLink({ to, children }) {
-      return <Link to={to} onClick={register}><button>{children}</button></Link>;
-    }
   
       
   return (
@@ -51,9 +52,8 @@ export default function Home(){
             }} />
       </div>
 
-      <div class="login-button">        
-
-            <ButtonLink to='/HomeTab'>Register</ButtonLink>
+      <div class="login-button">
+        <button onClick={register}>Register</button>        
 
       </div>
 
