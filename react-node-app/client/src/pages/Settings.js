@@ -6,6 +6,25 @@ import { getAuth,
     reauthenticateWithCredential,
     EmailAuthProvider} from "firebase/auth";
 
+
+
+function deleteAccount() {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log(user);
+    user
+        .delete()
+        .then(() => {
+            console.log("Account deleted");
+        })
+        .catch((error) => {
+            console.log("Error deleting account")
+        });
+
+    window.location = '/'
+}
+
+
 const Settings = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
@@ -41,8 +60,6 @@ const Settings = () => {
             // div.appendChild(incorrect);
             // console.log(error)
         });
-
-
     }
 
     return (
@@ -72,6 +89,13 @@ const Settings = () => {
                 </button>
                 <h3 id="status" style={{color: 'red'}}>Err</h3>
                 <br />
+
+                <h2>Delete Account</h2>
+
+                <button onClick={deleteAccount}>
+                    Click here to Delete Account
+                </button>
+
             </div>
 
         </>

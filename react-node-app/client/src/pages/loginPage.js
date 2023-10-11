@@ -36,7 +36,7 @@ export default function LoginPage(){
     } catch (err) {
         console.log(err.message);
         alert("Could not login", err);
-        window.location = '/'
+        window.location = '/loginPage'
 
       
     }
