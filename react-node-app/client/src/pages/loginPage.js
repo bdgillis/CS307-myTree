@@ -56,6 +56,7 @@ export default function LoginPage(){
             // The signed-in user info.
             const user = result.user;
             console.log(user);
+            window.location = '/HomeTab'
             // IdP data available using getAdditionalUserInfo(result)
             // ...
         }).catch((error) => {
@@ -102,9 +103,8 @@ export default function LoginPage(){
           <h3> Login with Other Accounts</h3>
 
           <button onClick={googleAuth}>Login with Google</button>
-          <button onClick={googleAuth}>Login with Twitter</button>
-          <button onClick={googleAuth}>Login with Github</button>
-
+          {/* <button onClick={googleAuth}>Login with Twitter</button>
+          <button onClick={googleAuth}>Login with Github</button> */}
 
         </div>
 
