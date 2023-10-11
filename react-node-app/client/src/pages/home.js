@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useInsertionEffect, useState } from 'react'
 import {
-    createUserWithEmailAndPassword,
+    createUserWithEmailAndPassword, sendEmailVerification, sendSignInLinkToEmail,
 
 } from "firebase/auth";
 import { auth } from '../firebase';
@@ -16,9 +16,16 @@ export default function Home(){
 
     const register = async () => {
         try {
-            const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
+            const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword)
+              .then((userCredential) => {
+                sendEmailVerification(auth.currentUser)
+                .then(() => {
+                  alert("Email verificaiton link sent.");
+                })
+              });
             console.log(user)
-            window.location = '/HomeTab'
+            
+
           
 
         } catch (error) {
@@ -29,6 +36,7 @@ export default function Home(){
         }
 
     }
+
 
   
       

@@ -3,9 +3,11 @@ import {Alert} from 'react-native';
 import '../App.css'
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
+
 import {
     getAuth,
     signInWithEmailAndPassword,
+    
     GoogleAuthProvider,
     signInWithPopup,
     onAuthStateChanged
@@ -31,6 +33,7 @@ export default function LoginPage(){
   const login = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+          
         window.location = '/HomeTab'
 
     } catch (err) {

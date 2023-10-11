@@ -6,6 +6,7 @@ import { connectAuthEmulator, getAuth } from "firebase/auth";
 
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAuk5etQpT4_dMQJrbt1yYSeIRLaywRhOE",
   authDomain: "cs307-mytree.firebaseapp.com",
