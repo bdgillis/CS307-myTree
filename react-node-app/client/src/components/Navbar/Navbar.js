@@ -35,8 +35,8 @@ const Navbar = ({toggle}) => {
 
   return (
     <>
-        <Nav>
-        	<NavLink to="/">
+        <Nav fluid>
+        	<NavLink to="/tree-visualization">
             	<img src={require('../../Images/myTreeLogo.png')} witdh={50} height={50} alt="logo"/>
 				<Bars onClick={toggle}>
 					<FaBars />
