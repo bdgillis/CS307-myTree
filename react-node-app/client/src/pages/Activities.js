@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
+import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
 
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 
@@ -13,6 +13,7 @@ const Activities = () => {
 
 	const [activeCategory, setActiveCategory] = useState(null);
 	const [activeActivity, setActiveActivity] = useState(null);
+	const [activityParam, setActivityParam]	= useState('');
   
 	const handleCategoryToggle = (type) => {
 	  setActiveCategory(type);
@@ -21,6 +22,32 @@ const Activities = () => {
   
 	const handleActivityToggle = (type) => {
 	  setActiveActivity(type);
+	};
+
+	const handleConfirm = () => {
+		
+		const dataToSend = {
+			activeCategory,
+			activeActivity,
+			activityParam,
+		  };
+
+		  //send data to backend
+		  
+		fetch('/api/activities', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},	
+			body: JSON.stringify(dataToSend),
+		})
+		.then((res) => res.json())
+		.then((data) => {console.log(data)})
+		.catch((err) => {
+			console.log('Error: ', err);
+		});
+		  
+		  
 	};
   
 	const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
@@ -38,11 +65,11 @@ const Activities = () => {
 	}
   
   
-	let activityParams = null
+	let paramUnits = null
 	  if (transportationActivities.includes(activeActivity)) {
-		activityParams = 'miles';
+		paramUnits = 'miles';
 	  } else {
-		activityParams = null
+		paramUnits = null
 	  }
 
 
@@ -57,13 +84,26 @@ const Activities = () => {
 
 				<Navbar toggle={toggle} />
 			</div>
+			<div>
+				<ButtonLink to={"../edit-history"} children={"Edit Activity History"}></ButtonLink>
+			</div>
 			
 			<div >
 				<ToggleGroup types={mainCategories} onToggle={handleCategoryToggle}/>
             	{activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle}/>}
-            	{activityParams && <ParameterInput placeholder="Number of Miles" to="../Hometab" children={"Confirm"}/>}
+            	{paramUnits && <ParameterInput placeholder="Number of Miles" 
+					to="../Hometab" 
+					children={"Confirm"}
+					onChange={(e) => setActivityParam(e.target.value)}
+					onClick={handleConfirm}/>}
 			</div>
 		</>
+
+		
+		
+
+				
+
 		
   	)
 }

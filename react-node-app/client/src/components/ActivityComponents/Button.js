@@ -25,15 +25,15 @@ export const Button = styled.button`
   }
 `;
 
-export const ButtonLink = ({ to, children }) => {
-    return <Link to={to}><Button>{children}</Button></Link>;
+export const ButtonLink = ({ to, children, onClick }) => {
+    return <Link to={to}><Button onClick={onClick}>{children}</Button></Link>;
 }
 
-export const ParameterInput = ({placeholder, to, children}) => {
+export const ParameterInput = ({placeholder, to, children, onChange, onClick}) => {
     return (
         <div>
-          <Input placeholder={placeholder} />
-          <ButtonLink to={to}>{children}</ButtonLink>
+          <Input placeholder={placeholder} onChange={onChange} />
+          <ButtonLink to={to} onClick={onClick}>{children}</ButtonLink>
         </div>
       );
         

@@ -11,6 +11,7 @@ import Friends from './pages/Friends'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
 import Settings from './pages/Settings';
+import EditActivityHistory from './pages/EditActivityHistory';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                         <Route path="/redirectHome" component={withRouter(redirectHome)}/>
                         <Route path = '/homeTab' component={withRouter(HomeTab)} />
                         <Route path = '/activities' component={withRouter(Activities)} />
+                        <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
