@@ -12,6 +12,10 @@ import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
 import Settings from './pages/Settings';
 import EditActivityHistory from './pages/EditActivityHistory';
+import Quiz from './pages/Quiz'
+import TreeVisualization from './pages/TreeVisualization';
+import Logout from './pages/Logout';
+import ViewProfile from './pages/ViewProfile';
 
 
 function App() {
@@ -29,6 +33,8 @@ function App() {
                         <Route path="/loginPage" component={withRouter(loginPage)}/>
                         <Route path="/redirectHome" component={withRouter(redirectHome)}/>
                         <Route path = '/homeTab' component={withRouter(HomeTab)} />
+                        <Route path = '/tree-visualization' component={withRouter(TreeVisualization)} />
+                        <Route path = '/log-out' component={withRouter(Logout)} />
                         <Route path = '/activities' component={withRouter(Activities)} />
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
@@ -36,6 +42,10 @@ function App() {
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
                         <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
                         <Route path = '/settings' exact component={withRouter(Settings)} />
+                        <Route path = '/quiz' exact component={withRouter(Quiz)} />
+                        <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
+
+
 
                     </Switch>
                 </div>    

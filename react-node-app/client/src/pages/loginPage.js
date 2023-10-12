@@ -3,9 +3,15 @@ import {Alert} from 'react-native';
 import '../App.css'
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
+import Quiz from './Quiz';
+import { getAdditionalUserInfo, updateProfile } from 'firebase/auth';
+
+
+
 import {
     getAuth,
     signInWithEmailAndPassword,
+    
     GoogleAuthProvider,
     signInWithPopup,
     onAuthStateChanged
@@ -22,8 +28,8 @@ function refreshPage() {
 
 
 
+
 export default function LoginPage(){
-  
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -31,14 +37,17 @@ export default function LoginPage(){
   const login = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-        window.location = '/HomeTab'
+        window.location = '/HomeTab';
+
+
+        
+        
 
     } catch (err) {
+        alert(err)
+        document.getElementById('errfn').innerHTML="Email or password is incorrect.";
         console.log(err.message);
-        alert("Could not login", err);
-        window.location = '/loginPage'
 
-      
     }
   };
 
@@ -79,23 +88,28 @@ export default function LoginPage(){
       <div class="login-page">
         <Header />
 
-          <h1>Login to Account</h1>
+          <h1 className='loginToAccount'>Login to Account</h1>
+
+          <div className="emailFormat">
           <label>Email</label>
-          <input className="login-user"
+          <input
           
               placeholder="Email..."
               onChange={(event) => {
                   setLoginEmail(event.target.value);
               }} />
+          </div>
+          <div className="passwordFormat">
           <label>Password</label>
-          <input className="login-pass"
+          <input
               placeholder="Password..."
               onChange={(event) => {
                   setLoginPassword(event.target.value);
               }} />
+          </div>
       </div>
-      <div class="login-button">   
-              <button onClick={login}>Login</button>
+      <div>   
+              <button className="buttonLog" onClick={login}>Login</button><div className="error" id="errfn">   </div>
           
       </div>
 
