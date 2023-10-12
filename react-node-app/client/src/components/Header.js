@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 import React from 'react';
+import { auth } from '../firebase';
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "firebase/auth";
+import LoginPage from "../pages/loginPage";
 
 
 
@@ -23,11 +30,11 @@ const Header = () => {
             
             <h1>myTree</h1>
             <ul className="nav">
-                <li>
+                <li className="navAccount">
                     <ButtonLink to='/'>Create Account</ButtonLink>
                 </li>
                 
-                <li>
+                <li className="navLogin">
                     <ButtonLink to='/loginPage'>Login</ButtonLink>
                 </li>
             </ul>
