@@ -2,6 +2,7 @@ import React, {useState, useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
+import { getAuth } from 'firebase/auth';
 
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 
@@ -25,11 +26,17 @@ const Activities = () => {
 	};
 
 	const handleConfirm = () => {
-		
+		const auth = getAuth();
+		const user = auth.currentUser;
+		const uid = user.uid;
+		const timestamp = Date.now();
+
 		const dataToSend = {
+			uid,
 			activeCategory,
 			activeActivity,
 			activityParam,
+			timestamp,
 		  };
 
 		  //send data to backend
