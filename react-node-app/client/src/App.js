@@ -12,6 +12,7 @@ import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
 import Settings from './pages/Settings';
 import TreeVisualization from './pages/TreeVisualization';
+import Logout from './pages/Logout';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/redirectHome" component={withRouter(redirectHome)}/>
                         <Route path = '/homeTab' component={withRouter(HomeTab)} />
                         <Route path = '/tree-visualization' component={withRouter(TreeVisualization)} />
+                        <Route path = '/log-out' component={withRouter(Logout)} />
                         <Route path = '/activities' component={withRouter(Activities)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
