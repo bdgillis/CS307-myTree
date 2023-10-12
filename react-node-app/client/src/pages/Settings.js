@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { getAuth, 
-    updatePassword, 
+import {
+    getAuth,
+    updatePassword,
     reauthenticateWithCredential,
-    EmailAuthProvider} from "firebase/auth";
+    EmailAuthProvider
+} from "firebase/auth";
 
 
 
@@ -32,47 +34,72 @@ const Settings = () => {
     };
 
     const resetPword = async () => {
+        var oldPasswordField = document.getElementById("old-password");
+        var newPasswordField = document.getElementById("new-password");
+        const oldPassword = oldPasswordField.value;
+        const newPassword = newPasswordField.value;
+        var status = document.getElementById("status")
 
-        const auth = getAuth();
 
-        const user = auth.currentUser;
-        console.log(user);
-        const email = user.email;
-        var oldPassword = document.getElementById("old-password").value;
-        const credential = EmailAuthProvider.credential(
-            email,
-            oldPassword
-        );
-        reauthenticateWithCredential(user, credential).then(() => {
-            // User re-authenticated.
-            var newPassword = document.getElementById("new-password").value;
+        if (oldPassword === "") {
+            status.innerHTML = "Error. Please enter your old password."
+            console.log("empty old pword")
 
-            updatePassword(user, newPassword).then(() => {
-                document.getElementById("status").innerText = "Success, your password has been changed";
-                newPassword = "";
-                oldPassword = "";
+        } else if (newPassword === "") {
+            status.innerHTML = "Error. Please enter a new password."
+            console.log("empty new pword")
+
+        } else {
+            const auth = getAuth();
+
+            const user = auth.currentUser;
+            console.log(user);
+            const email = user.email;
+            const credential = EmailAuthProvider.credential(
+                email,
+                oldPassword
+            );
+            reauthenticateWithCredential(user, credential).then(() => {
+                // User re-authenticated.
+
+                const newCredential = EmailAuthProvider.credential(
+                    email,
+                    newPassword
+                );
+                console.log("successful old pword")
+                reauthenticateWithCredential(user, newCredential).then(() => {
+                    // User re-authenticated.
+                    status.innerText = "Error. Your new password cannot be your old password.";
+                    console.log("repeat pword")
+                }).catch((error) => {
+                    updatePassword(user, newPassword).then(() => {
+                        status.innerText = "Success, your password has been changed";
+                        console.log(" pword changed")
+
+                    });
+                });
             }).catch((error) => {
-                console.log(error)
+                // const div = document.getElementById("reset-page");
+                document.getElementById("status").innerText = "Error. Please input your old password.";
+                console.log("incorrect old pword")
+
             });
-        }).catch((error) => {
-            // const div = document.getElementById("reset-page");
-            document.getElementById("status").innerText = "Error. Please input your old password.";
-            // div.appendChild(incorrect);
-            // console.log(error)
-        });
+            newPasswordField.value = "";
+            oldPasswordField.value = "";
+        }
     }
 
     return (
         <>
             <Sidebar isOpen={isOpen} toggle={toggle} />
-            <div style={{ 
-				position: 'fixed', 
-				top: 0, 
-				left: '12%', 
-				}}>
+            <div style={{
+                position: 'fixed',
+                top: 0,
+                left: '12%',
+            }}>
                 <Navbar toggle={toggle} />
-                </div>
-                <div>
+            </div>
+            <div>
 
                 <h1>Settings</h1>
 
@@ -87,9 +114,12 @@ const Settings = () => {
                 <button onClick={resetPword}>
                     Click here to Reset Password
                 </button>
-                <h3 id="status" style={{color: 'red'}}></h3>
-                <br />
-
+            </div>
+            <div name="status">
+                <h3 id="status" style={{ color: 'red' }}></h3>
+            </div>
+            <br />
+            <div>
                 <h2>Delete Account</h2>
 
                 <button onClick={deleteAccount}>
