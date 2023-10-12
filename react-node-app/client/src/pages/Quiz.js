@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
-import Navbar from '../components/Navbar/Navbar';
-import Sidebar from '../components/Sidebar/Sidebar';
-import {getAuth,
-        updateProfile} from 'firebase/auth'
+import {
+    getAuth,
+    updateProfile
+} from 'firebase/auth'
 
-const mainCategories = ['Transportation', 'Eating', 'Household'];
+const mainCategories = ['Transportation', 'Eating', 'Household', 'None of These'];
 
 const Quiz = () => {
     const [quizTaken, setQuizTaken] = useState(false);
@@ -27,9 +27,9 @@ const Quiz = () => {
     };
 
     const handleExit = (type) => {
-        if(type == 'Submit') {
+        if (type === 'Submit') {
             window.location = '/hometab';
-        } else if (type == 'Set Up Later') {
+        } else if (type === 'Set Up Later') {
             setQuizTaken(!quizTaken);
             window.location = '/hometab';
         }
@@ -45,7 +45,7 @@ const Quiz = () => {
     const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
     const eatingActivities = ["Takeout", "Meal Protein - Red Meat",
         "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
-    const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
+    const householdActivities = ["Wash Clothes in Cold Water", "Take Cold Showers", "Use Less Heating/AC at Home", "Turn the lights off when I'm not using them"];
     let activityTypes = null;
 
     if (activeCategory === 'Transportation') {
@@ -67,42 +67,44 @@ const Quiz = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-			<div style={{ 
-				position: 'fixed', 
-				top: 0, 
-				left: '12%', 
-				}}>
 
-				<Navbar toggle={toggle} />
-			</div>
-          
+            <div style={{
+				display: 'flex', 
+				justifyContent: 'center', 
+				alignItems: 'center',
+            }}>
+                <img src={require('../Images/myTreeLogo.png')} witdh={250} height={250} alt="logo" />
+
+            </div>
+
 
             <div>
+            <h1 id="welcome-msg"><br/>Welcome to myTree!</h1>
+
                 <div>{quizAlreadyTaken}</div>
-                <h1>Welcome to myTree!</h1>
                 <h2>
-                    Please set up your profile!
+                    What town or city do you live in?
+                </h2>
+                <input type="text" id="hometown" ></input><br />
+                <h2>
+                    Write a short bio about yourself for your profile!
 
                 </h2>
-                <label for="username">Please enter a display name:<br /> (So you and your friends can find each other!) </label><br />
-                <input type="text" id="username"></input><br /><br />
-                <label for="bio">Write a short bio for your profile:</label><br />
-                <input type="text" id="bio"></input><br />
+                <textarea id="bio" name="w3review" rows="4" cols="50"></textarea>
             </div>
 
             <div >
                 <h2>
-                    Please tell us a little bit about your goals for these categories!
+                    Pick a category where you'd like to decrease your carbon footprint!
                 </h2>
                 <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle} />
                 {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} />}
                 {activityParams && <ParameterInput placeholder="Number of Miles" to="../Hometab" children={"Confirm"} />}
             </div>
-
+            <br /><br />
             <div >
-				<ToggleGroup types={exitOptions} onToggle={handleExit}/>
-			</div>
+                <ToggleGroup types={exitOptions} onToggle={handleExit} />
+            </div>
 
         </>
     )
