@@ -87,7 +87,7 @@ const Settings = () => {
                 <button onClick={resetPword}>
                     Click here to Reset Password
                 </button>
-                <h3 id="status" style={{color: 'red'}}>Err</h3>
+                <h3 id="status" style={{color: 'red'}}></h3>
                 <br />
 
                 <h2>Delete Account</h2>

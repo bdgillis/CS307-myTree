@@ -28,18 +28,7 @@ const Quiz = () => {
 
     const handleExit = (type) => {
         if(type == 'Submit') {
-            const auth = getAuth();
-            const user = auth.currentUser;
-            const newName = document.getElementById("username").value;
-            setQuizTaken(quizTaken);
-            updateProfile(user, {
-                displayName: newName
-              }).then(() => {
-                console.log(user)
-                window.location = '/hometab';
-              }).catch((error) => {
-                console.log(error)
-              });
+            window.location = '/hometab';
         } else if (type == 'Set Up Later') {
             setQuizTaken(!quizTaken);
             window.location = '/hometab';

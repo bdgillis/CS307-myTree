@@ -14,6 +14,8 @@ import Settings from './pages/Settings';
 import Quiz from './pages/Quiz'
 import TreeVisualization from './pages/TreeVisualization';
 import Logout from './pages/Logout';
+import ViewProfile from './pages/ViewProfile';
+
 
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
                         <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
                         <Route path = '/settings' exact component={withRouter(Settings)} />
                         <Route path = '/quiz' exact component={withRouter(Quiz)} />
+                        <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
+
 
 
                     </Switch>
