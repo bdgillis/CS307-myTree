@@ -2,6 +2,11 @@ import React, {useState} from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import styled from 'styled-components';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase';
+
+import './Logout.css'
+
 
 const LogoutButton = styled.button `
     border-radius: 4px;
@@ -29,33 +34,36 @@ const Logout = () => {
     const toggle = () => {
       setIsOpen(!isOpen);
     };
+
+    const logout = async () => {
+        try {
+            signOut(auth)
+            alert(auth.currentUser.email)
+            window.location = '/';    
+        } catch (err) {
+            alert(err)
+            document.getElementById('errfn').innerHTML="Logout failed.";
+            console.log(err.message);
+        }
+      };
+
   	return (
-		<>
-            <>
-			    <Sidebar isOpen={isOpen} toggle={toggle} />
+        <>
+			<div className='NavMenu'>
+                <Sidebar isOpen={isOpen} toggle={toggle} />
 			    <Navbar toggle={toggle} />
-            </>
+            </div>
             
-			<div style={{ 
-				display: 'flex', 
-				justifyContent: 'center', 
-				//alignItems: 'top',
-				height: '90vh'
-			}}>
+			<div className='verification'>
 				<h1>Are you sure you want to Logout?</h1>
 			</div>
 
-            <div  style={{ 
-				display: 'flex', 
-                justifyContent: 'center', 
-                position: 'relative',
-				alignItems: '',
-			    }}> 
-                    <LogoutButton>
+            <div className='Logout-Button'> 
+                    <LogoutButton onClick={logout}>
                         Logout
                     </LogoutButton>
-                </div>
-		</>
+            </div>
+        </>
   	)
 }
 
