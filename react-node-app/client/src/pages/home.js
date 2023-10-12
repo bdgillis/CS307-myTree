@@ -5,7 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from '../firebase';
 import Header from '../components/Header';
-import { getAdditionalUserInfo, updateProfile } from 'firebase/auth';
+import { updateProfile } from 'firebase/auth';
 
 
 
@@ -28,6 +28,7 @@ export default function Home(){
               });
             await updateProfile(auth.currentUser, {displayName: name});  
             console.log(user)
+    
             window.location= '/Quiz'
             
 
@@ -38,10 +39,6 @@ export default function Home(){
         }
 
     }
-
-
-  
-      
   return (
     <>
       <div class="register-style">
