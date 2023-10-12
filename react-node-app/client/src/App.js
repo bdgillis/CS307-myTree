@@ -11,6 +11,7 @@ import Friends from './pages/Friends'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
 import Settings from './pages/Settings';
+import Quiz from './pages/Quiz'
 import TreeVisualization from './pages/TreeVisualization';
 import Logout from './pages/Logout';
 
@@ -38,6 +39,8 @@ function App() {
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
                         <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
                         <Route path = '/settings' exact component={withRouter(Settings)} />
+                        <Route path = '/quiz' exact component={withRouter(Quiz)} />
+
 
                     </Switch>
                 </div>    
