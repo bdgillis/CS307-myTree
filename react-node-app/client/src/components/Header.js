@@ -23,11 +23,11 @@ const Header = () => {
             
             <h1>myTree</h1>
             <ul className="nav">
-                <li>
+                <li className="navAccount">
                     <ButtonLink to='/'>Create Account</ButtonLink>
                 </li>
                 
-                <li>
+                <li className="navLogin">
                     <ButtonLink to='/loginPage'>Login</ButtonLink>
                 </li>
             </ul>
