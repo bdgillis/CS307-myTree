@@ -37,11 +37,10 @@ export default function LoginPage(){
         window.location = '/HomeTab'
 
     } catch (err) {
+        document.getElementById('errfn').innerHTML="Email or password is incorrect.";
         console.log(err.message);
-        alert("Could not login", err);
-        window.location = '/loginPage'
 
-      
+        
     }
   };
 
@@ -82,23 +81,27 @@ export default function LoginPage(){
       <div class="login-page">
         <Header />
 
-          <h1>Login to Account</h1>
+          <h1 className='loginToAccount'>Login to Account</h1>
+          <div className="emailFormat">
           <label>Email</label>
-          <input className="login-user"
+          <input
           
               placeholder="Email..."
               onChange={(event) => {
                   setLoginEmail(event.target.value);
               }} />
+          </div>
+          <div className="passwordFormat">
           <label>Password</label>
-          <input className="login-pass"
+          <input
               placeholder="Password..."
               onChange={(event) => {
                   setLoginPassword(event.target.value);
               }} />
+          </div>
       </div>
-      <div class="login-button">   
-              <button onClick={login}>Login</button>
+      <div>   
+              <button className="buttonLog" onClick={login}>Login</button><div className="error" id="errfn">   </div>
           
       </div>
 

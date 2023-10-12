@@ -20,7 +20,7 @@ export default function Home(){
               .then((userCredential) => {
                 sendEmailVerification(auth.currentUser)
                 .then(() => {
-                  alert("Email verificaiton link sent.");
+                  document.getElementById('errfn').innerHTML="Varification link sent to your email.";
                 })
               });
             console.log(user)
@@ -30,8 +30,7 @@ export default function Home(){
 
         } catch (error) {
             console.log(error.message);
-            alert(error.message);
-            window.location = '/'
+            document.getElementById('errfn').innerHTML="Email or password is invalid.";
             
         }
 
@@ -44,7 +43,8 @@ export default function Home(){
     <>
       <div class="register-style">
         <Header />
-        <h1>Create Account</h1>
+        <h1 className="createHeader">Create Account</h1>
+        <div className="regEmailFormat">
           <label>Email</label>
           <input className="register-user"
           
@@ -52,16 +52,19 @@ export default function Home(){
             onChange={(event) => {
                 setRegisterEmail(event.target.value);
             }} />
+        </div>
+        <div className="regPassFormat">
           <label class="label">Password</label>
           <input className="register-pass"
             placeholder="Password..."
             onChange={(event) => {
                 setRegisterPassword(event.target.value);
             }} />
+          </div>
       </div>
 
-      <div class="login-button">
-        <button onClick={register}>Register</button>        
+      <div class="register-button">
+        <button className="buttonReg" onClick={register}>Register</button><div className="error" id="errfn">   </div>        
 
       </div>
 
