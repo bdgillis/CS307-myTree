@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const app = express()
 
 const admin = require("firebase-admin");
@@ -27,9 +28,17 @@ const db = getFirestore();
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())  
 
-app.post('/api/activities', (req, res) => {
+app.post('/api/activities', async (req, res) => {
     console.log(req.body)
-    res.json({status: 'success'})
+
+    res = await db.collection('users').doc(req.body.uid).collection('activities').add({
+        activeCategory: req.body.activeCategory,
+        activeActivity: req.body.activeActivity,
+        activityParam: req.body.activityParam,
+        timestamp: req.body.timestamp,
+    })
+
+    console.log('Added document with ID: ', res.id);
 
 })
 
