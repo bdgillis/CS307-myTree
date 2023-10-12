@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar/Sidebar';
 import Navbar from '../components/Navbar/Navbar';
 import { getAuth } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
 
 const HomeTab = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,16 +10,14 @@ const HomeTab = () => {
         setIsOpen(!isOpen);
     };
 
+
     const auth = getAuth();
-    const user = auth.currentUser;
-    window.onload = (event) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-            // console.log(user)
-            const name = user.displayName;
-            // console.log(name);
-            document.getElementById("welcome-msg").innerHTML = "Welcome to myTree  <br/> " + name;
-        }    
-    };
+            const uid = user.uid;
+            document.getElementById("welcome-msg").innerHTML = "Welcome to myTree,  <br/> " + user.displayName;
+        }
+    })
 
 
     return (

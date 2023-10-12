@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from '../firebase';
 import Header from '../components/Header';
+import { getAdditionalUserInfo, updateProfile } from 'firebase/auth';
 
 
 
@@ -12,6 +13,7 @@ export default function Home(){
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [name, setName] = useState("");
 
 
     const register = async () => {
@@ -21,12 +23,13 @@ export default function Home(){
                 sendEmailVerification(auth.currentUser)
                 .then(() => {
                   document.getElementById('errfn').innerHTML="Varification link sent to your email.";
+
                 })
               });
+            await updateProfile(auth.currentUser, {displayName: name});  
             console.log(user)
+            window.location= '/Quiz'
             
-
-          
 
         } catch (error) {
             console.log(error.message);
@@ -43,7 +46,18 @@ export default function Home(){
     <>
       <div class="register-style">
         <Header />
+
         <h1 className="createHeader">Create Account</h1>
+
+        <div className="nameFormat">
+          <label>Name</label>
+          <input
+        
+              placeholder="Name..."
+              onChange={(event) => {
+                  setName(event.target.value);
+              }} />
+          </div>
         <div className="regEmailFormat">
           <label>Email</label>
           <input className="register-user"

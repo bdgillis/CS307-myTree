@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 import React from 'react';
+import { auth } from '../firebase';
+
+import {
+    getAuth,
+    onAuthStateChanged
+} from "firebase/auth";
+import LoginPage from "../pages/loginPage";
 
 
 

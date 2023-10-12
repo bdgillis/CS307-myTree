@@ -8,6 +8,7 @@ import {getAuth,
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 
 const Quiz = () => {
+    const [quizTaken, setQuizTaken] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -30,6 +31,7 @@ const Quiz = () => {
             const auth = getAuth();
             const user = auth.currentUser;
             const newName = document.getElementById("username").value;
+            setQuizTaken(quizTaken);
             updateProfile(user, {
                 displayName: newName
               }).then(() => {
@@ -39,7 +41,14 @@ const Quiz = () => {
                 console.log(error)
               });
         } else if (type == 'Set Up Later') {
+            setQuizTaken(!quizTaken);
             window.location = '/hometab';
+        }
+    }
+
+    const quizAlreadyTaken = () => {
+        if (quizTaken) {
+            window.location = '/HomeTab';
         }
     }
 
@@ -81,6 +90,7 @@ const Quiz = () => {
           
 
             <div>
+                <div>{quizAlreadyTaken}</div>
                 <h1>Welcome to myTree!</h1>
                 <h2>
                     Please set up your profile!

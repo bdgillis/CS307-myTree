@@ -3,6 +3,10 @@ import {Alert} from 'react-native';
 import '../App.css'
 import { Link } from "react-router-dom";
 import Header from '../components/Header';
+import Quiz from './Quiz';
+import { getAdditionalUserInfo, updateProfile } from 'firebase/auth';
+
+
 
 import {
     getAuth,
@@ -24,8 +28,8 @@ function refreshPage() {
 
 
 
+
 export default function LoginPage(){
-  
 
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -33,14 +37,17 @@ export default function LoginPage(){
   const login = async () => {
     try {
         const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-          
-        window.location = '/HomeTab'
+        window.location = '/HomeTab';
+
+
+        
+        
 
     } catch (err) {
+        alert(err)
         document.getElementById('errfn').innerHTML="Email or password is incorrect.";
         console.log(err.message);
 
-        
     }
   };
 
@@ -82,6 +89,7 @@ export default function LoginPage(){
         <Header />
 
           <h1 className='loginToAccount'>Login to Account</h1>
+
           <div className="emailFormat">
           <label>Email</label>
           <input
