@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase-admin/app');
 const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
 const app = express();
-const calcScore = require('./carbonScore.js').default;
+const calcScore = require('./carbonScore.js')
 
 const admin = require("firebase-admin");
 
@@ -60,6 +60,28 @@ app.get('/api/editActivityHistory/:uid', async (req, res) => {
     } catch (err) {
         console.log('Error: ', err);
         res.status(500).json({error: 'Internal server error'})
+    }
+        
+});
+
+app.post('/api/editActivityHistory', async (req, res) => {
+    console.log(req.body)
+    try {
+        const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.activeActivity).set({
+            activeCategory: req.body.activeCategory,
+            activeActivity: req.body.activeActivity,
+            activityParam: req.body.activityParam,
+            timestamp: req.body.timestamp,
+        });
+        const score = calcScore(req.body);
+        const userRef = await db.collection('users').doc(req.body.uid).update({
+            carbonScore: score,
+        });
+        
+        console.log('Updated document with ID: ', docRef.id);
+        res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+    } catch (err) {
+        console.log('Error: ', err);
     }
         
 });
