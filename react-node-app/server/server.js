@@ -43,6 +43,25 @@ app.post('/api/activities', async (req, res) => {
         
 });
 
+// Send quiz results to DB
+app.post('/api/quiz', async (req, res) => {
+    console.log(req.body)
+    try {
+        const docRef = await db.collection('users').doc(req.body.uid).set({
+            bio: req.body.bio,
+            carbonScore: 0,
+            hometown: req.body.hometown,
+            targetCategory: req.body.activeCategory,
+            quizTaken: req.body.quizTaken
+        });
+        
+        console.log('Added document with ID: ', docRef.id);
+        res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+});
+
 app.get('/api/editActivityHistory/:uid', async (req, res) => {
     try {
         console.log("uid: " + req.params.uid); 
@@ -64,6 +83,25 @@ app.get('/api/editActivityHistory/:uid', async (req, res) => {
         
 });
 
+
+// Get User info for profile
+app.get('/api/profile/:uid', async (req, res) => {
+    try {
+        const user = db.collection('users').doc(req.params.uid);
+        const doc = await user.get();
+        if (!doc.exists) {
+            console.log('No such document!');
+          } else {
+            console.log("document found")
+            //console.log('Document data:', doc.data());
+          }
+        res.send(doc.data());
+      } catch (err) {
+        console.log('Error: ', err);
+     }
+  
+  });
+        
 app.post('/api/editActivityHistory', async (req, res) => {
     console.log(req.body)
     try {
@@ -80,6 +118,7 @@ app.post('/api/editActivityHistory', async (req, res) => {
         
         console.log('Updated document with ID: ', docRef.id);
         res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+
     } catch (err) {
         console.log('Error: ', err);
     }
