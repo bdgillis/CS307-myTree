@@ -45,7 +45,7 @@ app.post('/api/activities', async (req, res) => {
         });
         
         console.log('Added document with ID: ', docRef.id);
-        res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+        res.json({status: 'success', id: docRef.id, score: score});
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -66,7 +66,7 @@ app.post('/api/quiz', async (req, res) => {
         });
         
         console.log('Added document with ID: ', docRef.id);
-        res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+        res.json({status: 'success', id: docRef.id});
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -126,11 +126,12 @@ app.post('/api/editActivityHistory', async (req, res) => {
             timestamp: req.body.timestamp,
         });
         const newScore = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
+        const diff = newScore - oldScore;
         const userRef = await db.collection('users').doc(req.body.uid).update({
-            carbonScore: FieldValue.increment(newScore - oldScore),
+            carbonScore: FieldValue.increment(diff),
         });
         
-        res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
+        res.json({status: 'success', id: docRef.id, score: diff});
 
     } catch (err) {
         console.log('Error: ', err);
