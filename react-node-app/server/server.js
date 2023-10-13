@@ -51,7 +51,8 @@ app.post('/api/quiz', async (req, res) => {
             bio: req.body.bio,
             carbonScore: 0,
             hometown: req.body.hometown,
-            targetCategory: req.body.activeCategory
+            targetCategory: req.body.activeCategory,
+            quizTaken: req.body.quizTaken
         });
         
         console.log('Added document with ID: ', docRef.id);
@@ -80,26 +81,6 @@ app.get('/api/profile/:uid', async (req, res) => {
     }
         
 });
-
-app.get('/api/profileData', async (req, res) => {
-    console.log(req.body)
-    try {
-        const user = db.collection('users').doc(req.body.uid);
-        const doc = await user.get();
-        if (!doc.exists) {
-            console.log('No such document!');
-          } else {
-            console.log("document found")
-            console.log('Document data:', doc.data());
-          }
-        
-    } catch (err) {
-        console.log('Error: ', err);
-    }
-        
-});
-
-
 
 
 app.listen(5001, () => {console.log("Server started on port 5001")})
