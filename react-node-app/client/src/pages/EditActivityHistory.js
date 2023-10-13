@@ -7,14 +7,14 @@ import { getAuth } from 'firebase/auth';
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 const auth = getAuth();
 const user = auth.currentUser;
-const uid = user.uid;
+
 
 const EditActivityHistory = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
     };
-
+    const uid = user.uid;
     const [activityHistory, setActivityHistory] = useState({});
 
 
@@ -41,7 +41,7 @@ const EditActivityHistory = () => {
         };
 
         history();
-    }, []);
+    }, [uid]);
 
 
 
