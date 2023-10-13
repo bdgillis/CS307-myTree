@@ -17,7 +17,7 @@ const HomeTab = () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            document.getElementById("welcome-msg").innerHTML = "Welcome to myTree,  <br/> " + user.displayName;
+            document.getElementById("welcome-msg").innerHTML = "Welcome to myTree, " + user.displayName;
         }
     })
 
@@ -29,8 +29,8 @@ const HomeTab = () => {
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <div>
-                <h1 id="welcome-msg">Welcome to myTree</h1>
+            <div className='welcome-banner'>
+                <h1 id="welcome-msg"></h1>
             </div>
 
         </>

@@ -36,7 +36,7 @@ const ManageAccount = () => {
     };
 
     const Button = styled.button `
-    border-radius: 4px;
+    border-radius: 10px;
     background: #256ce1;
     padding: 7px 15px;
     color: #fff;
@@ -54,6 +54,11 @@ const ManageAccount = () => {
         background: #fff;
         color: #010606;
     }
+`
+
+
+    const Input = styled.input `
+       
 
 `
 
@@ -143,17 +148,21 @@ const ManageAccount = () => {
             </div>
             <div>
                 <h2>Reset your password</h2>
+            </div>
+            <div>
                 <label for="old-password">Enter your old password: </label><br />
                 <input type="text" id="old-password"></input><br />
                 <br />
                 <label for="new-password">Enter your NEW password: </label><br />
-                <input type="text" id="new-password"></input>
-                <br /><br />
-
+                    <input type="text" id="new-password"></input>
+            </div>
+            <div>
+                <br/>
                 <Button onClick={resetPword}>
                     Click here to Reset Password
                 </Button>
             </div>
+
             <div name="status">
                 <h3 id="status" style={{ color: 'red' }}></h3>
             </div>
