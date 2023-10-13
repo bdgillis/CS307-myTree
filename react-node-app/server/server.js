@@ -24,13 +24,22 @@ app.use(bodyParser.json())
 app.post('/api/activities', async (req, res) => {
     console.log(req.body)
     try {
-        const docRef = await db.collection('users').doc(req.body.uid).collection('activities').add({
+        const numActRef = await db.collection('users').doc(req.body.uid).get();
+        //I want to get only the number of activities
+        const numAct = numActRef.data().numActivities;
+        
+        const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(`A${numAct + 1}`).set({
             activeCategory: req.body.activeCategory,
             activeActivity: req.body.activeActivity,
             activityParam: req.body.activityParam,
             timestamp: req.body.timestamp,
         });
-        const score = calcScore(req.body);
+        const actRef = await db.collection('users').doc(req.body.uid).update({
+            numActivities: numAct + 1
+        });
+
+        const score = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
+        
         const userRef = await db.collection('users').doc(req.body.uid).update({
             carbonScore: FieldValue.increment(score),
         });

@@ -18,6 +18,7 @@ const EditActivityHistory = () => {
     const uid = user?.uid;
     const [activityHistory, setActivityHistory] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [oldCarbonScore, setOldCarbonScore] = useState(0);
 
   useEffect(() => {
     const history = async () => {
@@ -28,7 +29,7 @@ const EditActivityHistory = () => {
             method: 'GET'
           });
           const data = await res.json();
-          console.log(data);
+        //   console.log(data);
           const activities = {};
           Object.keys(data.activities).forEach((key) => {
             const activity = data.activities[key];
@@ -97,10 +98,11 @@ const EditActivityHistory = () => {
 
         const dataToSend = {
             uid,
-            activeActivity,
+            selectedActivity,
             activeCategory,
             activeActivity,
             activityParam,
+            oldCarbonScore,
             timestamp,
         };
 
