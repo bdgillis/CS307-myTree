@@ -18,8 +18,6 @@ const HomeTab = () => {
 
 
     const auth = getAuth();
-    const user = auth.currentUser;
-
     onAuthStateChanged(auth, (user) => {
         if (user) {
             uid = user.uid;
@@ -29,32 +27,29 @@ const HomeTab = () => {
 
     useEffect(() => {
         const getProfileData = async () => {
+            const user = auth.currentUser
+            if (user.uid != null){
+                uid = user.uid
+            } else {
+                uid = ""
+            }
             
-
-            if (user) {
-                if (user.uid != null){
-                    uid = user.uid
-                } else {
-                    uid = ""
+            try {
+                const response = await fetch(`/api/profile/${uid}`, {
+                    method: 'GET'
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-                
-                try {
-                    const response = await fetch(`/api/profile/${uid}`, {
-                        method: 'GET'
-                    });
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const profileData = await response.json();
-                    setProfileData(profileData); // Set the data in the component's state
-                } catch (error) {
-                    console.error('There was an error:', error);
-                }
+                const profileData = await response.json();
+                setProfileData(profileData); // Set the data in the component's state
+            } catch (error) {
+                console.error('There was an error:', error);
             }
         };
 
         getProfileData(); // Call the async function within useEffect
-    }, [user]); 
+    }, []); // The empty dependency array ensures that useEffect runs only once
 
 
     return (
@@ -88,9 +83,9 @@ const HomeTab = () => {
             </div>
             <div className='num-activites'>
                 {profileData ? (
-                    <h3>Number of Activites: {profileData.numActivities}</h3>
+                    <h3>Number of Activities: {profileData.numActivities}</h3>
                     ) : (
-                    <h3>Number of Activites:  Unavailable</h3>
+                    <h3>Number of Activities:  Unavailable</h3>
                 )}
                 
             </div>
