@@ -5,8 +5,8 @@ export const MenuItems = [
       cName: 'dropdown-link'
     },
     {
-      title: 'Delete Account',
-      path: '/delete-account',
+      title: 'Manage Account',
+      path: '/manage-account',
       cName: 'dropdown-link'
     },
     {

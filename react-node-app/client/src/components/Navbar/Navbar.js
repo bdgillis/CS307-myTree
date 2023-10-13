@@ -67,7 +67,7 @@ const Navbar = ({toggle}) => {
             		onMouseEnter={onMouseEnter}
             		onMouseLeave={onMouseLeave}
           		>
-            	<NavBtnLink to='/settings'>
+            	<NavBtnLink to='/manage-account'>
 					Settings <i class="fa-solid fa-caret-down" aria-hidden="true"></i>
 				</NavBtnLink>
 				{dropdown && <Dropdown />}
