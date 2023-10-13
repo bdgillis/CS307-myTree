@@ -19,10 +19,24 @@ const Quiz = () => {
     const [hometown, setHometown] = useState(null);
     const [bio, setBio] = useState(null)
     const [quizTaken, setQuizTaken] = useState(false);
+    const [user, setUser] = useState(null);
 
+    useEffect(() => {
+        const auth = getAuth();
+        const getUser = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            // User is signed in.
+            setUser(user);
+          } else {
+            // User is signed out.
+            setUser(null);
+          }
+        });
+    
+        // Cleanup the subscription when the component unmounts
+        return () => getUser();
+      }, []);
 
-    const auth = getAuth();
-    const user = auth.currentUser;
     var dataToSend = {}
 
     useEffect(() => {
@@ -82,10 +96,7 @@ const Quiz = () => {
     }
 
     const handleSetUpLater = () => {
-        // if (user) {
-            const uid = user.uid;
-        // }
-        
+        const uid = user.uid;
 
         dataToSend = {
             uid,
