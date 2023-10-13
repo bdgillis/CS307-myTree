@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
 import {
     getAuth,
+    onAuthStateChanged,
     updateProfile
 } from 'firebase/auth'
 
@@ -81,7 +82,10 @@ const Quiz = () => {
     }
 
     const handleSetUpLater = () => {
-        const uid = user.uid;
+        // if (user) {
+            const uid = user.uid;
+        // }
+        
 
         dataToSend = {
             uid,
