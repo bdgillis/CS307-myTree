@@ -49,7 +49,7 @@ export default function LoginPage(){
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
-            if (user.metadata.creationTime == user.metadata.lastSignInTime) {
+            if (user.metadata.createdAt == user.metadata.lastLoginAt) {
                 window.location = '/quiz'
             } else {
                 window.location = '/HomeTab'
