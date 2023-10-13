@@ -114,18 +114,21 @@ app.get('/api/profile/:uid', async (req, res) => {
 app.post('/api/editActivityHistory', async (req, res) => {
     console.log(req.body)
     try {
-        const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.activeActivity).set({
+        const oldRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.selectedActivity).get();
+
+        const oldScore = calcScore(oldRef.data().activeCategory, oldRef.data().activeActivity, oldRef.data().activityParam);
+        
+        const newRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.selectedActivity).set({
             activeCategory: req.body.activeCategory,
             activeActivity: req.body.activeActivity,
             activityParam: req.body.activityParam,
             timestamp: req.body.timestamp,
         });
-        const score = calcScore(req.body);
+        const newScore = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
         const userRef = await db.collection('users').doc(req.body.uid).update({
-            carbonScore: score,
+            carbonScore: FieldValue.increment(newScore - oldScore),
         });
         
-        console.log('Updated document with ID: ', docRef.id);
         res.json({status: 'success', id: docRef.id, score: req.body.activityParam});
 
     } catch (err) {
