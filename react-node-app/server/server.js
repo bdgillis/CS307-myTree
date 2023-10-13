@@ -43,6 +43,27 @@ app.post('/api/activities', async (req, res) => {
         
 });
 
+app.get('/api/editActivityHistory/:uid', async (req, res) => {
+    try {
+        console.log("uid: " + req.params.uid); 
+        const docRef = db.collection('users').doc(req.params.uid).collection('activities');
+        const snapshot = await docRef.get();
+        
+        const activities = {}; // define empty object
+
+        snapshot.forEach(doc => {
+            activities[doc.id] = doc.data(); // add each document to the object
+        });
+        console.log("Returning activties for uid: " + req.params.uid);
+        res.json({status: 'success', activities: activities});
+    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+        
+});
+
 
 app.listen(5001, () => {console.log("Server started on port 5001")})
 
