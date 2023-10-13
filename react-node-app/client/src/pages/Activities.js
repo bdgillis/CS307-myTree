@@ -25,7 +25,7 @@ const Activities = () => {
 	  setActiveActivity(type);
 	};
 
-	const handleConfirm = () => {
+	const handleConfirm = async () => {
 		const auth = getAuth();
 		const user = auth.currentUser;
 		const uid = user.uid;
@@ -41,15 +41,15 @@ const Activities = () => {
 
 		  //send data to backend
 		  
-		fetch('/api/activities', {
+		await fetch('/api/activities', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},	
 			body: JSON.stringify(dataToSend),
 		})
-		.then((res) => res.json())
-		.then((data) => {console.log(data)})
+		.then((res) => console.log(res.json()))
+		.then((data) => console.log(data))
 		.catch((err) => {
 			console.log('Error: ', err);
 		});
