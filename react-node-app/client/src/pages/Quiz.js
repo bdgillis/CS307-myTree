@@ -20,11 +20,11 @@ const Quiz = () => {
     const handleCategoryToggle = (type) => {
         setActiveCategory(type);
         setActiveActivity(null);
-        if (type != "None of These") {
-            document.getElementById("act-prompt").innerHTML = "Select an activity to focus on (optional)"
-        } else {
-            document.getElementById("act-prompt").innerHTML = ""
-        }
+        // if (type != "None of These") {
+        //     document.getElementById("act-prompt").innerHTML = "Select an activity to focus on (optional)"
+        // } else {
+        //     document.getElementById("act-prompt").innerHTML = ""
+        // }
     };
 
     const handleActivityToggle = (type) => {
@@ -33,32 +33,37 @@ const Quiz = () => {
 
     const handleExit = (type) => {
         if (type === 'Submit') {
-            window.location = '/hometab';
+            // window.location = '/hometab';
             const auth = getAuth();
             const user = auth.currentUser;
             const uid = user.uid;
-            const bio = document.getElementById("bio").value
+            const bio = document.getElementById("bio").value;
+            const hometown = document.getElementById("hometown").value;
 
             const dataToSend = {
                 uid,
                 bio,
-                activeActivity,
+                hometown,
+                activeCategory
             };
 
-            // //send data to backend
+            //send data to backend
 
-            // fetch('/api/activities', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(dataToSend),
-            // })
-            //     .then((res) => res.json())
-            //     .then((data) => { console.log(data) })
-            //     .catch((err) => {
-            //         console.log('Error: ', err);
-            //     });
+            fetch('/api/quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            })
+                .then((res) => res.json())
+                .then((data) => { 
+                    console.log(data);
+                    window.location = '/hometab';
+                })
+                .catch((err) => {
+                    console.log('Error: ', err);
+                });
         } else if (type === 'Set Up Later') {
             setQuizTaken(!quizTaken);
             window.location = '/hometab';
@@ -110,7 +115,6 @@ const Quiz = () => {
                 <input type="text" id="hometown" ></input><br />
                 <h2>
                     Write a short bio about yourself for your profile!
-
                 </h2>
                 <textarea id="bio" name="w3review" rows="4" cols="50"></textarea>
             </div>
@@ -120,8 +124,8 @@ const Quiz = () => {
                     Pick a category where you'd like to decrease your carbon footprint!
                 </h2>
                 <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle} />
-                <h3 id="act-prompt"></h3>
-                {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} />}
+                {/* <h3 id="act-prompt"></h3>
+                {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} />} */}
             </div>
             <br /><br />
             <div >
