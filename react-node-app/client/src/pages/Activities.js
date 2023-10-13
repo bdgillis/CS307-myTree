@@ -97,7 +97,7 @@ const Activities = () => {
 				<ToggleGroup types={mainCategories} onToggle={handleCategoryToggle}/>
             	{activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle}/>}
             	{paramUnits && <ParameterInput placeholder="Number of Miles" 
-					to="../Hometab" 
+					to="./view-profile" 
 					children={"Confirm"}
 					onChange={(e) => setActivityParam(e.target.value)}
 					onClick={handleConfirm}/>}

@@ -168,7 +168,7 @@ const EditActivityHistory = () => {
                 {activeCategory && <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle} starting={activeCategory}/>}
                 {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} starting={activeActivity}/>}
                 {paramUnits && <ParameterInput placeholder={activityParam}
-                    to="../Hometab"
+                    to="./view-profile"
                     children={"Confirm"}
                     onChange={(e) => setActivityParam(e.target.value)}
                     onClick={handleConfirm} />}
