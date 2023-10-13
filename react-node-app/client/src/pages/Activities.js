@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
 import { getAuth } from 'firebase/auth';
+import './Logout.css'
+
 
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 
@@ -82,13 +84,9 @@ const Activities = () => {
 
 	return (
 		<>
-			<Sidebar isOpen={isOpen} toggle={toggle} />
-			<div style={{ 
-				position: 'fixed', 
-				top: 0, 
-				left: '12%', 
-				}}>
-
+			
+			<div className="NavMenu">
+				<Sidebar isOpen={isOpen} toggle={toggle} />
 				<Navbar toggle={toggle} />
 			</div>
 			<div>

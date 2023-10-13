@@ -17,6 +17,9 @@ const Sidebar = ({isOpen, toggle}) => {
         </Icon>
         <SidebarWrapper>
             <SidebarMenu>
+                <SidebarRoute to='/homeTab' onClick={toggle}>
+                    Home
+                </SidebarRoute>
                 <SidebarRoute to='/activities' onClick={toggle}>
                     Activities
                 </SidebarRoute>
@@ -32,11 +35,15 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarRoute to='/daily-challenge' onClick={toggle}>
                     Daily Challenge
                 </SidebarRoute>
-                <SideBtnWrap>
-                    <SidebarRoute to="/manage-account" onClick={toggle}>
-                        Settings
-                    </SidebarRoute>
-                </SideBtnWrap>
+                <SidebarRoute to="/view-profile" onClick={toggle}>
+                    View Profile
+                </SidebarRoute>
+                <SidebarRoute to="/manage-account" onClick={toggle}>
+                    Manage Account
+                </SidebarRoute>
+                <SidebarRoute to="/log-out" onClick={toggle}>
+                    Log Out
+                </SidebarRoute>
             </SidebarMenu>
         </SidebarWrapper>
     </SidebarContainer>

@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   height: 85px;
   display: flex;
   justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
+  padding: 0.2rem calc((100vw - 100px) / 2);
   z-index: 12;
 `;
  
@@ -27,7 +27,7 @@ export const NavLink = styled(Link)`
 export const Bars = styled(FaBars)`
   display: none;
   color: #585858;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1000px) {
     display: block;
     position: absolute;
     top: 0;
@@ -47,7 +47,7 @@ export const NavMenu = styled.div`
   /* Third Nav */
   /* width: 100vw;
 white-space: nowrap; */
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1100px) {
     display: none;
   }
 `;

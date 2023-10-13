@@ -3,6 +3,8 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Navbar from '../components/Navbar/Navbar';
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
+import './Logout.css'
+
 
 const HomeTab = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,20 +24,17 @@ const HomeTab = () => {
 
     return (
 
-
-        <div className="testNav">
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-
-            <div style={{ 
-				position: 'fixed', 
-				top: 0, 
-				left: '12%', 
-				}}>
+        <>
+            <div className="NavMenu">
+                <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <h1 id="welcome-msg">Welcome to myTree</h1>
+            <div>
+                <h1 id="welcome-msg">Welcome to myTree</h1>
+            </div>
 
-        </div>
+        </>
+
     )
 }
 export default HomeTab

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth } from "firebase/auth";
+import './Logout.css'
 
 
 const ViewProfile = () => {
@@ -15,14 +16,11 @@ const ViewProfile = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: '12%',
-            }}>
-                <Navbar toggle={toggle} />
-                </div>
+            <div className='NavMenu'>
+				<Sidebar isOpen={isOpen} toggle={toggle} />
+				<Navbar toggle={toggle} />
+			</div>
+            
             <div>
                 <h1>User Profile </h1>
                 <h3 id="displayName">Welcome {user.displayName}</h3>

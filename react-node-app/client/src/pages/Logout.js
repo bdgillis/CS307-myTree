@@ -4,14 +4,13 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import styled from 'styled-components';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase';
-
 import './Logout.css'
 
 
 const LogoutButton = styled.button `
     border-radius: 4px;
     background: #256ce1;
-    padding: 10px 22px;
+    padding: 5px 22px;
     color: #fff;
     outline: none;
     border: none;
@@ -38,7 +37,7 @@ const Logout = () => {
     const logout = async () => {
         try {
             signOut(auth)
-            alert(auth.currentUser.email)
+            //alert(auth.currentUser.email)
             window.location = '/';    
         } catch (err) {
             alert(err)

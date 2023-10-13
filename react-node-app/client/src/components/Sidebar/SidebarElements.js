@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {FaTimes} from 'react-icons/fa'
-//import { Link as LinkS } from "react-scroll";
+import { Link as LinkS } from "react-scroll";
 import { Link as LinkR } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ export const SidebarContainer = styled.aside `
     display: grid;
     align-item: center;
     top: 0;
-    left: 0l
+    left: 0l;
     transition: 0.3s ease-in-out;
     opacity: ${({ isOpen }) => (isOpen ? '100%' : '0')};
     top: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
@@ -40,7 +40,7 @@ export const SidebarWrapper = styled.div `
 export const SidebarMenu = styled.ul `
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 80px);
+    grid-template-rows: repeat(6, 60px);
     text-align: center;
 
     @media screen and (max-width: 480px) {
@@ -49,23 +49,23 @@ export const SidebarMenu = styled.ul `
 
 `
 
-// export const SidebarLink = styled(LinkS) `
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     font-size: 1.5rem;
-//     text-decoration: none;
-//     list-style: none;
-//     transition: 0.2s ease-in-out;
-//     text-decoration: none;
-//     color: #fff;
-//     cursor: pointer;
+export const SidebarLink = styled(LinkS) `
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    list-style: none;
+    transition: 0.2s ease-in-out;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
 
-//     &:hover {
-//         color: #01bf71;
-//         transition: 0.2s ease-in-out
-//     }
-// `
+    &:hover {
+        color: #01bf71;
+        transition: 0.2s ease-in-out
+    }
+`
 
 export const SideBtnWrap = styled.div `
     display: flex;
@@ -77,7 +77,8 @@ export const SidebarRoute = styled(LinkR) `
     white-space: nowrap;
     padding: 16px 64px;
     color: #fff;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold; 
     outline: none;
     border: none;
     cursor: pointer;
