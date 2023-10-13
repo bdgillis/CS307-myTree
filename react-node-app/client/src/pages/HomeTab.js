@@ -18,6 +18,8 @@ const HomeTab = () => {
 
 
     const auth = getAuth();
+    const user = auth.currentUser;
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
             uid = user.uid;
@@ -27,29 +29,31 @@ const HomeTab = () => {
 
     useEffect(() => {
         const getProfileData = async () => {
-            const user = auth.currentUser
-            if (user.uid != null){
-                uid = user.uid
-            } else {
-                uid = ""
-            }
             
-            try {
-                const response = await fetch(`/api/profile/${uid}`, {
-                    method: 'GET'
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            if (user) {
+                if (user.uid != null){
+                    uid = user.uid
+                } else {
+                    uid = ""
                 }
-                const profileData = await response.json();
-                setProfileData(profileData); // Set the data in the component's state
-            } catch (error) {
-                console.error('There was an error:', error);
+                
+                try {
+                    const response = await fetch(`/api/profile/${uid}`, {
+                        method: 'GET'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const profileData = await response.json();
+                    setProfileData(profileData); // Set the data in the component's state
+                } catch (error) {
+                    console.error('There was an error:', error);
+                }
             }
         };
 
         getProfileData(); // Call the async function within useEffect
-    }, []); // The empty dependency array ensures that useEffect runs only once
+    }, [user]); // The empty dependency array ensures that useEffect runs only once
 
 
     return (
