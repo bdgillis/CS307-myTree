@@ -36,12 +36,12 @@ const Navbar = ({toggle}) => {
   return (
     <>
         <Nav fluid>
-        	<NavLink to="/tree-visualization">
+        	<NavLink to="/homeTab">
             	<img src={require('../../Images/myTreeLogo.png')} witdh={50} height={50} alt="logo"/>
-				<Bars onClick={toggle}>
-					<FaBars />
-				</Bars>
           	</NavLink>
+			<Bars onClick={toggle}>
+				<FaBars />
+			</Bars>
           	<NavMenu>
         		<NavLink to="/activities" activeStyle>
               		Activities

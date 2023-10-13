@@ -54,8 +54,8 @@ export const ButtonGroup = styled.div`
 `;
 
 
-export const ToggleGroup = ({types, onToggle}) => {
-  const [active, setActive] = useState(null);
+export const ToggleGroup = ({types, onToggle, starting}) => {
+  const [active, setActive] = useState(starting);
   
   const handleClick = (type) => {
     setActive(type);

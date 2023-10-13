@@ -5,3 +5,4 @@ function calcScore({category, activity, param}) {
 }
 
 module.exports = calcScore;
+

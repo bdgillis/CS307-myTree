@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
-
+import './Logout.css'
 
 const ViewProfile = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -42,14 +42,11 @@ const ViewProfile = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: '12%',
-            }}>
-                <Navbar toggle={toggle} />
-            </div>
+      <div className='NavMenu'>
+				<Sidebar isOpen={isOpen} toggle={toggle} />
+				<Navbar toggle={toggle} />
+			</div>
+            
             <div>
                 <h1>User Profile </h1>
                 <h3 id="displayName">Display Name: {user.displayName}</h3>

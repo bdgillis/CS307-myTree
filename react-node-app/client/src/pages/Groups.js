@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
+import './Logout.css'
+
 
 const Groups = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +11,11 @@ const Groups = () => {
     };
   	return (
 		<>
-			<Sidebar isOpen={isOpen} toggle={toggle} />
-			<Navbar toggle={toggle} />
+			<div className='NavMenu'>
+				<Sidebar isOpen={isOpen} toggle={toggle} />
+				<Navbar toggle={toggle} />
+			</div>
+			
 			<div style={{ 
 				display: 'flex', 
 				justifyContent: 'center', 

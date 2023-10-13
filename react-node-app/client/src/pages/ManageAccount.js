@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
+import styled from 'styled-components';
+import './Logout.css'
 import {
     getAuth,
     updatePassword,
@@ -32,6 +34,33 @@ const ManageAccount = () => {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
+
+    const Button = styled.button `
+    border-radius: 10px;
+    background: #256ce1;
+    padding: 7px 15px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 14px;
+
+    //margin-left: -18px;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #fff;
+        color: #010606;
+    }
+`
+
+
+    const Input = styled.input `
+       
+
+`
 
     const resetPword = async () => {
         var oldPasswordField = document.getElementById("old-password");
@@ -104,48 +133,44 @@ const ManageAccount = () => {
 
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: '12%',
-            }}>
-                <Navbar toggle={toggle} />
-            </div>
+            <div className='NavMenu'>
+				<Sidebar isOpen={isOpen} toggle={toggle} />
+				<Navbar toggle={toggle} />
+			</div>
 
             <div>
                 <br /><br />
                 <h1>Manage Account</h1>
-                <br /><br />
                 <h2>Account Info</h2>
-                <h3>Email address: {user.email}</h3>
-                <h3>Account Created: {created}</h3>
-                <h3>Most recent login: {login}</h3>
+                <h4>Email address: {user.email}</h4>
+                <h4>Account Created: {created}</h4>
+                <h4>Most recent login: {login}</h4>
             </div>
             <div>
-                <br /><br />
                 <h2>Reset your password</h2>
+            </div>
+            <div>
                 <label for="old-password">Enter your old password: </label><br />
                 <input type="text" id="old-password"></input><br />
                 <br />
                 <label for="new-password">Enter your NEW password: </label><br />
-                <input type="text" id="new-password"></input>
-                <br /><br />
-
-                <button onClick={resetPword}>
-                    Click here to Reset Password
-                </button>
+                    <input type="text" id="new-password"></input>
             </div>
+            <div>
+                <br/>
+                <Button onClick={resetPword}>
+                    Click here to Reset Password
+                </Button>
+            </div>
+
             <div name="status">
                 <h3 id="status" style={{ color: 'red' }}></h3>
             </div>
-            <br />
             <div>
-                <br /><br />
                 <h2>Delete Account</h2>
-                <button onClick={deleteAccount}>
+                <Button onClick={deleteAccount}>
                     Click here to Delete Account
-                </button>
+                </Button>
 
             </div>
 

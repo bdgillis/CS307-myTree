@@ -1,0 +1,21 @@
+.NavMenu {
+    display: 'flex';
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+.h1 {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    color: #fff;
+}
+
+.welcome-banner {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
