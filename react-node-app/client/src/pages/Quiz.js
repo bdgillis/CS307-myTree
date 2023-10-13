@@ -27,17 +27,40 @@ const Quiz = () => {
     useEffect(() => {
         if (quizTaken) {
             console.log('quizTaken is now true');
+            const uid = user.uid;
+            dataToSend = {
+                uid,
+                bio,
+                hometown,
+                activeCategory,
+                quizTaken
+            };
+            fetch('/api/quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log('Error: ', err);
+                });
+            window.location = './hometab'
         }
-    }, []);
+
+    }, [quizTaken]);
 
     const handleCategoryToggle = (type) => {
-        setActiveCategory(type);
+        if (type === "None of These") {
+            setActiveCategory("Unsure")
+        } else {
+            setActiveCategory(type);
+        }
         setActiveActivity(null);
-        // if (type != "None of These") {
-        //     document.getElementById("act-prompt").innerHTML = "Select an activity to focus on (optional)"
-        // } else {
-        //     document.getElementById("act-prompt").innerHTML = ""
-        // }
     };
 
     const handleActivityToggle = (type) => {
@@ -53,34 +76,8 @@ const Quiz = () => {
 
     const handleSubmit = () => {
         console.log(quizTaken)
-        setQuizTaken(value => !value);
-        const uid = user.uid;
-        console.log(quizTaken)
-        dataToSend = {
-            uid,
-            bio,
-            hometown,
-            activeCategory,
-            quizTaken
-        };
+        setQuizTaken(true);
 
-        //send data to backend
-
-        fetch('/api/quiz', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                // window.location = '/hometab';
-            })
-            .catch((err) => {
-                console.log('Error: ', err);
-            });
     }
 
     const handleSetUpLater = () => {
@@ -109,68 +106,6 @@ const Quiz = () => {
                 console.log('Error: ', err);
             });
     }
-
-    // const handleExit = (type) => {
-    //     const auth = getAuth();
-    //     const user = auth.currentUser;
-    //     const uid = user.uid;
-    //     var dataToSend = {}
-
-    //     if (type === 'Submit') {
-    //         // window.location = '/hometab';
-    //         handleSubmit();
-    //         console.log(quizTaken)
-    //         dataToSend = {
-    //             uid,
-    //             bio,
-    //             hometown,
-    //             activeCategory,
-    //             quizTaken
-    //         };
-
-    //         //send data to backend
-
-    //         fetch('/api/quiz', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(dataToSend),
-    //         })
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 console.log(data);
-    //                 // window.location = '/hometab';
-    //             })
-    //             .catch((err) => {
-    //                 console.log('Error: ', err);
-    //             });
-    //     } else if (type === 'Set Up Later') {
-    //         dataToSend = {
-    //             uid,
-    //             bio,
-    //             hometown,
-    //             activeCategory,
-    //             quizTaken
-    //         }
-    //         fetch('/api/quiz', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(dataToSend),
-    //         })
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 console.log(data);
-    //                 window.location = '/hometab';
-    //             })
-    //             .catch((err) => {
-    //                 console.log('Error: ', err);
-    //             });
-    //         window.location = '/hometab';
-    //     }
-    // }
 
     // const quizAlreadyTaken = () => {
     //     if (quizTaken) {
@@ -231,7 +166,7 @@ const Quiz = () => {
             </div>
             <br /><br />
             <div >
-                <ButtonLink to="./hometab" children={"Submit"} onClick={handleSubmit}></ButtonLink>
+                <ButtonLink to="./quiz" children={"Submit"} onClick={handleSubmit}></ButtonLink>
                 <ButtonLink to="./hometab" children={"Set Up Later"} onClick={handleSetUpLater}></ButtonLink>
                 {/* <ToggleGroup types={exitOptions} onToggle={handleExit} /> */}
             </div>
