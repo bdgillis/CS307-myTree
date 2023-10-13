@@ -10,13 +10,15 @@ import './Logout.css'
 const LogoutButton = styled.button `
     border-radius: 4px;
     background: #256ce1;
-    padding: 5px 22px;
+    padding: 7px 15px;
     color: #fff;
     outline: none;
     border: none;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     text-decoration: none;
+    font-size: 20px;
+	font-weight: bold; 
 
     margin-left: -18px;
 
@@ -58,9 +60,9 @@ const Logout = () => {
 			</div>
 
             <div className='Logout-Button'> 
-                    <LogoutButton onClick={logout}>
-                        Logout
-                    </LogoutButton>
+                <LogoutButton onClick={logout}>
+                    Logout
+                </LogoutButton>
             </div>
         </>
   	)
