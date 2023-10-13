@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
+import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
 import {
     getAuth,
     updateProfile
@@ -8,7 +8,6 @@ import {
 const mainCategories = ['Transportation', 'Eating', 'Household', 'None of These'];
 
 const Quiz = () => {
-    const [quizTaken, setQuizTaken] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -18,21 +17,50 @@ const Quiz = () => {
     const [activeActivity, setActiveActivity] = useState(null);
     const [hometown, setHometown] = useState(null);
     const [bio, setBio] = useState(null)
+    const [quizTaken, setQuizTaken] = useState(false);
+
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var dataToSend = {}
 
     useEffect(() => {
         if (quizTaken) {
             console.log('quizTaken is now true');
+            const uid = user.uid;
+            dataToSend = {
+                uid,
+                bio,
+                hometown,
+                activeCategory,
+                quizTaken
+            };
+            fetch('/api/quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log('Error: ', err);
+                });
+            window.location = './hometab'
         }
+
     }, [quizTaken]);
 
     const handleCategoryToggle = (type) => {
-        setActiveCategory(type);
+        if (type === "None of These") {
+            setActiveCategory("Unsure")
+        } else {
+            setActiveCategory(type);
+        }
         setActiveActivity(null);
-        // if (type != "None of These") {
-        //     document.getElementById("act-prompt").innerHTML = "Select an activity to focus on (optional)"
-        // } else {
-        //     document.getElementById("act-prompt").innerHTML = ""
-        // }
     };
 
     const handleActivityToggle = (type) => {
@@ -47,77 +75,43 @@ const Quiz = () => {
     }
 
     const handleSubmit = () => {
-        setQuizTaken(true);
         console.log(quizTaken)
+        setQuizTaken(true);
+
     }
 
-    const handleExit = (type) => {
-        const auth = getAuth();
-        const user = auth.currentUser;
+    const handleSetUpLater = () => {
         const uid = user.uid;
-        var dataToSend = {}
 
-        if (type === 'Submit') {
-            // window.location = '/hometab';
-            handleSubmit();
-            console.log(quizTaken)
-            dataToSend = {
-                uid,
-                bio,
-                hometown,
-                activeCategory,
-                quizTaken
-            };
-
-            //send data to backend
-
-            fetch('/api/quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    //window.location = '/hometab';
-                })
-                .catch((err) => {
-                    console.log('Error: ', err);
-                });
-        } else if (type === 'Set Up Later') {
-            dataToSend = {
-                uid,
-                bio,
-                hometown,
-                activeCategory,
-                quizTaken
-            }
-            fetch('/api/quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    window.location = '/hometab';
-                })
-                .catch((err) => {
-                    console.log('Error: ', err);
-                });
-            window.location = '/hometab';
+        dataToSend = {
+            uid,
+            bio,
+            hometown,
+            activeCategory,
+            quizTaken
         }
+        fetch('/api/quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                window.location = '/hometab';
+            })
+            .catch((err) => {
+                console.log('Error: ', err);
+            });
     }
 
-    const quizAlreadyTaken = () => {
-        if (quizTaken) {
-            window.location = '/HomeTab';
-        }
-    }
+    // const quizAlreadyTaken = () => {
+    //     if (quizTaken) {
+    //         window.location = '/HomeTab';
+    //     }
+    // }
 
     const exitOptions = ["Submit", "Set Up Later"];
     // const transportationActivities = ["Drive Less", "Walk More", "Run", "Take the Bus"];
@@ -151,7 +145,7 @@ const Quiz = () => {
             <div>
                 <h1 id="welcome-msg"><br />Welcome to myTree!</h1>
 
-                <div>{quizAlreadyTaken}</div>
+                {/* <div>{quizAlreadyTaken}</div> */}
                 <h2>
                     What town or city do you live in?
                 </h2>
@@ -172,7 +166,9 @@ const Quiz = () => {
             </div>
             <br /><br />
             <div >
-                <ToggleGroup types={exitOptions} onToggle={handleExit} />
+                <ButtonLink to="./quiz" children={"Submit"} onClick={handleSubmit}></ButtonLink>
+                <ButtonLink to="./hometab" children={"Set Up Later"} onClick={handleSetUpLater}></ButtonLink>
+                {/* <ToggleGroup types={exitOptions} onToggle={handleExit} /> */}
             </div>
 
         </>
