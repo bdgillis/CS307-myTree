@@ -6,42 +6,58 @@ import { getAuth } from 'firebase/auth';
 
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 const auth = getAuth();
-const user = auth.currentUser;
+
 
 
 const EditActivityHistory = () => {
+    const user = auth.currentUser;
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
     };
-    const uid = user.uid;
+    const uid = user?.uid;
     const [activityHistory, setActivityHistory] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const history = async () => {
+      if (user) {
+        const uid = user.uid;
+        try {
+          const res = await fetch(`/api/editActivityHistory/${uid}`, {
+            method: 'GET'
+          });
+          const data = await res.json();
+          console.log(data);
+          const activities = {};
+          Object.keys(data.activities).forEach((key) => {
+            const activity = data.activities[key];
+            activities[key] = activity;
+          });
+          setActivityHistory(activities);
+        } catch (err) {
+          console.log('Error: ', err);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+    history();
+  }, [user]);
 
 
-    useEffect(() => {
-        
+    const [selectedActivity, setSelectedActivity] = useState(null);
+    const [activeCategory, setActiveCategory] = useState(null);
+    const [activeActivity, setActiveActivity] = useState(null);
+    const [activityParam, setActivityParam] = useState('');
+    const [oldTimestamp, setOldTimestamp] = useState(null);
 
-        const history = async () => {
-            try {
-                const res = await fetch(`/api/editActivityHistory/${uid}`, {
-                    method: 'GET'
-                });
-                const data = await res.json();
-                console.log(data);
-                const activities = {};
-                Object.keys(data.activities).forEach((key) => {
-                    const activity = data.activities[key];
-                    activities[key] = activity;
-                });
-                
-                setActivityHistory(activities);
-            } catch (err) {
-                console.log('Error: ', err);
-            }
-        };
 
-        history();
-    }, [uid]);
+
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
 
 
@@ -56,11 +72,7 @@ const EditActivityHistory = () => {
     });
 
 
-    const [selectedActivity, setSelectedActivity] = useState(null);
-    const [activeCategory, setActiveCategory] = useState(null);
-    const [activeActivity, setActiveActivity] = useState(null);
-    const [activityParam, setActivityParam] = useState('');
-    const [oldTimestamp, setOldTimestamp] = useState(null);
+    
 
     const handleSelectedActivity = (a) => { 
         setSelectedActivity(a);
