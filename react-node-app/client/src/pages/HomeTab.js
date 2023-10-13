@@ -10,7 +10,7 @@ import './HomeTab.css'
 const HomeTab = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [profileData, setProfileData] = useState(null);
-    var uid = "null";
+    // var uid = "null";
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -20,13 +20,15 @@ const HomeTab = () => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            uid = user.uid;
+            const uid = user.uid;
             document.getElementById("welcome-msg").innerHTML = "Welcome to myTree, " + user.displayName;
         }
     })
 
     useEffect(() => {
         const getProfileData = async () => {
+            const user = auth.currentUser
+            const uid = user.uid
             try {
                 const response = await fetch(`/api/profile/${uid}`, {
                     method: 'GET'
@@ -78,7 +80,7 @@ const HomeTab = () => {
                 {profileData ? (
                     <h3>Number of Activites: {profileData.numActivites}</h3>
                     ) : (
-                    <h3>Number of Activites:  Unavailable</h3>
+                    <h3>Number of Activites: Unavailable</h3>
                 )}
                 
             </div>

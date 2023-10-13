@@ -96,6 +96,7 @@ app.get('/api/editActivityHistory/:uid', async (req, res) => {
 
 // Get User info for profile
 app.get('/api/profile/:uid', async (req, res) => {
+    console.log(req.params.uid)
     try {
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
