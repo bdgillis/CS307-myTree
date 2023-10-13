@@ -17,11 +17,13 @@ const ViewProfile = () => {
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const uid = user.uid;
-    const dataToSend = { uid };
+    
+    
     // var profileData = {};
 
     useEffect(() => {
+        const uid = user.uid;
+        const dataToSend = { uid };
         const getProfileData = async () => {
             try {
                 const response = await fetch(`/api/profile/${uid}`, {
@@ -38,9 +40,10 @@ const ViewProfile = () => {
         };
 
         getProfileData(); // Call the async function within useEffect
-    }, []); // The empty dependency array ensures that useEffect runs only once
+    }, [user]); // The empty dependency array ensures that useEffect runs only once
 
     useEffect(() => {
+        const uid = user.uid;
         const getActivities = async () => {
             try {
                 const res = await fetch(`/api/editActivityHistory/${uid}`, {
@@ -62,7 +65,7 @@ const ViewProfile = () => {
         };
 
         getActivities(); // Call the async function within useEffect
-    }, [uid]); // The empty dependency array ensures that useEffect runs only once
+    }, [user]); // The empty dependency array ensures that useEffect runs only once
 
     console.log(profileData)
     console.log(activityHistory);
