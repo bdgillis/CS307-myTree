@@ -7,6 +7,7 @@ import { getAuth } from 'firebase/auth';
 const mainCategories = ['Transportation', 'Eating', 'Household'];
 const auth = getAuth();
 const user = auth.currentUser;
+const uid = user.uid;
 
 const EditActivityHistory = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,7 @@ const EditActivityHistory = () => {
 
 
     useEffect(() => {
-        const uid = user.uid;
+        
 
         const history = async () => {
             try {
@@ -59,12 +60,14 @@ const EditActivityHistory = () => {
     const [activeCategory, setActiveCategory] = useState(null);
     const [activeActivity, setActiveActivity] = useState(null);
     const [activityParam, setActivityParam] = useState('');
+    const [oldTimestamp, setOldTimestamp] = useState(null);
 
     const handleSelectedActivity = (a) => { 
         setSelectedActivity(a);
         setActiveCategory(activityHistory[a].activeCategory);
         setActiveActivity(activityHistory[a].activeActivity);
         setActivityParam(activityHistory[a].activityParam);
+        setOldTimestamp(activityHistory[a].timestamp);
     };
 
     const handleCategoryToggle = (type) => {
@@ -78,17 +81,18 @@ const EditActivityHistory = () => {
 
     const handleConfirm = async () => {
         const uid = user.uid;
-        const timestamp = Date.now();
+        const timestamp = oldTimestamp;
 
         const dataToSend = {
             uid,
+            activeActivity,
             activeCategory,
             activeActivity,
             activityParam,
             timestamp,
         };
 
-        await fetch('/api/activities', {
+        await fetch('/api/editActivityHistory', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
