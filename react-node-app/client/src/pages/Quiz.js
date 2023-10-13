@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
+import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
 import {
     getAuth,
     updateProfile
@@ -8,7 +8,6 @@ import {
 const mainCategories = ['Transportation', 'Eating', 'Household', 'None of These'];
 
 const Quiz = () => {
-    const [quizTaken, setQuizTaken] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -18,6 +17,12 @@ const Quiz = () => {
     const [activeActivity, setActiveActivity] = useState(null);
     const [hometown, setHometown] = useState(null);
     const [bio, setBio] = useState(null)
+    const [quizTaken, setQuizTaken] = useState(false);
+
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    var dataToSend = {}
 
     useEffect(() => {
         if (quizTaken) {
@@ -47,8 +52,63 @@ const Quiz = () => {
     }
 
     const handleSubmit = () => {
-        setQuizTaken(true);
         console.log(quizTaken)
+        setQuizTaken(!quizTaken);
+        const uid = user.uid;
+        console.log(quizTaken)
+        dataToSend = {
+            uid,
+            bio,
+            hometown,
+            activeCategory,
+            quizTaken
+        };
+
+        //send data to backend
+
+        fetch('/api/quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                // window.location = '/hometab';
+            })
+            .catch((err) => {
+                console.log('Error: ', err);
+            });
+    }
+
+    const handleSetUpLater = () => {
+        const uid = user.uid;
+
+        dataToSend = {
+            uid,
+            bio,
+            hometown,
+            activeCategory,
+            quizTaken
+        }
+        fetch('/api/quiz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dataToSend),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                window.location = '/hometab';
+            })
+            .catch((err) => {
+                console.log('Error: ', err);
+            });
+        window.location = '/hometab';
     }
 
     const handleExit = (type) => {
@@ -81,7 +141,7 @@ const Quiz = () => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
-                    //window.location = '/hometab';
+                    // window.location = '/hometab';
                 })
                 .catch((err) => {
                     console.log('Error: ', err);
@@ -172,7 +232,9 @@ const Quiz = () => {
             </div>
             <br /><br />
             <div >
-                <ToggleGroup types={exitOptions} onToggle={handleExit} />
+                <ButtonLink to="./hometab" children={"Submit"} onClick={handleSubmit}></ButtonLink>
+                <ButtonLink to="./hometab" children={"Set Up Later"} onClick={handleSetUpLater}></ButtonLink>
+                {/* <ToggleGroup types={exitOptions} onToggle={handleExit} /> */}
             </div>
 
         </>
