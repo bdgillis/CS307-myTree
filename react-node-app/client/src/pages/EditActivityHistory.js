@@ -139,13 +139,13 @@ const EditActivityHistory = () => {
 
     let paramUnits = null
 	if (transportationActivities.includes(activeActivity)) {
-	paramUnits = 'miles';
+	    paramUnits = 'miles';
 	} else if (eatingActivities.includes(activeActivity)) {
-	paramUnits = 'times today';
+	    paramUnits = 'times today';
 	} else if (householdActivities.includes(activeActivity)) {
-	paramUnits = 'times today';
+	    paramUnits = 'times today';
 	} else {
-	paramUnits = null
+	    paramUnits = null
 	}
 
 
