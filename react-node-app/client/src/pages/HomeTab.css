@@ -1,4 +1,5 @@
 .NavMenu {
+    height: 80px;
     display: 'flex';
     position: fixed;
     top: 0;
@@ -7,11 +8,13 @@
     z-index: 1030;
 }
 
-.h1 {
+
+.tree {
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    color: #fff;
+    mix-blend-mode: color-burn;
+
 }
 
 .welcome-banner {
@@ -19,3 +22,15 @@
     justify-content: center;
     margin: 0 auto;
 }
+.carbon-score {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.num-activites {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
