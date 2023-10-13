@@ -28,7 +28,7 @@ const Quiz = () => {
         if (quizTaken) {
             console.log('quizTaken is now true');
         }
-    }, [quizTaken]);
+    }, []);
 
     const handleCategoryToggle = (type) => {
         setActiveCategory(type);
@@ -53,7 +53,7 @@ const Quiz = () => {
 
     const handleSubmit = () => {
         console.log(quizTaken)
-        setQuizTaken(!quizTaken);
+        setQuizTaken(value => !value);
         const uid = user.uid;
         console.log(quizTaken)
         dataToSend = {
@@ -108,76 +108,75 @@ const Quiz = () => {
             .catch((err) => {
                 console.log('Error: ', err);
             });
-        window.location = '/hometab';
     }
 
-    const handleExit = (type) => {
-        const auth = getAuth();
-        const user = auth.currentUser;
-        const uid = user.uid;
-        var dataToSend = {}
+    // const handleExit = (type) => {
+    //     const auth = getAuth();
+    //     const user = auth.currentUser;
+    //     const uid = user.uid;
+    //     var dataToSend = {}
 
-        if (type === 'Submit') {
-            // window.location = '/hometab';
-            handleSubmit();
-            console.log(quizTaken)
-            dataToSend = {
-                uid,
-                bio,
-                hometown,
-                activeCategory,
-                quizTaken
-            };
+    //     if (type === 'Submit') {
+    //         // window.location = '/hometab';
+    //         handleSubmit();
+    //         console.log(quizTaken)
+    //         dataToSend = {
+    //             uid,
+    //             bio,
+    //             hometown,
+    //             activeCategory,
+    //             quizTaken
+    //         };
 
-            //send data to backend
+    //         //send data to backend
 
-            fetch('/api/quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    // window.location = '/hometab';
-                })
-                .catch((err) => {
-                    console.log('Error: ', err);
-                });
-        } else if (type === 'Set Up Later') {
-            dataToSend = {
-                uid,
-                bio,
-                hometown,
-                activeCategory,
-                quizTaken
-            }
-            fetch('/api/quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(dataToSend),
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    window.location = '/hometab';
-                })
-                .catch((err) => {
-                    console.log('Error: ', err);
-                });
-            window.location = '/hometab';
-        }
-    }
+    //         fetch('/api/quiz', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(dataToSend),
+    //         })
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 console.log(data);
+    //                 // window.location = '/hometab';
+    //             })
+    //             .catch((err) => {
+    //                 console.log('Error: ', err);
+    //             });
+    //     } else if (type === 'Set Up Later') {
+    //         dataToSend = {
+    //             uid,
+    //             bio,
+    //             hometown,
+    //             activeCategory,
+    //             quizTaken
+    //         }
+    //         fetch('/api/quiz', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(dataToSend),
+    //         })
+    //             .then((res) => res.json())
+    //             .then((data) => {
+    //                 console.log(data);
+    //                 window.location = '/hometab';
+    //             })
+    //             .catch((err) => {
+    //                 console.log('Error: ', err);
+    //             });
+    //         window.location = '/hometab';
+    //     }
+    // }
 
-    const quizAlreadyTaken = () => {
-        if (quizTaken) {
-            window.location = '/HomeTab';
-        }
-    }
+    // const quizAlreadyTaken = () => {
+    //     if (quizTaken) {
+    //         window.location = '/HomeTab';
+    //     }
+    // }
 
     const exitOptions = ["Submit", "Set Up Later"];
     // const transportationActivities = ["Drive Less", "Walk More", "Run", "Take the Bus"];
@@ -211,7 +210,7 @@ const Quiz = () => {
             <div>
                 <h1 id="welcome-msg"><br />Welcome to myTree!</h1>
 
-                <div>{quizAlreadyTaken}</div>
+                {/* <div>{quizAlreadyTaken}</div> */}
                 <h2>
                     What town or city do you live in?
                 </h2>
