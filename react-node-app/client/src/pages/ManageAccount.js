@@ -25,7 +25,7 @@ function deleteAccount() {
             console.log("Error deleting account")
         });
 
-    window.location = '/'
+    window.location = '/loginPage'
 }
 
 

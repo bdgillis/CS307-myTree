@@ -22,45 +22,51 @@ const ViewProfile = () => {
     // var profileData = {};
 
     useEffect(() => {
-        const uid = user.uid;
-        const dataToSend = { uid };
-        const getProfileData = async () => {
-            try {
-                const response = await fetch(`/api/profile/${uid}`, {
-                    method: 'GET'
-                });
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+        if (user) {
+            const uid = user.uid;
+            const dataToSend = { uid };
+            const getProfileData = async () => {
+                try {
+                    const response = await fetch(`/api/profile/${uid}`, {
+                        method: 'GET'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const profileData = await response.json();
+                    setProfileData(profileData); // Set the data in the component's state
+                } catch (error) {
+                    console.error('There was an error:', error);
                 }
-                const profileData = await response.json();
-                setProfileData(profileData); // Set the data in the component's state
-            } catch (error) {
-                console.error('There was an error:', error);
             }
+        
+        getProfileData(); // Call the async function within useEffect
         };
 
-        getProfileData(); // Call the async function within useEffect
-    }, [user]); // The empty dependency array ensures that useEffect runs only once
+        
+    }, [user]);
 
     useEffect(() => {
-        const uid = user.uid;
         const getActivities = async () => {
-            try {
-                const res = await fetch(`/api/editActivityHistory/${uid}`, {
-                    method: 'GET'
-                });
-                const data = await res.json();
-                console.log(data);
-                const activities = {};
-                Object.keys(data.activities).forEach((key) => {
-                    const activity = data.activities[key];
-                    activities[key] = activity;
-                });
-                
-                setActivityHistory(activities);
-                setLoadingState(false);
-            } catch (err) {
-                console.log('Error: ', err);
+            if (user) {
+                const uid = user.uid;
+                try {
+                    const res = await fetch(`/api/editActivityHistory/${uid}`, {
+                        method: 'GET'
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                    const activities = {};
+                    Object.keys(data.activities).forEach((key) => {
+                        const activity = data.activities[key];
+                        activities[key] = activity;
+                    });
+                    
+                    setActivityHistory(activities);
+                    setLoadingState(false);
+                } catch (err) {
+                    console.log('Error: ', err);
+                }
             }
         };
 
