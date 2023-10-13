@@ -138,11 +138,15 @@ const EditActivityHistory = () => {
 
 
     let paramUnits = null
-    if (transportationActivities.includes(activeActivity)) {
-        paramUnits = 'miles';
-    } else {
-        paramUnits = null
-    }
+	if (transportationActivities.includes(activeActivity)) {
+	paramUnits = 'miles';
+	} else if (eatingActivities.includes(activeActivity)) {
+	paramUnits = 'times today';
+	} else if (householdActivities.includes(activeActivity)) {
+	paramUnits = 'times today';
+	} else {
+	paramUnits = null
+	}
 
 
     return (
@@ -167,7 +171,7 @@ const EditActivityHistory = () => {
             <div >
                 {activeCategory && <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle} starting={activeCategory}/>}
                 {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} starting={activeActivity}/>}
-                {paramUnits && <ParameterInput placeholder={activityParam}
+                {paramUnits && <ParameterInput placeholder={"" + activityParam + " " + paramUnits}
                     to="./view-profile"
                     children={"Confirm"}
                     onChange={(e) => setActivityParam(e.target.value)}

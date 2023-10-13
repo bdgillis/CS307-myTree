@@ -75,11 +75,15 @@ const Activities = () => {
   
   
 	let paramUnits = null
-	  if (transportationActivities.includes(activeActivity)) {
-		paramUnits = 'miles';
-	  } else {
-		paramUnits = null
-	  }
+	if (transportationActivities.includes(activeActivity)) {
+	paramUnits = 'miles';
+	} else if (eatingActivities.includes(activeActivity)) {
+	paramUnits = 'times today';
+	} else if (householdActivities.includes(activeActivity)) {
+	paramUnits = 'times today';
+	} else {
+	paramUnits = null
+	}
 
 
 	return (
@@ -96,7 +100,7 @@ const Activities = () => {
 			<div >
 				<ToggleGroup types={mainCategories} onToggle={handleCategoryToggle}/>
             	{activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle}/>}
-            	{paramUnits && <ParameterInput placeholder="Number of Miles" 
+            	{paramUnits && <ParameterInput placeholder={"Number of " + paramUnits} 
 					to="./view-profile" 
 					children={"Confirm"}
 					onChange={(e) => setActivityParam(e.target.value)}
