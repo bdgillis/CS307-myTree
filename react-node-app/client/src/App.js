@@ -10,7 +10,7 @@ import Groups from './pages/Groups'
 import Friends from './pages/Friends'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
-import Settings from './pages/Settings';
+import ManageAccount from './pages/ManageAccount';
 import EditActivityHistory from './pages/EditActivityHistory';
 import Quiz from './pages/Quiz'
 import TreeVisualization from './pages/TreeVisualization';
@@ -41,7 +41,7 @@ function App() {
                         <Route path = '/friends' component={withRouter(Friends)} />
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
                         <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
-                        <Route path = '/settings' exact component={withRouter(Settings)} />
+                        <Route path = '/manage-account' exact component={withRouter(ManageAccount)} />
                         <Route path = '/quiz' exact component={withRouter(Quiz)} />
                         <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
 

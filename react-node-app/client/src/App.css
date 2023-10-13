@@ -4,8 +4,11 @@
     flex-direction: column;
     min-height:100vh;
     justify-content:center;
-    background-image: linear-gradient(90deg, green 0  30%, lightGreen 30% 70%, darkGreen 70% 100%);
+    background-color: palegreen;
+    
   }
+
+  
 
 .header-style, .loginToAccount, .createHeader{
   display: flex;
@@ -19,7 +22,7 @@
   flex-direction: column;
   align-items: left;
   justify-content:center;
-  width: 400px
+  width: 400px;
 }
 
 .login-button {
@@ -39,7 +42,7 @@
     align-items: left;
     margin: 5px;
     margin-left: 70px;
-    margin-right: 70px
+    margin-right: 70px;
 }
 
 .navAccount {
@@ -59,13 +62,13 @@
 }
 
 
-  .emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat {
+  .emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat, .nameFormat {
     display: flex;
     flex-direction: column;
     align-items: left;
     margin: 5px;
     margin-left: 70px;
-    margin-right: 70px
+    margin-right: 70px;
 
   }
 
@@ -86,4 +89,5 @@
     width: 500px;
     display: flex;
     justify-content: space-evenly;
+    
   }

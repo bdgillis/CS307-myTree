@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
-import Navbar from '../components/Navbar/Navbar';
-import Sidebar from '../components/Sidebar/Sidebar';
-import {getAuth,
-        updateProfile} from 'firebase/auth'
+import {
+    getAuth,
+    updateProfile
+} from 'firebase/auth'
 
-const mainCategories = ['Transportation', 'Eating', 'Household'];
+const mainCategories = ['Transportation', 'Eating', 'Household', 'None of These'];
 
 const Quiz = () => {
     const [quizTaken, setQuizTaken] = useState(false);
@@ -20,6 +20,11 @@ const Quiz = () => {
     const handleCategoryToggle = (type) => {
         setActiveCategory(type);
         setActiveActivity(null);
+        if (type != "None of These") {
+            document.getElementById("act-prompt").innerHTML = "Select an activity to focus on (optional)"
+        } else {
+            document.getElementById("act-prompt").innerHTML = ""
+        }
     };
 
     const handleActivityToggle = (type) => {
@@ -27,9 +32,34 @@ const Quiz = () => {
     };
 
     const handleExit = (type) => {
-        if(type == 'Submit') {
+        if (type === 'Submit') {
             window.location = '/hometab';
-        } else if (type == 'Set Up Later') {
+            const auth = getAuth();
+            const user = auth.currentUser;
+            const uid = user.uid;
+            const bio = document.getElementById("bio").value
+
+            const dataToSend = {
+                uid,
+                bio,
+                activeActivity,
+            };
+
+            // //send data to backend
+
+            // fetch('/api/activities', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(dataToSend),
+            // })
+            //     .then((res) => res.json())
+            //     .then((data) => { console.log(data) })
+            //     .catch((err) => {
+            //         console.log('Error: ', err);
+            //     });
+        } else if (type === 'Set Up Later') {
             setQuizTaken(!quizTaken);
             window.location = '/hometab';
         }
@@ -42,10 +72,10 @@ const Quiz = () => {
     }
 
     const exitOptions = ["Submit", "Set Up Later"];
-    const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
-    const eatingActivities = ["Takeout", "Meal Protein - Red Meat",
-        "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
-    const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
+    const transportationActivities = ["Drive Less", "Walk More", "Run", "Take the Bus"];
+    const eatingActivities = ["Buy Less Takeout", "Eat Less Red Meat",
+        "Eat Less Poultry", "Eat Plant-Based Protein"];
+    const householdActivities = ["Wash Clothes in Cold Water", "Take Cold Showers", "Use Less Heating/AC at Home", "Turn the lights off when I'm not using them"];
     let activityTypes = null;
 
     if (activeCategory === 'Transportation') {
@@ -57,52 +87,46 @@ const Quiz = () => {
     }
 
 
-    let activityParams = null
-    if (transportationActivities.includes(activeActivity)) {
-        activityParams = 'miles';
-    } else {
-        activityParams = null
-    }
-
-
     return (
         <>
-            <Sidebar isOpen={isOpen} toggle={toggle} />
-			<div style={{ 
-				position: 'fixed', 
-				top: 0, 
-				left: '12%', 
-				}}>
 
-				<Navbar toggle={toggle} />
-			</div>
-          
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <img src={require('../Images/myTreeLogo.png')} witdh={250} height={250} alt="logo" />
+
+            </div>
+
 
             <div>
+                <h1 id="welcome-msg"><br />Welcome to myTree!</h1>
+
                 <div>{quizAlreadyTaken}</div>
-                <h1>Welcome to myTree!</h1>
                 <h2>
-                    Please set up your profile!
+                    What town or city do you live in?
+                </h2>
+                <input type="text" id="hometown" ></input><br />
+                <h2>
+                    Write a short bio about yourself for your profile!
 
                 </h2>
-                <label for="username">Please enter a display name:<br /> (So you and your friends can find each other!) </label><br />
-                <input type="text" id="username"></input><br /><br />
-                <label for="bio">Write a short bio for your profile:</label><br />
-                <input type="text" id="bio"></input><br />
+                <textarea id="bio" name="w3review" rows="4" cols="50"></textarea>
             </div>
 
             <div >
                 <h2>
-                    Please tell us a little bit about your goals for these categories!
+                    Pick a category where you'd like to decrease your carbon footprint!
                 </h2>
                 <ToggleGroup types={mainCategories} onToggle={handleCategoryToggle} />
+                <h3 id="act-prompt"></h3>
                 {activityTypes && <ToggleGroup types={activityTypes} onToggle={handleActivityToggle} />}
-                {activityParams && <ParameterInput placeholder="Number of Miles" to="../Hometab" children={"Confirm"} />}
             </div>
-
+            <br /><br />
             <div >
-				<ToggleGroup types={exitOptions} onToggle={handleExit}/>
-			</div>
+                <ToggleGroup types={exitOptions} onToggle={handleExit} />
+            </div>
 
         </>
     )
