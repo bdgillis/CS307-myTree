@@ -131,7 +131,7 @@ app.post('/api/editActivityHistory', async (req, res) => {
             carbonScore: FieldValue.increment(diff),
         });
         
-        res.json({status: 'success', id: docRef.id, score: diff});
+        res.json({status: 'success', score: diff});
 
     } catch (err) {
         console.log('Error: ', err);
