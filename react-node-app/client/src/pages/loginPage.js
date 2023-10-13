@@ -49,8 +49,12 @@ export default function LoginPage(){
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
+            if (user.metadata.createdAt == user.metadata.lastLoginAt) {
+                window.location = '/quiz'
+            } else {
+                window.location = '/HomeTab'
+            }
             console.log(user);
-            window.location = '/HomeTab'
             // IdP data available using getAdditionalUserInfo(result)
             // ...
         }).catch((error) => {
