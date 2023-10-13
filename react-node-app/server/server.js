@@ -61,7 +61,8 @@ app.post('/api/quiz', async (req, res) => {
             carbonScore: 0,
             hometown: req.body.hometown,
             targetCategory: req.body.activeCategory,
-            quizTaken: req.body.quizTaken
+            quizTaken: req.body.quizTaken, 
+            numActivities: 0
         });
         
         console.log('Added document with ID: ', docRef.id);
