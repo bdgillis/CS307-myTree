@@ -27,6 +27,13 @@ const HomeTab = () => {
 
     useEffect(() => {
         const getProfileData = async () => {
+            const user = auth.currentUser
+            if (user.uid != null){
+                uid = user.uid
+            } else {
+                uid = ""
+            }
+            
             try {
                 const response = await fetch(`/api/profile/${uid}`, {
                     method: 'GET'
@@ -76,7 +83,7 @@ const HomeTab = () => {
             </div>
             <div className='num-activites'>
                 {profileData ? (
-                    <h3>Number of Activites: {profileData.numActivites}</h3>
+                    <h3>Number of Activites: {profileData.numActivities}</h3>
                     ) : (
                     <h3>Number of Activites:  Unavailable</h3>
                 )}
