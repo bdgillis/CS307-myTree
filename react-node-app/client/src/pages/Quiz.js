@@ -182,7 +182,7 @@ const Quiz = () => {
             <br /><br />
             <div >
                 <ButtonLink to="./quiz" children={"Submit"} onClick={handleSubmit}></ButtonLink>
-                <ButtonLink to="./hometab" children={"Set Up Later"} onClick={handleSetUpLater}></ButtonLink>
+                {/* <ButtonLink to="./hometab" children={"Set Up Later"} onClick={handleSetUpLater}></ButtonLink> */}
                 {/* <ToggleGroup types={exitOptions} onToggle={handleExit} /> */}
             </div>
 
