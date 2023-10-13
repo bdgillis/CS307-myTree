@@ -27,7 +27,7 @@ function deleteAccount() {
 }
 
 
-const Settings = () => {
+const ManageAccount = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -88,6 +88,19 @@ const Settings = () => {
             oldPasswordField.value = "";
         }
     }
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (user) {
+        console.log(user)
+        var created = ""
+        var login = ""
+        if (user) {
+            created = user.metadata.creationTime;
+            login = user.metadata.lastSignInTime;
+            const uid = user.uid;
+        }
+    }
 
     return (
         <>
@@ -99,10 +112,18 @@ const Settings = () => {
             }}>
                 <Navbar toggle={toggle} />
             </div>
+
             <div>
-
-                <h1>Settings</h1>
-
+                <br /><br />
+                <h1>Manage Account</h1>
+                <br /><br />
+                <h2>Account Info</h2>
+                <h3>Email address: {user.email}</h3>
+                <h3>Account Created: {created}</h3>
+                <h3>Most recent login: {login}</h3>
+            </div>
+            <div>
+                <br /><br />
                 <h2>Reset your password</h2>
                 <label for="old-password">Enter your old password: </label><br />
                 <input type="text" id="old-password"></input><br />
@@ -120,8 +141,8 @@ const Settings = () => {
             </div>
             <br />
             <div>
+                <br /><br />
                 <h2>Delete Account</h2>
-
                 <button onClick={deleteAccount}>
                     Click here to Delete Account
                 </button>
@@ -132,4 +153,4 @@ const Settings = () => {
     )
 }
 
-export default Settings
+export default ManageAccount

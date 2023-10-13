@@ -33,7 +33,7 @@ const Sidebar = ({isOpen, toggle}) => {
                     Daily Challenge
                 </SidebarRoute>
                 <SideBtnWrap>
-                    <SidebarRoute to="/settings" onClick={toggle}>
+                    <SidebarRoute to="/manage-account" onClick={toggle}>
                         Settings
                     </SidebarRoute>
                 </SideBtnWrap>
