@@ -15,10 +15,11 @@ import EditActivityHistory from './pages/EditActivityHistory';
 import Quiz from './pages/Quiz'
 import Logout from './pages/Logout';
 import ViewProfile from './pages/ViewProfile';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import Notification from './components/Notification';
 
 
 function App() {
-
 
     return (
         <div className="App">
@@ -46,15 +47,15 @@ function App() {
 
 
                     </Switch>
-                </div>    
+                </div>
+                <Notification/>    
+
             </BrowserRouter>
 
             
 
 
         </div>
-    
-
     )
 };
 
