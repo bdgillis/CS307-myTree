@@ -82,7 +82,7 @@ export default function LoginPage(){
           <div className="emailFormat">
           <label>Email</label>
           <input
-          
+              className="inputs"
               placeholder="Email..."
               onChange={(event) => {
                   setLoginEmail(event.target.value);
@@ -91,6 +91,7 @@ export default function LoginPage(){
           <div className="passwordFormat">
           <label>Password</label>
           <input
+              className="inputs"
               placeholder="Password..."
               onChange={(event) => {
                   setLoginPassword(event.target.value);
@@ -105,7 +106,7 @@ export default function LoginPage(){
         <div className="googleAuth">
           <h3> Login with Other Accounts</h3>
 
-          <button onClick={googleAuth}>Login with Google</button>
+          <button className="googleAuthButton" onClick={googleAuth}>Login with Google</button>
           {/* <button onClick={googleAuth}>Login with Twitter</button>
           <button onClick={googleAuth}>Login with Github</button> */}
 

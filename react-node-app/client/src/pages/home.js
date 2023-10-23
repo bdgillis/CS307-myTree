@@ -49,7 +49,7 @@ export default function Home(){
         <div className="nameFormat">
           <label>Name</label>
           <input
-        
+              className="inputs"
               placeholder="Name..."
               onChange={(event) => {
                   setName(event.target.value);
@@ -57,8 +57,8 @@ export default function Home(){
           </div>
         <div className="regEmailFormat">
           <label>Email</label>
-          <input className="register-user"
-          
+          <input className="inputs"
+      
             placeholder="Email..."
             onChange={(event) => {
                 setRegisterEmail(event.target.value);
@@ -66,7 +66,7 @@ export default function Home(){
         </div>
         <div className="regPassFormat">
           <label class="label">Password</label>
-          <input className="register-pass"
+          <input className="inputs"
             placeholder="Password..."
             onChange={(event) => {
                 setRegisterPassword(event.target.value);

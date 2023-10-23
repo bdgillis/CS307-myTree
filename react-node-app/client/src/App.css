@@ -36,13 +36,63 @@
 
 
 
-.buttonReg, .error, .buttonLog {
+.buttonReg, .buttonLog {
   display: flex;
     flex-direction: column;
     align-items: left;
     margin: 5px;
     margin-left: 70px;
     margin-right: 70px;
+
+    border-radius: 4px;
+    background: #256ce1;
+    padding: 5px 10px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 13px;
+	  font-weight: bold; 
+
+    &:hover {
+      transition: all 0.2s ease-in-out;
+      background: #fff;
+      color: #010606;
+    }
+}
+
+.googleAuthButton {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 5px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .navAccount {
@@ -62,32 +112,39 @@
 }
 
 
-  .emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat, .nameFormat {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin: 5px;
-    margin-left: 70px;
-    margin-right: 70px;
+.emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat, .nameFormat {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 5px;
+  margin-left: 70px;
+  margin-right: 70px;
 
-  }
+}
 
-  label {
-    text-align: left;
-    padding: 1rem, 0;
+label {
+  text-align: left;
+  padding: 1rem, 0;
+}
 
-  }
+.googleAuth {
+  padding: 50px;
+  text-align: left;
+  margin-left: 20px;;
+}
 
-  .googleAuth {
-    padding: 50px;
-    text-align: left;
-    margin-left: 20px;;
-  }
+.nav {
+  list-style-type: none;
+  width: 500px;
+  display: flex;
+  justify-content: space-evenly; 
+}
 
-  .nav {
-    list-style-type: none;
-    width: 500px;
-    display: flex;
-    justify-content: space-evenly;
-    
-  }
+.inputs {
+  border-radius: 4px;
+  background-color: #73ee73;
+  border: none;
+  font-weight: bold; 
+  height: 25px;
+
+}

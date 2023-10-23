@@ -10,6 +10,8 @@ import './HomeTab.css'
 const HomeTab = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [profileData, setProfileData] = useState(null);
+    const [loadingState, setLoadingState] = useState(true);
+
     var uid = "null";
 
     const toggle = () => {
@@ -25,11 +27,10 @@ const HomeTab = () => {
             uid = user.uid;
             document.getElementById("welcome-msg").innerHTML = "Welcome to myTree, " + user.displayName;
         }
-    })
+    }, [user])
 
     useEffect(() => {
         const getProfileData = async () => {
-            
             if (user) {
                 if (user.uid != null){
                     uid = user.uid
@@ -46,6 +47,7 @@ const HomeTab = () => {
                     }
                     const profileData = await response.json();
                     setProfileData(profileData); // Set the data in the component's state
+                    setLoadingState(false);
                 } catch (error) {
                     console.error('There was an error:', error);
                 }
@@ -53,13 +55,13 @@ const HomeTab = () => {
         };
 
         getProfileData(); // Call the async function within useEffect
-    }, [user]); // The empty dependency array ensures that useEffect runs only once
+    }, [user][profileData]); // The empty dependency array ensures that useEffect runs only once
+
 
 
     return (
-
+    
         <>
-        
             <div className="NavMenu">
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
