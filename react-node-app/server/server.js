@@ -80,14 +80,14 @@ app.get('/api/quiz/:username', async (req, res) => {
     try {
         console.log("username: " + req.params.username); 
         const docRef = db.collection('users');
-        const snapshot = await docRef.where("username", "==", req.params.username);
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
 
         if (snapshot.empty) {
+            console.log('No matching documents.');
             res.json({status: 'success', available: true});
         } else {
             res.json({status: 'success', available: false});
         }    
-        console.log("Returning username: " + snapshot);
     } catch (err) {
         console.log('Error: ', err);
         res.status(500).json({error: 'Internal server error'})
@@ -161,6 +161,7 @@ app.post('/api/editActivityHistory', async (req, res) => {
     }
         
 });
+
 
 
 app.listen(5001, () => {console.log("Server started on port 5001")})
