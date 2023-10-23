@@ -58,7 +58,6 @@ const HomeTab = () => {
     }, [user][profileData]); // The empty dependency array ensures that useEffect runs only once
 
 
-
     return (
     
         <>
