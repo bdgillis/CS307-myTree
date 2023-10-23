@@ -59,10 +59,12 @@ const Activities = () => {
 		  
 	};
   
-	const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
-	const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
-	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
-	const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
+	const transportationActivities = ["Drive - Alone", "Drive - Carpool", "Walk", "Bike/Scooter", "Bus", "Train", "Airline Flight"];
+	const eatingActivities = ["Takeout - Styrofoam", "Takeout - Plastic", "Meal Protein - Red Meat", 
+	  "Meal Protein - Poultry", "Meal Protein - Vegetarian", "Shopping - Farmer's Market/Co-op", "Shopping - Grocery Store",
+	];
+	const householdActivities = ["Cold Water Laundry", "Cold Shower", "Temperature Adjustment - Heating", 
+	"Temperature Adjustment - Cooling", "Recycle", "Compost", "Trash", "Electricity Consumption", "Turn off Computers"];
 	let activityTypes = null;
   
 	if (activeCategory === 'Transportation') {

@@ -7,17 +7,26 @@ function calcScore(category, activity, param) {
     switch(category) {
         case "Transportation": {
             switch(activity) {
-                case "Drive":
-                    score = -1 * p * 0.088;
+                case "Drive - Alone":
+                    score = -1 * p * 0.03;
+                    break;
+                case "Drive - Carpool":
+                    score = p * 0.03;
                     break;
                 case "Walk":
-                    score = p * 0.068;
+                    score = p * 0.035;
                     break;
-                case "Run":
-                    score = p * 0.098;
+                case "Bike/Scooter":
+                    score = p * 0.035;
+                    break;
+                case "Train":
+                    score = p * 0.015;
                     break;
                 case "Bus":
-                    score = p * 0.076;
+                    score = p * 0.015;
+                    break;
+                case "Airline Flight":
+                    score = -1 * p * 0.004;
                     break;
                 default:
                     score = 0;
@@ -27,17 +36,26 @@ function calcScore(category, activity, param) {
         }
         case "Eating": {
             switch(activity) {
-                case "Takeout":
-                    score = -1 * p * 0.0348;
+                case "Takeout - Styrofoam":
+                    score = -1 * p * 0.9;
                     break;
-                case "Meal Protein - Red Meat":
-                    score = -1 * p * 0.027;
+                case "Takeout - Plastic":
+                    score = -1 * p * 0.2;
                     break;
                 case "Meal Protein - Poultry":
                     score = p * 0.013;
                     break;
                 case "Meal Protein - Vegetarian":
-                    score = p * 0.026;;
+                    score = p * 0.026;
+                    break;
+                case "Meal Protein - Red Meat":
+                    score = -1 * p * 0.027;
+                    break;
+                case "Shopping - Farmer's Market/Co-op":
+                    score = -1 * (p - 3);
+                    break;
+                case "Shopping - Grocery Store":
+                    score = -1 * 0.33 * (p - 3);
                     break;
                 default:
                     score = 0;
@@ -47,14 +65,29 @@ function calcScore(category, activity, param) {
         }
         case "Household": {
             switch(activity) {
-                case "Cold Water Wash":
-                    score = p * 0.054;
+                case "Cold Water Laundry":
+                    score = p * 0.05;
                     break;
                 case "Cold Shower":
-                    score = p * 0.054;
+                    score = p * 0.01;
                     break;
-                case "Temperature Adjustment":
+                case "Temperature Adjustment - Heating":
+                    score = p * 0.5;
+                    break;
+                case "Temperature Adjustment - Cooling":
+                    score = p;
+                    break;
+                case "Recycle":
+                    score = p * 0.032;
+                    break;
+                case "Compost":
                     score = p * 0.04;
+                    break;
+                case "Trash":
+                    score = -1 * p * 0.008;
+                    break;
+                case "Electricity Consumption":
+                    score = -1 * (p - 7.06);
                     break;
                 default:
                     score = 0;
