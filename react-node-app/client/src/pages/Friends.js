@@ -1,6 +1,8 @@
 import React, { useEffect, useState, timeout } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
+import { getAuth } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
 import './Logout.css'
 
 const Friends = () => {
@@ -11,29 +13,64 @@ const Friends = () => {
 
     const [username, setUsername] = useState(null);
     const [usernameExists, setUsernameExists] = useState(false);
+    const [user, setUser] = useState(null);
+    const [friend, setFriend] = useState(null);
+    const uid = null;
 
     useEffect(() => {
 
         if (username == document.getElementById("username").value) {
             console.log("username is the same");
         }
-        const checkUsername = async () => {
+        const findFriend = async () => {
             console.log(document.getElementById("username").value);
             console.log("username: " + username);
-            const response = await fetch('/api/quiz/' + username);
+            const response = await fetch('/api/friends/' + username);
             const body = await response.json();
             console.log(body);
             if (body.available) {
                 console.log("user does not exist");
-                setUsernameExists(false);
             } else {
                 console.log("user exists");
-                setUsernameExists(true);
+                setFriend(body);
             }
         }
-        checkUsername();
+        findFriend();
 
     }, [username]);
+
+    useEffect(() => {
+        const auth = getAuth();
+        const getUser = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in.
+                setUser(user);
+                uid = user.uid;
+            } else {
+                // User is signed out.
+                setUser(null);
+            }
+        });
+        getUser();
+    }, [user]);
+
+    useEffect(() => {
+        if (friend) {
+            console.log("friend: " + friend);
+            const addFriend = async () => {
+                const response = await fetch('/api/friends', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uid: uid , username: friend.username }),
+                });
+                const body = await response.json();
+                console.log(body);
+            }
+            addFriend();
+        }
+    }, [friend]);
 
     const handleSearch = async (e) => {
         setUsername(document.getElementById("username").value);
