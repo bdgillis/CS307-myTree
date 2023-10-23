@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+const { getFirestore, Timestamp, FieldValue, Filter} = require('firebase-admin/firestore');
 const app = express();
 const calcScore = require('./carbonScore.js')
 
@@ -9,6 +9,7 @@ const admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
 const serviceAccount = require("./cs307-mytree-firebase-adminsdk-9bjjb-227c08db8.json");
+const { get } = require('request');
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -17,6 +18,8 @@ admin.initializeApp({
 
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = getFirestore();
+const { query, where, getDocs } = require('firebase-admin/firestore');
+
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())  
@@ -62,7 +65,8 @@ app.post('/api/quiz', async (req, res) => {
             hometown: req.body.hometown,
             targetCategory: req.body.activeCategory,
             quizTaken: req.body.quizTaken, 
-            numActivities: 0
+            numActivities: 0,
+            username: req.body.username
         });
         
         console.log('Added document with ID: ', docRef.id);
@@ -70,6 +74,25 @@ app.post('/api/quiz', async (req, res) => {
     } catch (err) {
         console.log('Error: ', err);
     }
+});
+
+app.get('/api/quiz/:username', async (req, res) => {
+    try {
+        console.log("username: " + req.params.username); 
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username);
+
+        if (snapshot.empty) {
+            res.json({status: 'success', available: true});
+        } else {
+            res.json({status: 'success', available: false});
+        }    
+        console.log("Returning username: " + snapshot);
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+        
 });
 
 app.get('/api/editActivityHistory/:uid', async (req, res) => {

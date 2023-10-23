@@ -20,22 +20,25 @@ const Quiz = () => {
     const [bio, setBio] = useState(null)
     const [quizTaken, setQuizTaken] = useState(false);
     const [user, setUser] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [usernameExists, setUsernameExists] = useState(false);
+
 
     useEffect(() => {
         const auth = getAuth();
         const getUser = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            // User is signed in.
-            setUser(user);
-          } else {
-            // User is signed out.
-            setUser(null);
-          }
+            if (user) {
+                // User is signed in.
+                setUser(user);
+            } else {
+                // User is signed out.
+                setUser(null);
+            }
         });
-    
+
         // Cleanup the subscription when the component unmounts
         return () => getUser();
-      }, []);
+    }, []);
 
     var dataToSend = {}
 
@@ -48,7 +51,8 @@ const Quiz = () => {
                 bio,
                 hometown,
                 activeCategory,
-                quizTaken
+                quizTaken,
+                username: username
             };
             fetch('/api/quiz', {
                 method: 'POST',
@@ -88,6 +92,32 @@ const Quiz = () => {
     const handleBioChange = (e) => {
         setBio(e.target.value)
     }
+    const handleUsernameChange = (e) => {
+        setUsername(e.target.value);
+        const uid = user.uid;
+        const checkUsername = async () => {
+            try {
+                const response = await fetch(`/api/quiz/${username}`, {
+                    method: 'GET'
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const res = await response.json();
+                if (res.available) {
+                    setUsernameExists(false);
+                } else {
+                    setUsernameExists(true);
+                }
+            } catch (error) {
+                console.error('There was an error:', error);
+            }
+        }
+        checkUsername();
+    };
+
+
+
 
     const handleSubmit = () => {
         console.log(quizTaken)
@@ -159,7 +189,16 @@ const Quiz = () => {
 
             <div>
                 <h1 id="welcome-msg"><br />Welcome to myTree!</h1>
+                <h2>
+                    Please enter a unique username.
+                </h2>
 
+                <input type="text" id="username" onChange={handleUsernameChange}></input>
+                {usernameExists ? (
+                    <h3>Username already exists</h3>
+                ) : (
+                    <h3>Username is available</h3>
+                )}
                 {/* <div>{quizAlreadyTaken}</div> */}
                 <h2>
                     What town or city do you live in?
@@ -168,7 +207,7 @@ const Quiz = () => {
                 <h2>
                     Write a short bio about yourself for your profile!
                 </h2>
-                <textarea id="bio" name="w3review" rows="4" cols="50" onChange={handleBioChange}></textarea>
+                <textarea id="bio" rows="4" cols="50" onChange={handleBioChange}></textarea>
             </div>
 
             <div >
