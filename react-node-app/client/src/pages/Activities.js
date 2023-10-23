@@ -64,7 +64,7 @@ const Activities = () => {
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian", "Shopping - Farmer's Market/Co-op", "Shopping - Grocery Store",
 	];
 	const householdActivities = ["Cold Water Laundry", "Cold Shower", "Temperature Adjustment - Heating", 
-	"Temperature Adjustment - Cooling", "Recycle", "Compost", "Trash", "Electricity Consumption", "Turn off Computers"];
+	"Temperature Adjustment - Cooling", "Recycle", "Compost", "Trash", "Electricity Consumption"];
 	let activityTypes = null;
   
 	if (activeCategory === 'Transportation') {
@@ -77,15 +77,76 @@ const Activities = () => {
   
   
 	let paramUnits = null
-	if (transportationActivities.includes(activeActivity)) {
-		paramUnits = 'miles';
-	} else if (eatingActivities.includes(activeActivity)) {
-		paramUnits = 'times today';
-	} else if (householdActivities.includes(activeActivity)) {
-		paramUnits = 'times today';
-	} else {
-		paramUnits = null
-	}
+	switch(activeCategory) {
+        case "Transportation": {
+            paramUnits = "Miles";
+            break;
+        }
+        case "Eating": {
+            switch(activity) {
+                case "Takeout - Styrofoam":
+                    paramUnits = "Containers";
+                    break;
+                case "Takeout - Plastic":
+                    paramUnits = "Containers";
+                    break;
+                case "Meal Protein - Poultry":
+                    paramUnits = "Servings";
+                    break;
+                case "Meal Protein - Vegetarian":
+                    paramUnits = "Servings";
+                    break;
+                case "Meal Protein - Red Meat":
+                    paramUnits = "Servings";
+                    break;
+                case "Shopping - Farmer's Market/Co-op":
+                    paramUnits = "Trips this week";
+                    break;
+                case "Shopping - Grocery Store":
+                    paramUnits = "Trips this week";
+                    break;
+                default:
+                    paramUnits = null;
+                    break;
+            }
+            break;
+        }
+        case "Household": {
+            switch(activity) {
+                case "Cold Water Laundry":
+                    paramUnits = "Loads";
+                    break;
+                case "Cold Shower":
+                    paramUnits = "Times today";
+                    break;
+                case "Temperature Adjustment - Heating":
+                    paramUnits = "Degrees";
+                    break;
+                case "Temperature Adjustment - Cooling":
+                    paramUnits = "Degrees";
+                    break;
+                case "Recycle":
+                    paramUnits = "Gallons";
+                    break;
+                case "Compost":
+                    paramUnits = "Gallons";
+                    break;
+                case "Trash":
+                    paramUnits = "Gallons";
+                    break;
+                case "Electricity Consumption":
+                    paramUnits = "Kilowatt/hours this week";
+                    break;
+                default:
+                    paramUnits = null;
+                    break;
+            }
+            break;
+        }
+        default:
+            paramUnits = null;
+            break;
+    }
 
 
 	return (
