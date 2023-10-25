@@ -48,7 +48,7 @@ function App() {
 
                     </Switch>
                 </div>
-                <Notification/>    
+                <Notification/>
 
             </BrowserRouter>
 
