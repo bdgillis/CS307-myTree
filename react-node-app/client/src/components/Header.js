@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import React from 'react';
+import '../App.css'
+
 
 function refreshPage() {
     setTimeout(()=>{
@@ -18,7 +20,8 @@ const Header = () => {
     return(
         <div class="header-style">
             
-            <h1>myTree</h1>
+            <img src={require('../Images/myTreeLogo.png')} witdh={250} height={250} alt="logo"/>
+
             <ul className="nav">
                 <li className="navAccount">
                     <ButtonLink to='/'>Create Account</ButtonLink>

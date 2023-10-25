@@ -8,6 +8,55 @@
     
   }
 
+  .Tabs{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+   }
+
+
+/* Tab Navigation */
+ul.nav {
+    width: 60%;
+    margin: 0 auto 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #39A2DB;
+    border-radius: 2rem;
+    padding-left: 0px;
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+  }
+  ul.nav li {
+    width: 50%;
+    padding: 1rem;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.7s;
+    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 2rem;
+  }
+  ul.nav li:nth-child(2) {
+    border-radius: 0;
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
+  ul.nav li:hover {
+    background: rgba(50, 224, 196, 0.15);
+  }
+  ul.nav li.active {
+    background: #39A2DB;
+  }  
+
+
+.FirstTab p,
+.SecondTab p {
+    font-size: 2rem;
+    text-align: center;
+}
   
 
 .header-style, .loginToAccount, .createHeader{
@@ -36,13 +85,63 @@
 
 
 
-.buttonReg, .error, .buttonLog {
+.buttonReg, .buttonLog {
   display: flex;
     flex-direction: column;
     align-items: left;
     margin: 5px;
     margin-left: 70px;
     margin-right: 70px;
+
+    border-radius: 4px;
+    background: #256ce1;
+    padding: 5px 10px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 13px;
+	  font-weight: bold; 
+
+    &:hover {
+      transition: all 0.2s ease-in-out;
+      background: #fff;
+      color: #010606;
+    }
+}
+
+.googleAuthButton {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 5px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .navAccount {
@@ -62,32 +161,39 @@
 }
 
 
-  .emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat, .nameFormat {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin: 5px;
-    margin-left: 70px;
-    margin-right: 70px;
+.emailFormat, .passwordFormat, .regEmailFormat, .regPassFormat, .nameFormat {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 5px;
+  margin-left: 70px;
+  margin-right: 70px;
 
-  }
+}
 
-  label {
-    text-align: left;
-    padding: 1rem, 0;
+label {
+  text-align: left;
+  padding: 1rem, 0;
+}
 
-  }
+.googleAuth {
+  padding: 50px;
+  text-align: left;
+  margin-left: 20px;;
+}
 
-  .googleAuth {
-    padding: 50px;
-    text-align: left;
-    margin-left: 20px;;
-  }
+.nav {
+  list-style-type: none;
+  width: 500px;
+  display: flex;
+  justify-content: space-evenly; 
+}
 
-  .nav {
-    list-style-type: none;
-    width: 500px;
-    display: flex;
-    justify-content: space-evenly;
-    
-  }
+.inputs {
+  border-radius: 4px;
+  background-color: #73ee73;
+  border: none;
+  font-weight: bold; 
+  height: 25px;
+
+}

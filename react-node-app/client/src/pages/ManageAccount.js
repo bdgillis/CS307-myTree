@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import styled from 'styled-components';
 import './Logout.css'
+import '../App.css'
 import {
     getAuth,
     updatePassword,
@@ -151,10 +152,20 @@ const ManageAccount = () => {
             </div>
             <div>
                 <label for="old-password">Enter your old password: </label><br />
-                <input type="text" id="old-password"></input><br />
+                <input 
+                    className= 'inputs' 
+                    type="text" 
+                    id="old-password"
+                    placeholder='Old Password'
+                ></input><br />
                 <br />
                 <label for="new-password">Enter your NEW password: </label><br />
-                    <input type="text" id="new-password"></input>
+                    <input 
+                        className= 'inputs' 
+                        type="text" 
+                        id="new-password"
+                        placeholder='New Password'
+                    ></input>
             </div>
             <div>
                 <br/>
