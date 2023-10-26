@@ -83,7 +83,7 @@ const Activities = () => {
             break;
         }
         case "Eating": {
-            switch(activity) {
+            switch(activeActivity) {
                 case "Takeout - Styrofoam":
                     paramUnits = "Containers";
                     break;
@@ -112,7 +112,7 @@ const Activities = () => {
             break;
         }
         case "Household": {
-            switch(activity) {
+            switch(activeActivity) {
                 case "Cold Water Laundry":
                     paramUnits = "Loads";
                     break;
