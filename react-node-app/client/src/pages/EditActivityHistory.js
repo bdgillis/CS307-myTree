@@ -148,7 +148,7 @@ const EditActivityHistory = () => {
             break;
         }
         case "Eating": {
-            switch(activity) {
+            switch(activeActivity) {
                 case "Takeout - Styrofoam":
                     paramUnits = "Containers";
                     break;
@@ -177,7 +177,7 @@ const EditActivityHistory = () => {
             break;
         }
         case "Household": {
-            switch(activity) {
+            switch(activeActivity) {
                 case "Cold Water Laundry":
                     paramUnits = "Loads";
                     break;
