@@ -65,7 +65,7 @@ export const ToggleGroup = ({types, onToggle, starting}) => {
   };
 
   return (
-    <ButtonGroup>
+    <ButtonGroup style={{ display: 'flex', flexWrap: 'wrap' }}>
       {types.map(type => (
         <ButtonToggle
           key={type}
