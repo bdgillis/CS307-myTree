@@ -82,19 +82,20 @@ const Quiz = () => {
         setActiveActivity(null);
     };
 
-    const handleActivityToggle = (type) => {
-        setActiveActivity(type);
-    };
-
     const handleHometownChange = (e) => {
         setHometown(e.target.value)
     }
     const handleBioChange = (e) => {
         setBio(e.target.value)
     }
+
     const handleUsernameChange = (e) => {
         setUsername(e.target.value);
         const uid = user.uid;
+        
+    };
+
+    useEffect(() => {
         const checkUsername = async () => {
             try {
                 const response = await fetch(`/api/quiz/${username}`, {
@@ -106,18 +107,18 @@ const Quiz = () => {
                 const res = await response.json();
                 if (res.available) {
                     setUsernameExists(false);
+                    console.log("not exist")
                 } else {
                     setUsernameExists(true);
+                    console.log("exists")
+
                 }
             } catch (error) {
                 console.error('There was an error:', error);
             }
         }
         checkUsername();
-    };
-
-
-
+    }, [username])
 
     const handleSubmit = () => {
         console.log(quizTaken)
@@ -125,32 +126,32 @@ const Quiz = () => {
 
     }
 
-    const handleSetUpLater = () => {
-        const uid = user.uid;
+    // const handleSetUpLater = () => {
+    //     const uid = user.uid;
 
-        dataToSend = {
-            uid,
-            bio,
-            hometown,
-            activeCategory,
-            quizTaken
-        }
-        fetch('/api/quiz', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataToSend),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                window.location = '/hometab';
-            })
-            .catch((err) => {
-                console.log('Error: ', err);
-            });
-    }
+    //     dataToSend = {
+    //         uid,
+    //         bio,
+    //         hometown,
+    //         activeCategory,
+    //         quizTaken
+    //     }
+    //     fetch('/api/quiz', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(dataToSend),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             console.log(data);
+    //             window.location = '/hometab';
+    //         })
+    //         .catch((err) => {
+    //             console.log('Error: ', err);
+    //         });
+    // }
 
     // const quizAlreadyTaken = () => {
     //     if (quizTaken) {
@@ -159,20 +160,6 @@ const Quiz = () => {
     // }
 
     const exitOptions = ["Submit", "Set Up Later"];
-    // const transportationActivities = ["Drive Less", "Walk More", "Run", "Take the Bus"];
-    // const eatingActivities = ["Buy Less Takeout", "Eat Less Red Meat",
-    //     "Eat Less Poultry", "Eat Plant-Based Protein"];
-    // const householdActivities = ["Wash Clothes in Cold Water", "Take Cold Showers", "Use Less Heating/AC at Home", "Turn the lights off when I'm not using them"];
-    // let activityTypes = null;
-
-    // if (activeCategory === 'Transportation') {
-    //     activityTypes = transportationActivities;
-    // } else if (activeCategory === 'Eating') {
-    //     activityTypes = eatingActivities;
-    // } else if (activeCategory === 'Household') {
-    //     activityTypes = householdActivities;
-    // }
-
 
     return (
         <>
@@ -186,7 +173,6 @@ const Quiz = () => {
 
             </div>
 
-
             <div>
                 <h1 id="welcome-msg"><br />Welcome to myTree!</h1>
                 <h2>
@@ -195,7 +181,7 @@ const Quiz = () => {
 
                 <input type="text" id="username" onChange={handleUsernameChange}></input>
                 {usernameExists ? (
-                    <h3>Username already exists</h3>
+                    <h3 style={{color:'red'}}>Username already exists</h3>
                 ) : (
                     <h3>Username is available</h3>
                 )}

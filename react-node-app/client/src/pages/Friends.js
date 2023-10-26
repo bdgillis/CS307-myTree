@@ -18,10 +18,6 @@ const Friends = () => {
     const uid = null;
 
     useEffect(() => {
-
-        if (username == document.getElementById("username").value) {
-            console.log("username is the same");
-        }
         const findFriend = async () => {
             console.log(document.getElementById("username").value);
             console.log("username: " + username);
@@ -29,9 +25,10 @@ const Friends = () => {
             const body = await response.json();
             console.log(body);
             if (body.available) {
-                console.log("user does not exist");
+                //console.log("user does not exist");
+                setFriend(null);
             } else {
-                console.log("user exists");
+                //console.log("user exists");
                 setFriend(body);
             }
         }
@@ -84,9 +81,14 @@ const Friends = () => {
             </div>
             <div>
                 <h1>Friends</h1>
-                <h2>Search for a friend: </h2>
+                <h2>Add friends: </h2>
                 <input type="text" id="username"></input>
                 <button onClick={handleSearch}>Search</button>
+                {friend ? (
+                    <h3>User exists!!</h3>
+                ) : (
+                    <h3>No User!!</h3>
+                )}
 
             </div>
         </>

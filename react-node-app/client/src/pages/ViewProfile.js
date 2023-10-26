@@ -18,9 +18,6 @@ const ViewProfile = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
-
-    // var profileData = {};
-
     useEffect(() => {
         if (user) {
             const uid = user.uid;
@@ -73,8 +70,8 @@ const ViewProfile = () => {
         getActivities(); // Call the async function within useEffect
     }, [user]); // The empty dependency array ensures that useEffect runs only once
 
-    console.log(profileData)
-    console.log(activityHistory);
+    // console.log(profileData)
+    // console.log(activityHistory);
 
     const activityOptions = Object.keys(activityHistory).map((key) => {
         const activity = activityHistory[key];
@@ -110,6 +107,7 @@ const ViewProfile = () => {
                 {profileData ? (
                     profileData.quizTaken ? (
                         <div>
+                            <h3>Username: {profileData.username}</h3>
                             <h3>Location: {profileData.hometown}</h3>
                             <h3>About Me: {profileData.bio}</h3>
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
