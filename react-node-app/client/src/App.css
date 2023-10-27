@@ -39,6 +39,15 @@ ul.nav {
     border-bottom-left-radius: 2rem;
     border-top-left-radius: 2rem;
   }
+  ul.nav li:first-child {
+    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 2rem;
+  }
+   
+  ul.nav li:last-child {
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
   ul.nav li:nth-child(2) {
     border-radius: 0;
     border-bottom-right-radius: 2rem;
@@ -53,7 +62,8 @@ ul.nav {
 
 
 .FirstTab p,
-.SecondTab p {
+.SecondTab p,
+.ThirdTab p {
     font-size: 2rem;
     text-align: center;
 }
@@ -182,7 +192,7 @@ label {
   margin-left: 20px;;
 }
 
-.nav {
+.nav1 {
   list-style-type: none;
   width: 500px;
   display: flex;

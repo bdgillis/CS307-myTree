@@ -14,7 +14,6 @@ function ButtonLink({ to, children }) {
     return <Link to={to} onClick={refreshPage}><button>{children}</button></Link>;
   }
 
-
 const Header = () => {
 
     return(
@@ -22,7 +21,7 @@ const Header = () => {
             
             <img src={require('../Images/myTreeLogo.png')} witdh={250} height={250} alt="logo"/>
 
-            <ul className="nav">
+            <ul className="nav1">
                 <li className="navAccount">
                     <ButtonLink to='/'>Create Account</ButtonLink>
                 </li>
