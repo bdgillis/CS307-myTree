@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import FirstTab from "../AllTabs/FirstTab";
 import SecondTab from "../AllTabs/SecondTab";
+import ThirdTab from "../AllTabs/ThirdTab";
 
 
 
@@ -15,6 +16,10 @@ const Tabs = () => {
   const handleTab2 = () => {
     // update the state to tab2
     setActiveTab("tab2");
+  };
+  const handleTab3 = () => {
+    // update the state to tab2
+    setActiveTab("tab3");
   };
 
   return (
@@ -32,11 +37,17 @@ const Tabs = () => {
         >
             Tab 2
         </li>
+
+        <li className={activeTab === "tab3" ? "active" : ""}
+            onClick={handleTab3}
+        >
+            Tab 3
+        </li>
         
       </ul>
       <div className="outlet">
-        {activeTab === "tab1" ? <FirstTab /> : <SecondTab />}
-
+        {activeTab === "tab1" ? <FirstTab /> : 
+        activeTab === "tab2" ? <SecondTab /> : <ThirdTab />}
       </div>
 
     </div>
