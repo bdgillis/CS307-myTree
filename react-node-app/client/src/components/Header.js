@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from 'react';
+import styled from 'styled-components';
 import '../App.css'
 
 
@@ -10,9 +11,30 @@ function refreshPage() {
     console.log('page to reload')
 }
 
-function ButtonLink({ to, children }) {
-    return <Link to={to} onClick={refreshPage}><button>{children}</button></Link>;
-  }
+export const Button = styled.button`
+border-radius: 4px;
+background: #256ce1;
+padding: 5px 10px;
+color: #fff;
+outline: none;
+border: none;
+cursor: pointer;
+transition: all 0.2s ease-in-out;
+text-decoration: none;
+font-size: 13px;
+  font-weight: bold; 
+
+&:hover {
+  transition: all 0.2s ease-in-out;
+  background: #fff;
+  color: #010606;
+}
+`;
+
+export const ButtonLink = ({ to, children, onClick }) => {
+    return <Link to={to}><Button onClick={onClick}>{children}</Button></Link>;
+}
+
 
 
 const Header = () => {
@@ -22,13 +44,13 @@ const Header = () => {
             
             <img src={require('../Images/myTreeLogo.png')} witdh={250} height={250} alt="logo"/>
 
-            <ul className="nav">
+            <ul className="accountsNav">
                 <li className="navAccount">
-                    <ButtonLink to='/'>Create Account</ButtonLink>
+                    <ButtonLink className="buttonlink" to='/'>Create Account</ButtonLink>
                 </li>
                 
                 <li className="navLogin">
-                    <ButtonLink to='/loginPage'>Login</ButtonLink>
+                    <ButtonLink className="test" to='/loginPage'>Login</ButtonLink>
                 </li>
             </ul>
         </div>

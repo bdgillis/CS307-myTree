@@ -146,9 +146,9 @@ ul.nav {
 
 .navAccount {
   width: 500px;
-    display: flex;
-    margin-left: 110px;
-    justify-content: left;
+  display: flex;
+  margin-left: 110px;
+  justify-content: left;
 
 }
 
@@ -182,7 +182,7 @@ label {
   margin-left: 20px;;
 }
 
-.nav {
+.accountsNav {
   list-style-type: none;
   width: 500px;
   display: flex;
@@ -197,3 +197,4 @@ label {
   height: 25px;
 
 }
+
