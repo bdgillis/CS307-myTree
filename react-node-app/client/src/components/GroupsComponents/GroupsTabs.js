@@ -25,13 +25,13 @@ const GroupsTabs = () => {
         <li className={activeTab === "tab1" ? "active" : ""}
             onClick={handleTab1}
         >
-            Tab 1
+            Search
         </li>
 
         <li className={activeTab === "tab2" ? "active" : ""}
             onClick={handleTab2}
         >
-            Tab 2
+            Create
         </li>
         
       </ul>

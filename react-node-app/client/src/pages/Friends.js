@@ -82,7 +82,12 @@ const Friends = () => {
             <div>
                 <h1>Friends</h1>
                 <h2>Add friends: </h2>
-                <input type="text" id="username"></input>
+                <input 
+                    className="inputs" 
+                    type="text" 
+                    id="username"
+                    placeholder='Add Friend'
+                ></input>
                 <button onClick={handleSearch}>Search</button>
                 {friend ? (
                     <h3>User exists!!</h3>
