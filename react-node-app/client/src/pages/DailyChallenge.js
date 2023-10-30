@@ -82,19 +82,28 @@ function findChallenge() {
 	challengeArr[1] = subCategory;
 	challengeArr[2] = timeEnd;
 	challengeArr[3] = suffix;
-	document.getElementById("challenge").innerHTML = challengeArr[1] + " " + challengeArr[2] + " " + challengeArr[3];
-
+	
+	localStorage.setItem('myObject', JSON.stringify(challengeArr));
 
 }
 
+findChallenge();
+
+function getVal() {
+	var myObject = JSON.parse(localStorage.getItem('myObject'));
+	console.log(myObject);
+	return myObject;
+}
 
 const DailyChallenge = () => {
-	
+
 	const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
       setIsOpen(!isOpen);
     };
-	disData();
+
+	const finalArr = getVal();
+	
 
 
   	return (
@@ -106,9 +115,9 @@ const DailyChallenge = () => {
 
 			<h1>Daily Challenge</h1>
 			<h3>Your daily challenge is to: </h3>
-			<div>
-				<h3 id="challenge"></h3>
-			</div>
+			<h3>{finalArr[1]}</h3>
+			<h3>{finalArr[2]}</h3>
+			<h3>{finalArr[3]}</h3>
 
 
 			
