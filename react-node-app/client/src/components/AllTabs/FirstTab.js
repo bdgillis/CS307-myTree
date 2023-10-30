@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { getAuth, TotpMultiFactorGenerator } from "firebase/auth";
+import { getAuth, reauthenticateWithRedirect, TotpMultiFactorGenerator } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
+const scoreData = [];
+
+
 
 const FirstTab = () => {
-
 
   const [profileData, setProfileData] = useState(null);
   const [loadingState, setLoadingState] = useState(true);
   const [allData, setAllData] = useState(true);
   const [allData2, setAllData2] = useState(true);
-  const [answer, setAnswer] = useState(null);
+  const [answer, setAnswer] = useState(0);
+  
 
-  const scoreData = [];
 
   var uid = "null";
 
   const auth = getAuth();
   const user = auth.currentUser;
   const [final, setFinal] = useState(null);
+  const [sortOnce, setSortOnce] = useState(null);
 
- 
+
   var i = 0;
   useEffect(() => {
 
+    if(final === 1) {
+      return;
+    }
+    setFinal(1);
     async function getProfileData(uidComp, curUser) {
       if (user) {
           if (user.uid != null){
@@ -41,7 +48,7 @@ const FirstTab = () => {
 
               setProfileData(profileData); // Set the data in the component's state
               const couple = [curUser, profileData.carbonScore];
-              scoreData[i++] = couple;
+              scoreData.push(couple);
               
 
               
@@ -51,13 +58,17 @@ const FirstTab = () => {
             }
             profileData.carbonScore = 0;
             const couple = [curUser, profileData.carbonScore];
-            scoreData[i++] = couple;
+            scoreData.push(couple);
+          
             console.error('There was an error:', error);
           }
         }
     }
 
+    
+
       const getAllData = async () => {
+        scoreData.splice(0);
         try {
           setFinal(0);
           if(final === 1) {
@@ -85,12 +96,34 @@ const FirstTab = () => {
           console.error('There was an error:', error);
         }
       };
+
+    
       getAllData();
       setAnswer(scoreData);
+      
 
   }, []); // The empty dependency array ensures that useEffect runs only once
 
+  
+  function sortFunction(a, b) {
+    if (a[1] === b[1]) {
+      return 0;
+    }
+    else {
+      return (a[1] < b[1]) ? -1 : 1;
+    }
+  }
+
+  function sortArray() {
+    scoreData.sort(sortFunction);
+    
+    var sortedArr = scoreData.sort(sortFunction);
+    console.log(sortedArr.join('\r\n'));
+    return (sortedArr.join('\r\n'));
+    
+  }
   return (
+    
 
  
     <div className="FirstTab">
@@ -98,7 +131,10 @@ const FirstTab = () => {
       {/* First tab content will go here */}
 
                 <h3>Carbon Scores:</h3>
-                <h3>{answer}</h3>
+                <h3>{sortArray()}</h3>
+
+
+
 
 
     </div>
