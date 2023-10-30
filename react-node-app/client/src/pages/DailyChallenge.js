@@ -3,11 +3,14 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import './Logout.css'
 
+const arrData = [];
+
+setInterval(findChallenge, 1000 * 60 * 60 * 24);
 const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
 const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
 const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
-
+const finalArray = [];
 
 function getNumber(min, max) {
 	return Math.random() * (max - min) + min;
@@ -59,6 +62,7 @@ function findSuffix(spec_cat) {
 }
 
 function findChallenge() {
+	console.log("hello");
 	const category = ['transportation', 'eating', 'household'];
 	let categoryChoice;
 	let subCategory;
@@ -70,23 +74,37 @@ function findChallenge() {
 	subCategory = findSub(categoryChoice);
 	timeEnd = findTime();
 	suffix = findSuffix(categoryChoice);
-
+	arrData.push(categoryChoice);
+	arrData.push(subCategory)
+	arrData.push(timeEnd);
+	arrData.push(suffix);
 	challengeArr[0] = categoryChoice;
 	challengeArr[1] = subCategory;
 	challengeArr[2] = timeEnd;
 	challengeArr[3] = suffix;
+	
+	localStorage.setItem('myObject', JSON.stringify(challengeArr));
 
+}
 
-	return challengeArr;
+findChallenge();
+
+function getVal() {
+	var myObject = JSON.parse(localStorage.getItem('myObject'));
+	console.log(myObject);
+	return myObject;
 }
 
 const DailyChallenge = () => {
-	
+
 	const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
       setIsOpen(!isOpen);
     };
-	const daily_challenge = findChallenge();
+
+	const finalArr = getVal();
+	
+
 
   	return (
 		<>
@@ -96,10 +114,12 @@ const DailyChallenge = () => {
 			</div>
 
 			<h1>Daily Challenge</h1>
-			<h3>Your daily challenge is to:</h3>
-			<h4>{daily_challenge[1]}</h4>
-			<h4>{daily_challenge[2]}</h4>
-			<h4>{daily_challenge[3]}</h4>
+			<h3>Your daily challenge is to: </h3>
+			<h3>{finalArr[1]}</h3>
+			<h3>{finalArr[2]}</h3>
+			<h3>{finalArr[3]}</h3>
+
+
 			
 
 		</>

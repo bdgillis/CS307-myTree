@@ -99,7 +99,9 @@ const FirstTab = () => {
 
     
       getAllData();
+
       setAnswer(scoreData);
+
       
 
   }, []); // The empty dependency array ensures that useEffect runs only once
@@ -115,27 +117,42 @@ const FirstTab = () => {
   }
 
   function sortArray() {
-    scoreData.sort(sortFunction);
+    try {
+      let number = 1;
+      scoreData.sort(sortFunction);
+      
+      var sortedArr = scoreData.sort(sortFunction);
+
+      for(i = 0; i < sortedArr.length; i++) {
+        if(i === 0) {
+          document.getElementById("printThis").innerHTML = ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
+        }
+        if(i >= 1) {
+          document.getElementById("printThis").innerHTML += ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
+
+          if(sortedArr[i][1] !== sortedArr[i - 1][1]) {
+            number = number + 1;
+          }
+
+        }
+      }
+    } catch(error) {
+        console.log(error);
+    }
     
-    var sortedArr = scoreData.sort(sortFunction);
-    console.log(sortedArr.join('\r\n'));
-    return (sortedArr.join('\r\n'));
+  
     
   }
+  sortArray();
+
+
   return (
-    
 
  
     <div className="FirstTab">
       <p>Users</p>
       {/* First tab content will go here */}
-
-                <h3>Carbon Scores:</h3>
-                <h3>{sortArray()}</h3>
-
-
-
-
+      <div id="printThis"></div>
 
     </div>
   );
