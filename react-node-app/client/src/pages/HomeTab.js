@@ -142,7 +142,7 @@ const HomeTab = () => {
             </div>
             <div className='tree'>
                 <img
-                    src={imageSrc} 
+                    src={require('../Images/MyTree1.jpg')} 
                     id='myTree'
                     witdh={250} 
                     height={250}
