@@ -9,7 +9,7 @@ const admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
 const serviceAccount = require("./cs307-mytree-firebase-adminsdk-9bjjb-227c08db8.json");
-const { get } = require('request');
+// const { get } = require('request');
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
