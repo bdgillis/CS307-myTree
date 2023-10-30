@@ -4,7 +4,7 @@
     flex-direction: column;
     min-height:100vh;
     justify-content:center;
-    background-color: #98fb98;
+    background-color: palegreen;
     
   }
 
@@ -18,6 +18,7 @@
 /* Tab Navigation */
 ul.nav {
     width: 60%;
+    top: 1.2rem;
     margin: 0 auto 2rem;
     display: flex;
     align-items: center;
@@ -57,9 +58,17 @@ ul.nav {
     background: rgba(50, 224, 196, 0.15);
   }
   ul.nav li.active {
-    background: #39A2DB;
+    background: #256ce1;
   }  
 
+.createTab p {
+  font-size: 2rem;
+  text-align: center;
+}
+.searchTab p {
+  font-size: 2rem;
+  text-align: center;
+}
 
 .FirstTab p,
 .SecondTab p,
@@ -67,7 +76,7 @@ ul.nav {
     font-size: 2rem;
     text-align: center;
 }
-  
+
 
 .header-style, .loginToAccount, .createHeader{
   display: flex;
