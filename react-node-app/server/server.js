@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { initializeApp } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue, Filter } = require('firebase-admin/firestore');
+const { getFirestore, Timestamp, FieldValue, Filter} = require('firebase-admin/firestore');
 const app = express();
 const calcScore = require('./carbonScore.js')
 
@@ -9,6 +9,7 @@ const admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
 const serviceAccount = require("./cs307-mytree-firebase-adminsdk-9bjjb-227c08db8.json");
+const { get } = require('request');
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -17,6 +18,8 @@ admin.initializeApp({
 
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 const db = getFirestore();
+const { query, where, getDocs } = require('firebase-admin/firestore');
+
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())  
@@ -62,7 +65,8 @@ app.post('/api/quiz', async (req, res) => {
             hometown: req.body.hometown,
             targetCategory: req.body.activeCategory,
             quizTaken: req.body.quizTaken, 
-            numActivities: 0
+            numActivities: 0,
+            username: req.body.username
         });
         
         console.log('Added document with ID: ', docRef.id);
@@ -70,6 +74,67 @@ app.post('/api/quiz', async (req, res) => {
     } catch (err) {
         console.log('Error: ', err);
     }
+});
+
+app.get('/api/quiz/:username', async (req, res) => {
+    try {
+        console.log("username: " + req.params.username); 
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            res.json({status: 'success', available: true});
+        } else {
+            res.json({status: 'success', available: false});
+        }    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+        
+});
+
+app.get('/api/friends/:username', async (req, res) => {
+    try {
+        console.log("username: " + req.params.username); 
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            res.json({status: 'success', available: true});
+        } else {
+            res.json({status: 'success', available: false, id: snapshot.docs[0].id, user: snapshot.docs[0].data()});
+        }    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+        
+});
+
+app.post('/api/friends', async (req, res) => {
+    console.log(req.body)
+    try {
+        const numActRef = await db.collection('users').doc(req.body.uid).get();
+        //I want to get only the number of activities
+        const numFriend = numActRef.data().numFriends;
+        
+        const docRef = await db.collection('users').doc(req.body.uid).collection('friends').doc(`A${numAct + 1}`).set({
+            username: req.body.username,
+            uid: req.body.uid
+        });
+        const actRef = await db.collection('users').doc(req.body.uid).update({
+            numFriends: numFriend + 1
+        });
+        
+        console.log('Added document with ID: ', docRef.id);
+        res.json({status: 'success', id: docRef.id, friends:numFriend + 1});
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+        
 });
 
 app.get('/api/editActivityHistory/:uid', async (req, res) => {
@@ -100,9 +165,9 @@ app.get('/api/profile/:uid', async (req, res) => {
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
-            console.log('No such document!');
+            // console.log('No such document!');
           } else {
-            console.log("document found")
+            // console.log("document found")
             //console.log('Document data:', doc.data());
           }
         res.send(doc.data());
@@ -167,6 +232,7 @@ app.get('/api/FirstTab/', async (req, res) => {
     listAllUsers();
     
 })
+
 
 
 app.listen(5001, () => {console.log("Server started on port 5001")})

@@ -17,6 +17,7 @@ import Logout from './pages/Logout';
 import ViewProfile from './pages/ViewProfile';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import Notification from './components/Notification';
+import UserProfile from './pages/UserProfile';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
                         <Route path = '/manage-account' exact component={withRouter(ManageAccount)} />
                         <Route path = '/quiz' exact component={withRouter(Quiz)} />
                         <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
+                        <Route path = '/profile/:username' component={withRouter(UserProfile)} />
 
 
 

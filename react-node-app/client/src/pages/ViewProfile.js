@@ -17,9 +17,6 @@ const ViewProfile = () => {
 
     const auth = getAuth();
     const user = auth.currentUser;
-    
-    
-    // var profileData = {};
 
     useEffect(() => {
         if (user) {
@@ -39,11 +36,11 @@ const ViewProfile = () => {
                     console.error('There was an error:', error);
                 }
             }
-        
-        getProfileData(); // Call the async function within useEffect
+
+            getProfileData(); // Call the async function within useEffect
         };
 
-        
+
     }, [user]);
 
     useEffect(() => {
@@ -61,7 +58,7 @@ const ViewProfile = () => {
                         const activity = data.activities[key];
                         activities[key] = activity;
                     });
-                    
+
                     setActivityHistory(activities);
                     setLoadingState(false);
                 } catch (err) {
@@ -73,8 +70,8 @@ const ViewProfile = () => {
         getActivities(); // Call the async function within useEffect
     }, [user]); // The empty dependency array ensures that useEffect runs only once
 
-    console.log(profileData)
-    console.log(activityHistory);
+    // console.log(profileData)
+    // console.log(activityHistory);
 
     const activityOptions = Object.keys(activityHistory).map((key) => {
         const activity = activityHistory[key];
@@ -89,38 +86,39 @@ const ViewProfile = () => {
 
     function isEmpty(obj) {
         for (const prop in obj) {
-          if (Object.hasOwn(obj, prop)) {
-            return false;
-          }
+            if (Object.hasOwn(obj, prop)) {
+                return false;
+            }
         }
-      
+
         return true;
-      }
+    }
 
     return (
         <>
-      <div className='NavMenu'>
-				<Sidebar isOpen={isOpen} toggle={toggle} />
-				<Navbar toggle={toggle} />
-			</div>
-            
+            <div className='NavMenu'>
+                <Sidebar isOpen={isOpen} toggle={toggle} />
+                <Navbar toggle={toggle} />
+            </div>
+
             <div>
                 <h1>User Profile </h1>
                 <h3 id="displayName">Display Name: {user.displayName}</h3>
                 {profileData ? (
                     profileData.quizTaken ? (
-                    <div>
-                        <h3>Location: {profileData.hometown}</h3>
-                        <h3>About Me: {profileData.bio}</h3>
-                        <h3>Favorite Category: {profileData.targetCategory}</h3>
-                    </div>
-                ) : (
-                    <ButtonLink to="./quiz" children={"Set up Profile"}></ButtonLink>
-                )) : (
+                        <div>
+                            <h3>Username: {profileData.username}</h3>
+                            <h3>Location: {profileData.hometown}</h3>
+                            <h3>About Me: {profileData.bio}</h3>
+                            <h3>Favorite Category: {profileData.targetCategory}</h3>
+                        </div>
+                    ) : (
+                        <ButtonLink to="./quiz" children={"Set up Profile"}></ButtonLink>
+                    )) : (
                     <h3>Loading data...</h3>
 
                 )}
-                <br/><br/>
+                <br /><br />
                 <h2>Activity History</h2>
                 {profileData ? (
                     <h3>Carbon Score: {profileData.carbonScore}</h3>
