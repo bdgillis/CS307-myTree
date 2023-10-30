@@ -3,11 +3,14 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import './Logout.css'
 
+const arrData = [];
+
+setInterval(findChallenge, 1000 * 60 * 60 * 24);
 const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
 const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
 const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
-
+const finalArray = [];
 
 function getNumber(min, max) {
 	return Math.random() * (max - min) + min;
@@ -59,6 +62,7 @@ function findSuffix(spec_cat) {
 }
 
 function findChallenge() {
+	console.log("hello");
 	const category = ['transportation', 'eating', 'household'];
 	let categoryChoice;
 	let subCategory;
@@ -70,15 +74,19 @@ function findChallenge() {
 	subCategory = findSub(categoryChoice);
 	timeEnd = findTime();
 	suffix = findSuffix(categoryChoice);
-
+	arrData.push(categoryChoice);
+	arrData.push(subCategory)
+	arrData.push(timeEnd);
+	arrData.push(suffix);
 	challengeArr[0] = categoryChoice;
 	challengeArr[1] = subCategory;
 	challengeArr[2] = timeEnd;
 	challengeArr[3] = suffix;
+	document.getElementById("challenge").innerHTML = challengeArr[1] + " " + challengeArr[2] + " " + challengeArr[3];
 
 
-	return challengeArr;
 }
+
 
 const DailyChallenge = () => {
 	
@@ -86,7 +94,8 @@ const DailyChallenge = () => {
     const toggle = () => {
       setIsOpen(!isOpen);
     };
-	const daily_challenge = findChallenge();
+	disData();
+
 
   	return (
 		<>
@@ -96,10 +105,12 @@ const DailyChallenge = () => {
 			</div>
 
 			<h1>Daily Challenge</h1>
-			<h3>Your daily challenge is to:</h3>
-			<h4>{daily_challenge[1]}</h4>
-			<h4>{daily_challenge[2]}</h4>
-			<h4>{daily_challenge[3]}</h4>
+			<h3>Your daily challenge is to: </h3>
+			<div>
+				<h3 id="challenge"></h3>
+			</div>
+
+
 			
 
 		</>
