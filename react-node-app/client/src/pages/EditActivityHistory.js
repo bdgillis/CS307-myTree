@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { ToggleGroup, ParameterInput, ButtonLink } from "../components/ActivityComponents/Button";
+import { ToggleGroup, ParameterInput } from "../components/ActivityComponents/Button";
 import { getAuth } from 'firebase/auth';
 import './Logout.css'
 
@@ -20,12 +20,11 @@ const EditActivityHistory = () => {
     const uid = user?.uid;
     const [activityHistory, setActivityHistory] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [oldCarbonScore, setOldCarbonScore] = useState(0);
 
   useEffect(() => {
     const history = async () => {
       if (user) {
-        const uid = user.uid;
+        // const uid = user.uid;
         try {
           const res = await fetch(`/api/editActivityHistory/${uid}`, {
             method: 'GET'
@@ -104,7 +103,6 @@ const EditActivityHistory = () => {
             activeCategory,
             activeActivity,
             activityParam,
-            oldCarbonScore,
             timestamp,
         };
 
