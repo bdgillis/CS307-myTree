@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
+import Tabs from '../components/GroupsComponents/GroupsTabs';
 import './Logout.css'
 
 
@@ -14,6 +15,7 @@ const Groups = () => {
 			<div className='NavMenu'>
 				<Sidebar isOpen={isOpen} toggle={toggle} />
 				<Navbar toggle={toggle} />
+				<Tabs />
 			</div>
 			
 			<div style={{ 

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../components/Sidebar/Sidebar';
 import Navbar from '../components/Navbar/Navbar';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { getAuth } from "firebase/auth";
+import { onAuthStateChanged } from 'firebase/auth';
 import './HomeTab.css'
 
 
 const HomeTab = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [profileData, setProfileData] = useState(null);
+    const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
+    const [imageSrc, setImageSrc] = useState('../Images/MyTree1.jpg');
+
 
     var uid = "null";
 
@@ -29,14 +32,10 @@ const HomeTab = () => {
     }, [user])
 
     useEffect(() => {
-        const getProfileData = async () => {
-            if (user) {
-                if (user.uid != null){
-                    uid = user.uid
-                } else {
-                    uid = ""
-                }
-                
+        if (user) {
+            const uid = user.uid;
+            const dataToSend = { uid };
+            const getProfileData = async () => {
                 try {
                     const response = await fetch(`/api/profile/${uid}`, {
                         method: 'GET'
@@ -46,15 +45,85 @@ const HomeTab = () => {
                     }
                     const profileData = await response.json();
                     setProfileData(profileData); // Set the data in the component's state
-                    setLoadingState(false);
                 } catch (error) {
                     console.error('There was an error:', error);
                 }
             }
+        
+        getProfileData(); // Call the async function within useEffect
         };
 
-        getProfileData(); // Call the async function within useEffect
-    }, [user][profileData]); // The empty dependency array ensures that useEffect runs only once
+        
+    }, [user]);
+
+    useEffect(() => {
+        const getActivities = async () => {
+            if (user) {
+                const uid = user.uid;
+                try {
+                    const res = await fetch(`/api/editActivityHistory/${uid}`, {
+                        method: 'GET'
+                    });
+                    const data = await res.json();
+                    console.log(data);
+                    const activities = {};
+                    Object.keys(data.activities).forEach((key) => {
+                        const activity = data.activities[key];
+                        activities[key] = activity;
+                    });
+                    
+                    setActivityHistory(activities);
+                    setLoadingState(false);
+                } catch (err) {
+                    console.log('Error: ', err);
+                }
+            }
+        };
+
+        getActivities(); // Call the async function within useEffect
+    }, [user]); // The empty dependency array ensures that useEffect runs only once
+
+    console.log(profileData)
+    console.log(activityHistory);
+
+    const activityOptions = Object.keys(activityHistory).map((key) => {
+        const activity = activityHistory[key];
+        //console.log(activity)
+        const time = new Date(activity.timestamp).toLocaleString()
+        return (
+            <h3 key={key} value={key}>
+                {time} - {activity.activeCategory} - {activity.activeActivity} - {activity.activityParam} mi.
+            </h3>
+        );
+    });
+
+
+    function isEmpty(obj) {
+        for (const prop in obj) {
+          if (Object.hasOwn(obj, prop)) {
+            return false;
+          }
+        }
+      
+        return true;
+    }
+
+    var temp = 1;
+
+    function changeImage() {
+        var image = document.getElementById('myTree');
+        if (temp < 0) {
+            image.src = '../Images/MyTree0.png';
+        }
+        else if (temp > 0) {
+            image.src = '../Images/MyTree1.jpg';
+        } else {
+            image.src = '../Images/MyTree2.png';
+        }
+    }
+
+
+    //var timer = setInterval(changeImage(), 2000);
 
 
     return (
@@ -73,23 +142,35 @@ const HomeTab = () => {
             </div>
             <div className='tree'>
                 <img
-                    src={require('../Images/download.jpg')} 
+                    src={require('../Images/MyTree1.jpg')} 
+                    id='myTree'
+                    witdh={250} 
+                    height={250}
                     alt="logo" 
                 />
             </div>
             <div className='carbon-score'>
-                {profileData ? (
+            {profileData ? (
                     <h3>Carbon Score: {profileData.carbonScore}</h3>
-                    ) : (
-                    <h3>Carbon Score: Unavailable</h3>
+                ) : (
+                    <h3>Carbon Score:</h3>
+                )}
+                {!loadingState ? (
+                    (isEmpty(activityHistory)) ? ({}) : (
+                        <>
+                            {}
+                        </>
+                    )
+                ) : (
+                    <h3></h3>
                 )}
                 
             </div>
             <div className='num-activites'>
-                {profileData ? (
+                {!loadingState ? (
                     <h3>Number of Activities: {profileData.numActivities}</h3>
                     ) : (
-                    <h3>Number of Activities:  Unavailable</h3>
+                    <h3>Number of Activities:</h3>
                 )}
                 
             </div>

@@ -1,11 +1,11 @@
 import React, {useState} from "react";
-import FirstTab from "../AllTabs/FirstTab";
-import SecondTab from "../AllTabs/SecondTab";
+import FirstTab from "./SearchTab";
+import SecondTab from "./CreateTab";
 import ThirdTab from "../AllTabs/ThirdTab";
 
 
 
-const Tabs = () => {
+const GroupsTabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
   //  Functions to handle Tab Switching
@@ -16,10 +16,6 @@ const Tabs = () => {
   const handleTab2 = () => {
     // update the state to tab2
     setActiveTab("tab2");
-  };
-  const handleTab3 = () => {
-    // update the state to tab2
-    setActiveTab("tab3");
   };
 
   return (
@@ -37,12 +33,6 @@ const Tabs = () => {
         >
             Tab 2
         </li>
-
-        <li className={activeTab === "tab3" ? "active" : ""}
-            onClick={handleTab3}
-        >
-            Tab 3
-        </li>
         
       </ul>
       <div className="outlet">
@@ -53,5 +43,4 @@ const Tabs = () => {
     </div>
   );
 };
-export default Tabs;
-
+export default GroupsTabs;

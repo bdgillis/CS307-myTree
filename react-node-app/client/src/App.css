@@ -18,6 +18,7 @@
 /* Tab Navigation */
 ul.nav {
     width: 60%;
+    top: 1.2rem;
     margin: 0 auto 2rem;
     display: flex;
     align-items: center;
@@ -39,6 +40,15 @@ ul.nav {
     border-bottom-left-radius: 2rem;
     border-top-left-radius: 2rem;
   }
+  ul.nav li:first-child {
+    border-bottom-left-radius: 2rem;
+    border-top-left-radius: 2rem;
+  }
+   
+  ul.nav li:last-child {
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
+  }
   ul.nav li:nth-child(2) {
     border-radius: 0;
     border-bottom-right-radius: 2rem;
@@ -48,16 +58,25 @@ ul.nav {
     background: rgba(50, 224, 196, 0.15);
   }
   ul.nav li.active {
-    background: #39A2DB;
+    background: #256ce1;
   }  
 
+.createTab p {
+  font-size: 2rem;
+  text-align: center;
+}
+.searchTab p {
+  font-size: 2rem;
+  text-align: center;
+}
 
 .FirstTab p,
-.SecondTab p {
+.SecondTab p,
+.ThirdTab p {
     font-size: 2rem;
     text-align: center;
 }
-  
+
 
 .header-style, .loginToAccount, .createHeader{
   display: flex;
@@ -146,9 +165,9 @@ ul.nav {
 
 .navAccount {
   width: 500px;
-    display: flex;
-    margin-left: 110px;
-    justify-content: left;
+  display: flex;
+  margin-left: 110px;
+  justify-content: left;
 
 }
 
@@ -182,7 +201,7 @@ label {
   margin-left: 20px;;
 }
 
-.nav {
+.accountsNav {
   list-style-type: none;
   width: 500px;
   display: flex;
@@ -197,3 +216,4 @@ label {
   height: 25px;
 
 }
+

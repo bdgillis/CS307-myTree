@@ -178,6 +178,7 @@ app.get('/api/profile/:uid', async (req, res) => {
   });
         
 app.post('/api/editActivityHistory', async (req, res) => {
+
     console.log(req.body)
     try {
         const oldRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.selectedActivity).get();
@@ -198,11 +199,39 @@ app.post('/api/editActivityHistory', async (req, res) => {
         
         res.json({status: 'success', score: diff});
 
+        console.log(newScore);
+
+
     } catch (err) {
         console.log('Error: ', err);
     }
         
 });
+
+app.get('/api/FirstTab/', async (req, res) => {
+    const total = []; // define empty object
+    const listAllUsers = (nextPageToken) => {
+        
+        // List batch of users, 1000 at a time.
+        admin.auth()
+        .listUsers(1000, nextPageToken)
+        .then((listUsersResult) => {
+            if (listUsersResult.pageToken) {
+            // List next batch of users.
+            listAllUsers(listUsersResult.pageToken);
+            }
+            res.send(listUsersResult);
+        })
+        .catch((error) => {
+            console.log('Error listing users:', error);
+        });
+        
+    };
+    
+    // Start listing users from the beginning, 1000 at a time.
+    listAllUsers();
+    
+})
 
 
 

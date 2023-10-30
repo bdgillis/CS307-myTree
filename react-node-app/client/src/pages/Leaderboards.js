@@ -23,7 +23,7 @@ const Leaderboards = () => {
 				alignItems: 'center',
 				height: '90vh'
 			}}>
-				<h1>Leaderboards</h1>
+
 
 			</div>
 		</>

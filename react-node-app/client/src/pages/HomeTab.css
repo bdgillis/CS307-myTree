@@ -13,8 +13,6 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    mix-blend-mode: color-burn;
-
 }
 
 .welcome-banner {
