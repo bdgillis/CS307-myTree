@@ -103,10 +103,11 @@ const ViewProfile = () => {
 
             <div>
                 <h1>User Profile </h1>
-                <h3 id="displayName">Display Name: {user.displayName}</h3>
                 {profileData ? (
                     profileData.quizTaken ? (
                         <div>
+                            <h3 id="displayName">Display Name: {user.displayName}</h3>
+
                             <h3>Username: {profileData.username}</h3>
                             <h3>Location: {profileData.hometown}</h3>
                             <h3>About Me: {profileData.bio}</h3>

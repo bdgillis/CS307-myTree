@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
 import './Logout.css'
+import { ButtonLink } from '../components/Header';
 
 const Friends = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,8 @@ const Friends = () => {
                 setFriend(null);
             } else {
                 //console.log("user exists");
-                setFriend(body);
+                setFriend(body.user);
+                console.log(friend);
             }
         }
         findFriend();
@@ -51,23 +53,35 @@ const Friends = () => {
         getUser();
     }, [user]);
 
-    useEffect(() => {
-        if (friend) {
-            console.log("friend: " + friend);
-            const addFriend = async () => {
-                const response = await fetch('/api/friends', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ uid: uid , username: friend.username }),
-                });
-                const body = await response.json();
-                console.log(body);
-            }
-            addFriend();
-        }
-    }, [friend]);
+    // useEffect(() => {
+    //     if (friend) {
+    //         console.log("friend: " + friend);
+    //         const addFriend = async () => {
+    //             const response = await fetch('/api/friends', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({ uid: uid, username: friend.username }),
+    //             });
+    //             const body = await response.json();
+    //             console.log(body);
+    //         }
+    //         addFriend();
+    //     }
+    // }, [friend]);
+
+    const addFriend = async () => {
+        const response = await fetch('/api/friends', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ uid: uid, username: friend.username }),
+        });
+        const body = await response.json();
+        console.log(body);
+    }
 
     const handleSearch = async (e) => {
         setUsername(document.getElementById("username").value);
@@ -90,7 +104,12 @@ const Friends = () => {
                 ></input>
                 <button onClick={handleSearch}>Search</button>
                 {friend ? (
-                    <h3>User exists!!</h3>
+                    <div>
+                        <h3>User Found</h3>
+                        <h4>Username: {friend.username}</h4>
+                        <button onClick={addFriend}>Add Friend</button>
+                        <button onClick={() => window.location = './profile/'+ friend.username}>View Profile</button>
+                    </div>
                 ) : (
                     <h3>No User!!</h3>
                 )}
