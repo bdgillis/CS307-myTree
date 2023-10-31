@@ -21,15 +21,14 @@ const FirstTab = () => {
   const user = auth.currentUser;
   const [final, setFinal] = useState(null);
   const [sortOnce, setSortOnce] = useState(null);
+  var finalA = 0;
 
 
-  var i = 0;
   useEffect(() => {
-
-    if(final === 1) {
+    if(finalA === 1) {
       return;
     }
-    setFinal(1);
+    finalA = 1;
     async function getProfileData(uidComp, curUser) {
       if (user) {
           if (user.uid != null){
@@ -46,20 +45,15 @@ const FirstTab = () => {
               }
               const profileData = await response.json();
 
-              setProfileData(profileData); // Set the data in the component's state
-              const couple = [curUser, profileData.carbonScore];
-              scoreData.push(couple);
-              
+            
+                setProfileData(profileData); // Set the data in the component's state
+                const couple = [curUser, profileData.carbonScore];
+                scoreData.push(couple);
 
               
+              
           } catch (error) {
-            if(!profileData){
-              return;
-            }
-            profileData.carbonScore = 0;
-            const couple = [curUser, profileData.carbonScore];
-            scoreData.push(couple);
-          
+
             console.error('There was an error:', error);
           }
         }
@@ -70,8 +64,7 @@ const FirstTab = () => {
       const getAllData = async () => {
         scoreData.splice(0);
         try {
-          setFinal(0);
-          if(final === 1) {
+          if(final === 0) {
             return;
           }
           setFinal(1);
@@ -88,7 +81,12 @@ const FirstTab = () => {
           setLoadingState(false);
 
           allData.users.forEach((userRecord) => {
-            getProfileData(userRecord.uid, userRecord.displayName);
+            if((!userRecord.displayName) && (userRecord.uid)) {
+              getProfileData(userRecord.uid, userRecord.email);
+            } else if (userRecord.uid && userRecord.email) {
+              getProfileData(userRecord.uid, userRecord.displayName);
+            }
+            
           });
 
         } catch (error) {
@@ -112,7 +110,7 @@ const FirstTab = () => {
       return 0;
     }
     else {
-      return (a[1] < b[1]) ? -1 : 1;
+      return (a[1] > b[1]) ? -1 : 1;
     }
   }
 
@@ -123,17 +121,16 @@ const FirstTab = () => {
       
       var sortedArr = scoreData.sort(sortFunction);
 
-      for(i = 0; i < sortedArr.length; i++) {
+      for(let i = 0; i < sortedArr.length; i++) {
         if(i === 0) {
           document.getElementById("printThis").innerHTML = ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
         }
         if(i >= 1) {
-          document.getElementById("printThis").innerHTML += ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
-
           if(sortedArr[i][1] !== sortedArr[i - 1][1]) {
             number = number + 1;
           }
-
+          document.getElementById("printThis").innerHTML += ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
+          document.getElementById("printThis").style.color = "black";
         }
       }
     } catch(error) {
@@ -150,9 +147,10 @@ const FirstTab = () => {
 
  
     <div className="FirstTab">
+
       <p>Users</p>
       {/* First tab content will go here */}
-      <div id="printThis"></div>
+      <p className="box" id="printThis"></p>
 
     </div>
   );

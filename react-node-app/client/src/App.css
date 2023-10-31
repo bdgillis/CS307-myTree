@@ -14,6 +14,12 @@
     margin: 0;
    }
 
+.TableLeader {
+  font-size: 2em;
+  color: green;
+  font-weight: 1;
+
+}
 
 /* Tab Navigation */
 ul.nav {
@@ -208,6 +214,7 @@ label {
   justify-content: space-evenly; 
 }
 
+
 .inputs {
   border-radius: 4px;
   background-color: #73ee73;
@@ -217,3 +224,29 @@ label {
 
 }
 
+
+.league-box {
+  display: flex;
+  text-decoration: underline;
+
+  flex-direction: column;
+  width:min-content + 1;
+  height:fit-content + 1;
+  padding: 2px 4px;
+  overflow-y: scroll;
+  overflow-x: auto;
+
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  width:min-content + 1;
+  height:fit-content;
+  border: 4px solid blue;
+  padding: 2px 4px;
+  overflow-y: scroll;
+  overflow-x: auto;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke: 0.9px black;
+}
