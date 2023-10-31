@@ -7,7 +7,7 @@ const db = getFirestore();
 const { query, where, getDocs } = require('firebase-admin/firestore');
 
 
-
+// Get User info for user profile
 router.get('/:uid', async (req, res) => {
     try {
         const user = db.collection('users').doc(req.params.uid);
@@ -22,6 +22,26 @@ router.get('/:uid', async (req, res) => {
     } catch (err) {
         console.log('Error: ', err);
     }
+});
+
+// Get User info for public profile
+router.get('/username=:username', async (req, res) => {
+    try {
+        console.log("username: " + req.params.username);
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
+
+        if (snapshot.empty) {
+            console.log('No matching documents.');
+            res.json({ status: 'success', available: true });
+        } else {
+            res.json({ status: 'success', available: false, id: snapshot.docs[0].id, user: snapshot.docs[0].data() });
+        }
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({ error: 'Internal server error' })
+    }
+
 });
 
 module.exports = router;
