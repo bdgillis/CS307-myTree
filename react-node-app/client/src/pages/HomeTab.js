@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar/Navbar';
 import { getAuth } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
 import './HomeTab.css'
+import { useHistory } from 'react-router-dom';
+
 
 
 const HomeTab = () => {
@@ -12,6 +14,8 @@ const HomeTab = () => {
     const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
     const [imageSrc, setImageSrc] = useState('../Images/MyTree1.jpg');
+
+    const history = useHistory();
 
 
     var uid = "null";
@@ -140,6 +144,8 @@ const HomeTab = () => {
                 >
                 </h1>
             </div>
+            
+
             <div className='tree'>
                 <img
                     src={require('../Images/MyTree1.jpg')} 
@@ -151,7 +157,20 @@ const HomeTab = () => {
             </div>
             <div className='carbon-score'>
             {profileData ? (
-                    <h3>Carbon Score: {profileData.carbonScore}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <button style={{ 
+                        marginRight: '20px', 
+                        backgroundColor: '#256ce1', 
+                        color: 'white', 
+                        borderRadius: '50%', 
+                        width: '30px', 
+                        height: '30px' 
+                    }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
+                        ?
+                    </button>
+                    <h3 style={{marginRight: '50px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                    
+                    </div>
                 ) : (
                     <h3>Carbon Score:</h3>
                 )}

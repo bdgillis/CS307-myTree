@@ -52,7 +52,7 @@ function calcScore(category, activity, param) {
                     score = -1 * p * 0.027;
                     break;
                 case "Shopping - Farmer's Market/Co-op":
-                    score = -1 * (p - 3);
+                    score = 1;
                     break;
                 case "Shopping - Grocery Store":
                     score = -1 * 0.33 * (p - 3);
