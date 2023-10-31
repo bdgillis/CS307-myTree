@@ -43,7 +43,7 @@ const Activities = () => {
 
 		  //send data to backend
 		  
-		await fetch('/api/activities', {
+		await fetch('api/activities', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
