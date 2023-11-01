@@ -66,15 +66,15 @@ function UserProfile({ match }) {
 
     useEffect(() => {
         const getActivities = async () => {
-            if (profileData && profileData.user) {
+            if (profileData && profileData.user && profileData.user.activities) {
                 const activities = {};
                 Object.keys(profileData.user.activities).forEach((key) => {
-                    const activity = profileData.activities[key];
+                    const activity = profileData.user.activities[key];
                     activities[key] = activity;
                 });
                 setActivityHistory(activities);
-                setLoadingState(false);
             }
+            setLoadingState(false);
 
         }
 
@@ -131,7 +131,7 @@ function UserProfile({ match }) {
                 <br /><br />
                 <h2>Activity History</h2>
                 {profileData ? (
-                    <h3>Carbon Score: {profileData.carbonScore}</h3>
+                    <h3>Carbon Score: {profileData.user.carbonScore}</h3>
                 ) : (
                     <h3>Carbon Score Unavailable</h3>
                 )}
