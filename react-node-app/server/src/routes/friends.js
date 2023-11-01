@@ -28,7 +28,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:username', async (req, res) => {
+router.get('/username=:username', async (req, res) => {
     try {
         console.log("username: " + req.params.username); 
         const docRef = db.collection('users');
@@ -40,6 +40,20 @@ router.get('/:username', async (req, res) => {
         } else {
             res.json({status: 'success', available: false, id: snapshot.docs[0].id, user: snapshot.docs[0].data()});
         }    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+});
+
+router.get('/uid=:uid', async (req, res) => {
+    try {
+        console.log("uid: " + req.params.uid); 
+        const docRef = await db.collection('users').doc(req.params.uid);
+        const doc = await docRef.get();
+        console.log(doc.data());
+        res.json({status: 'success', username: doc.data().username, userDoc: doc.data()});
+          
     } catch (err) {
         console.log('Error: ', err);
         res.status(500).json({error: 'Internal server error'})

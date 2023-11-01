@@ -13,11 +13,15 @@ const Friends = () => {
     };
 
     const [username, setUsername] = useState(null);
+    const [userUsername, setUserUsername] = useState(null);
     const [usernameExists, setUsernameExists] = useState(false);
     // const [user, setUser] = useState(null);
     const [friend, setFriend] = useState(null);
+    const [userDoc, setUserDoc] = useState(null);
     const [requestSent, setRequestSent] = useState(false);
     const [incomingRequests, setIncomingRequests] = useState({});
+    const [displayRequests, setDisplayRequests] = useState(null);
+    const [displayFriends, setDisplayFriends] = useState(null);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -26,7 +30,7 @@ const Friends = () => {
         const findFriend = async () => {
             // console.log(document.getElementById("username").value);
             // console.log("username: " + username);
-            const response = await fetch('/api/friends/' + username);
+            const response = await fetch('/api/friends/username=' + username);
             const body = await response.json();
             // console.log(body);
             if (body.available) {
@@ -42,19 +46,6 @@ const Friends = () => {
     }, [username]);
 
     useEffect(() => {
-        // const auth = getAuth();
-        // const getUser = onAuthStateChanged(auth, (user) => {
-        //     if (user) {
-        //         // User is signed in.
-        //         setUser(user);
-        //         // uid = user.uid;
-        //         // console.log("uid: " + uid)
-        //     } else {
-        //         // User is signed out.
-        //         setUser(null);
-        //     }
-        // });
-        // getUser();
         if (user) {
             const uid = user.uid;
             console.log("uid: " + uid);
@@ -64,7 +55,25 @@ const Friends = () => {
                 console.log(body);
                 setIncomingRequests(body.incomingRequests);
             }
+
+            const getUserUsername = async () => {
+                try {
+                    const response = await fetch(`/api/friends/uid=${uid}`, {
+                        method: 'GET'
+                    });
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    const uUsername = await response.json();
+                    //console.log("79 username " + username)
+                    setUserUsername(uUsername.username); // Set the data in the component's state
+                    setUserDoc(uUsername.userDoc);
+                } catch (error) {
+                    console.error('There was an error:', error);
+                }
+            }
             getIncomingRequests();
+            getUserUsername(); // Call the async function within useEffect
         }
 
     }, [user]);
@@ -72,6 +81,9 @@ const Friends = () => {
     useEffect(() => {
         if (user) {
             const uid = user.uid;
+            console.log("uid: " + uid);
+            console.log(userUsername)
+            console.log(username)
             if (friend) {
                 const addFriend = async () => {
                     console.log(friend.id);
@@ -80,7 +92,7 @@ const Friends = () => {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ sendingUid: uid, receivingUid: friend.id }),
+                        body: JSON.stringify({ sendingUid: uid, sendingUsername: userUsername, receivingUid: friend.id, receivingUsername: username }),
                     });
                     const body = await response.json();
                     console.log(body);
@@ -94,9 +106,9 @@ const Friends = () => {
     }, [requestSent]);
 
 
-    const addFriend = () => {
+    const sendRequest = () => {
         setRequestSent(true);
-        console.log("why is this running")
+        // console.log("why is this running")
     }
 
     const handleSearch = async (e) => {
@@ -104,9 +116,43 @@ const Friends = () => {
 
     }
 
-    const displayRequests = incomingRequests.map((element, index) => (
-          <h3 key={index}>Friend Request from: {element}</h3>
-        ));
+    function acceptRequest(targetUsername) {
+        // console.log(friend.id);
+        if (user) {
+            const makeFriends = async () => {
+                const uid = user.uid;
+
+                const response = await fetch(`/api/friendrequests/accept`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ receivingUid: uid, receivingUsername: userUsername, sendingUsername: targetUsername }),
+                });
+                const body = await response.json();
+                console.log(body);
+            }
+            makeFriends();
+            window.location = './friends';
+        }
+    }
+
+    useEffect(() => {
+        if (incomingRequests.length > 0) {
+            // console.log(incomingRequests);
+            const displayRequests = incomingRequests.map((element) => (
+                <div>
+                    <h3>Friend Request from: {element}</h3>
+                    <button onClick={() => acceptRequest(element)}>Accept Request</button>
+                    <button>Decline Request</button>
+                    <button onClick={() => window.location = './profile/' + element}>View Profile</button>
+                </div>
+            ));
+            setDisplayRequests(displayRequests);
+        }
+    }, [incomingRequests]);
+
+
 
     function isEmpty(obj) {
         for (const prop in obj) {
@@ -126,6 +172,19 @@ const Friends = () => {
             </div>
             <div>
                 <h1>Friends</h1>
+                <h2>Current Friends: </h2>
+                {userDoc ? (
+                    <div>
+                        {userDoc.friends.map((friend) => (
+                            <div>
+                                <h3>{friend}</h3>
+                                <button onClick={() => window.location = './profile/' + friend}>View Profile</button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <h3>Loading Friends ... </h3>
+                )}
                 <h2>Add friends: </h2>
                 <input
                     className="inputs"
@@ -138,7 +197,7 @@ const Friends = () => {
                     <div>
                         <h3>User Found</h3>
                         <h4>Username: {friend.user.username}</h4>
-                        <button onClick={addFriend}>Add Friend</button>
+                        <button onClick={sendRequest}>Add Friend</button>
                         <button onClick={() => window.location = './profile/' + friend.user.username}>View Profile</button>
                     </div>
                 ) : (
@@ -149,9 +208,12 @@ const Friends = () => {
             <div>
                 <h2>Friend Requests</h2>
                 {!isEmpty(incomingRequests) ? (
-                    <div>
-                        {displayRequests}
-                    </div>
+                    (displayRequests ? (
+                        <div>
+                            {displayRequests}
+                        </div>) : (
+                        <h3>Loading Requests ... </h3>
+                    ))
                 ) : (
                     <h3>No Friend Requests</h3>
                 )}
