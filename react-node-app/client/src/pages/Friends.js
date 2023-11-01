@@ -24,11 +24,11 @@ const Friends = () => {
 
     useEffect(() => {
         const findFriend = async () => {
-            console.log(document.getElementById("username").value);
-            console.log("username: " + username);
+            // console.log(document.getElementById("username").value);
+            // console.log("username: " + username);
             const response = await fetch('/api/friends/' + username);
             const body = await response.json();
-            console.log(body);
+            // console.log(body);
             if (body.available) {
                 //console.log("user does not exist");
                 setFriend(null);
@@ -62,7 +62,7 @@ const Friends = () => {
                 const response = await fetch('/api/friendrequests/incoming/' + uid);
                 const body = await response.json();
                 console.log(body);
-                setIncomingRequests(body);
+                setIncomingRequests(body.incomingRequests);
             }
             getIncomingRequests();
         }
@@ -104,20 +104,9 @@ const Friends = () => {
 
     }
 
-    const displayRequests = () => {
-        const friendRequests = incomingRequests.forEach(formatRequests);
-        console.log(incomingRequests)
-        return friendRequests;
-    }
-
-    function formatRequests(element) {
-        return (
-            <h3 >
-                Friend Request from: {element[0]}
-            </h3>
-        );
-
-    }
+    const displayRequests = incomingRequests.map((element, index) => (
+          <h3 key={index}>Friend Request from: {element}</h3>
+        ));
 
     function isEmpty(obj) {
         for (const prop in obj) {
