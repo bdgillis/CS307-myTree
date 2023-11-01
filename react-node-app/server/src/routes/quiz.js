@@ -16,7 +16,9 @@ router.post('/', async (req, res) => {
             targetCategory: req.body.activeCategory,
             quizTaken: req.body.quizTaken, 
             numActivities: 0,
-            username: req.body.username
+            username: req.body.username,
+            incomingRequests: [],
+            outgoingRequests: []
         });
         
         console.log('Added document with ID: ', docRef.id);

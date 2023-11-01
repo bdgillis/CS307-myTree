@@ -12,12 +12,12 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 
 
 //get incoming friend requests for specific user
-router.get('/incoming', async (req, res) => {
+router.get('/incoming/:uid', async (req, res) => {
     try {
-        const user = db.collection('users').doc(req.body.uid);
+        const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
-            console.log('No such document!');
+            console.log('No such document!'+req.params.uid);
           } else {
             console.log("document found")
             //console.log('Document data:', doc.data());
