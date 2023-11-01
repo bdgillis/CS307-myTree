@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
             numActivities: 0,
             username: req.body.username,
             incomingRequests: [],
-            outgoingRequests: []
+            outgoingRequests: [],
+            friends: []
         });
         
         console.log('Added document with ID: ', docRef.id);

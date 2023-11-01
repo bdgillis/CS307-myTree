@@ -20,6 +20,7 @@ const Friends = () => {
     const [userDoc, setUserDoc] = useState(null);
     const [requestSent, setRequestSent] = useState(false);
     const [incomingRequests, setIncomingRequests] = useState({});
+    const [friends, setFriends] = useState({});
     const [displayRequests, setDisplayRequests] = useState(null);
     const [displayFriends, setDisplayFriends] = useState(null);
 
@@ -68,6 +69,8 @@ const Friends = () => {
                     //console.log("79 username " + username)
                     setUserUsername(uUsername.username); // Set the data in the component's state
                     setUserDoc(uUsername.userDoc);
+                    setFriends(uUsername.userDoc.friends);
+                    console.log(uUsername.userDoc.friends);
                 } catch (error) {
                     console.error('There was an error:', error);
                 }
@@ -81,9 +84,9 @@ const Friends = () => {
     useEffect(() => {
         if (user) {
             const uid = user.uid;
-            console.log("uid: " + uid);
-            console.log(userUsername)
-            console.log(username)
+            // console.log("uid: " + uid);
+            // console.log(userUsername)
+            // console.log(username)
             if (friend) {
                 const addFriend = async () => {
                     console.log(friend.id);
@@ -152,6 +155,21 @@ const Friends = () => {
         }
     }, [incomingRequests]);
 
+    useEffect(() => {
+        // if (userDoc) {
+            if (friends.length > 0) {
+                // console.log(incomingRequests);
+                const displayFriends = friends.map((element) => (
+                    <div>
+                        <h3>Friend: {element}</h3>
+                        <button onClick={() => window.location = './profile/' + element}>View Profile</button>
+                    </div>
+                ));
+                setDisplayFriends(displayFriends);
+            }
+        // }
+    }, [friends]);
+
 
 
     function isEmpty(obj) {
@@ -171,19 +189,17 @@ const Friends = () => {
                 <Navbar toggle={toggle} />
             </div>
             <div>
-                <h1>Friends</h1>
-                <h2>Current Friends: </h2>
-                {userDoc ? (
-                    <div>
-                        {userDoc.friends.map((friend) => (
-                            <div>
-                                <h3>{friend}</h3>
-                                <button onClick={() => window.location = './profile/' + friend}>View Profile</button>
-                            </div>
-                        ))}
-                    </div>
+                <h1>Friends </h1>
+                <h2>Friend List : </h2>
+                {!isEmpty(friends) ? (
+                    (displayFriends ? (
+                        <div>
+                            {displayFriends}
+                        </div>) : (
+                        <h3>Loading Friends List ... </h3>
+                    ))
                 ) : (
-                    <h3>Loading Friends ... </h3>
+                    <h3>No Friends</h3>
                 )}
                 <h2>Add friends: </h2>
                 <input
