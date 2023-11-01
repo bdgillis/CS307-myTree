@@ -23,7 +23,7 @@ router.get('/incoming', async (req, res) => {
             //console.log('Document data:', doc.data());
           }
         
-        res.send(doc.data().incomingRequests);
+        res.json({status: 'success', requests: doc.data().incomingRequests});
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -41,7 +41,7 @@ router.get('/outgoing', async (req, res) => {
             //console.log('Document data:', doc.data());
           }
         
-        res.send(doc.data().outgoingRequests);
+          res.json({status: 'success', requests: doc.data().incomingRequests});
     } catch (err) {
         console.log('Error: ', err);
     }

@@ -5,6 +5,7 @@ const admin = require("firebase-admin");
 const { getFirestore, Timestamp, FieldValue, Filter} = require('firebase-admin/firestore');
 const db = getFirestore();
 const { query, where, getDocs } = require('firebase-admin/firestore');
+const awardCheck = require('../awardCheck.js')
 
 router.get('/:uid', async (req, res) => {
     try {
@@ -45,6 +46,8 @@ router.post('/', async (req, res) => {
             carbonScore: FieldValue.increment(diff),
         });
         
+        awardCheck(req.body.uid);
+
         res.json({status: 'success', score: diff});
 
         console.log(newScore);

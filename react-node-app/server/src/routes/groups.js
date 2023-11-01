@@ -21,7 +21,7 @@ router.get('/:groupname', async (req, res) => {
         if (!doc.exists) {
             console.log('No group with groupname: ' + req.params.groupname);   
         } 
-        res.send(doc.data());
+        res.json(doc.data().users);
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
         snapshot.forEach(doc => {
             groupList.push(doc.data());
         });
-        res.send(groupList);
+        res.json(groupList);
     } catch (err) {
         console.log('Error: ', err);
     }
