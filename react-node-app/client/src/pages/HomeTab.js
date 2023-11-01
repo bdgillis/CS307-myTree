@@ -179,7 +179,7 @@ const HomeTab = () => {
                         <h3>No Activity History</h3>
                     ) : (
                         <div>
-                            {activityOptions}
+                            {}
                         </div>
                     )
                     
