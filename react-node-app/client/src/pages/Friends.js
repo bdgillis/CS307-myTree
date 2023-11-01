@@ -140,14 +140,35 @@ const Friends = () => {
         }
     }
 
+    function declineRequest(targetUsername) {
+        // console.log(friend.id);
+        if (user) {
+            const makeFriends = async () => {
+                const uid = user.uid;
+
+                const response = await fetch(`/api/friendrequests/decline`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ receivingUid: uid, receivingUsername: userUsername, sendingUsername: targetUsername }),
+                });
+                const body = await response.json();
+                console.log(body);
+            }
+            makeFriends();
+            window.location = './friends';
+        }
+    }
+
     useEffect(() => {
         if (incomingRequests.length > 0) {
             // console.log(incomingRequests);
             const displayRequests = incomingRequests.map((element) => (
                 <div>
                     <h3>Friend Request from: {element}</h3>
-                    <button onClick={() => acceptRequest(element)}>Accept Request</button>
-                    <button>Decline Request</button>
+                    <button onClick={() => acceptRequest(element)}>Accept</button>
+                    <button onClick={() => declineRequest(element)}>Decline</button>
                     <button onClick={() => window.location = './profile/' + element}>View Profile</button>
                 </div>
             ));
@@ -213,7 +234,7 @@ const Friends = () => {
                     <div>
                         <h3>User Found</h3>
                         <h4>Username: {friend.user.username}</h4>
-                        <button onClick={sendRequest}>Add Friend</button>
+                        <button onClick={sendRequest}>Send Friend Request</button>
                         <button onClick={() => window.location = './profile/' + friend.user.username}>View Profile</button>
                     </div>
                 ) : (

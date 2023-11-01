@@ -83,7 +83,6 @@ router.post('/', async (req, res) => {
 //decide on sendng uids in params or body
 router.post('/accept', async (req, res) => {
     try {
-        console.log(req.body)
         const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
             incomingRequests: FieldValue.arrayRemove(req.body.sendingUsername),
             friends: FieldValue.arrayUnion(req.body.sendingUsername)
@@ -92,7 +91,6 @@ router.post('/accept', async (req, res) => {
 
         const sendingRef = await db.collection('users');
         const snapshot = await sendingRef.where("username", "==", req.body.sendingUsername).get();
-        console.log(snapshot.docs)
 
         const data = snapshot.docs[0].data();
         let outgoingRequests = data.outgoingRequests;
@@ -108,22 +106,33 @@ router.post('/accept', async (req, res) => {
             .catch((error) => {
                 console.error("Error updating document: ", error);
             });
-        // snapshot.docs[0].update({
-        //     outgoingRequests: FieldValue.arrayRemove(req.body.receivingUsername),
-        //     friends: FieldValue.arrayUnion(req.body.receivingUsername)
-        // });
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+});
 
-        // if (snapshot.empty) {
-        //     console.log('No matching documents.');
-        //     res.json({ status: 'success', available: true });
-        // } else {
-        //     res.json({ status: 'success' });
+router.post('/decline', async (req, res) => {
+    try {
+        console.log(req.body)
+        const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
+            incomingRequests: FieldValue.arrayRemove(req.body.sendingUsername),
+        });
 
-        // }
-        // const sendingRef = await db.collection('users').doc(req.body.sendingUid).update({
-        //     outgoingRequests: FieldValue.arrayRemove(req.body.receivingUid),
-        //     friends: FieldValue.arrayUnion(req.body.receivingUid)
-        // });
+        const sendingRef = await db.collection('users');
+        const snapshot = await sendingRef.where("username", "==", req.body.sendingUsername).get();
+
+        const data = snapshot.docs[0].data();
+        let outgoingRequests = data.outgoingRequests;
+        outgoingRequests = FieldValue.arrayRemove(req.body.receivingUsername)
+
+        const docRef = sendingRef.doc(snapshot.docs[0].id);
+        docRef.update({ outgoingRequests: outgoingRequests})
+            .then(() => {
+                console.log("Document updated successfully.");
+            })
+            .catch((error) => {
+                console.error("Error updating document: ", error);
+            });
     } catch (err) {
         console.log('Error: ', err);
     }
