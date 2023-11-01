@@ -25,6 +25,8 @@ const editActivityHistoryRouter = require('./src/routes/editActivityHistory.js')
 const quizRouter = require('./src/routes/quiz.js');
 const friendsRouter = require('./src/routes/friends.js');
 const profileRouter = require('./src/routes/profile.js');
+const groupsRouter = require('./src/routes/groups.js');
+const friendRequestsRouter = require('./src/routes/friendRequests.js');
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -35,6 +37,9 @@ app.use('/api/editActivityHistory', editActivityHistoryRouter);
 app.use('/api/quiz', quizRouter);
 app.use('/api/friends', friendsRouter);
 app.use('/api/profile', profileRouter);
+app.use('/api/groups', groupsRouter);
+app.use('/api/friendRequests', friendRequestsRouter); 
+
 
         
 
