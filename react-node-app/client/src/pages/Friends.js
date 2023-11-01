@@ -237,8 +237,9 @@ const Friends = () => {
                         <button onClick={sendRequest}>Send Friend Request</button>
                         <button onClick={() => window.location = './profile/' + friend.user.username}>View Profile</button>
                     </div>
-                ) : (
-                    <h3>No User!!</h3>
+                ) : ( username) ? (
+                    <h3>User Not Found!</h3>) : (
+                        <></>
                 )}
 
             </div>
