@@ -17,13 +17,16 @@ router.get('/incoming/:uid', async (req, res) => {
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
-            console.log('No such document!'+req.params.uid);
-          } else {
-            console.log("document found")
-            //console.log('Document data:', doc.data());
-          }
-        
-        res.json({status: 'success', requests: doc.data().incomingRequests});
+            console.log('No such document!');
+            res.json({status: 'error', error: 'user does not exist'});
+        } else {
+            if (doc.data().incomingRequests == null) {
+                res.json({status: 'success', incomingRequests: []});
+            } else {
+                res.json({status: 'success', incomingRequests: doc.data().incomingRequests});
+            }
+        }
+    
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -36,12 +39,16 @@ router.get('/outgoing', async (req, res) => {
         const doc = await user.get();
         if (!doc.exists) {
             console.log('No such document!');
-          } else {
-            console.log("document found")
-            //console.log('Document data:', doc.data());
-          }
+            res.json({status: 'error', error: 'user does not exist'});
+        } else {
+            if (doc.data().outgoingRequests == null) {
+                res.json({status: 'success', outgoingRequests: []});
+            } else {
+                res.json({status: 'success', outgoingRequests: doc.data().outgoingRequests});
+            }
+        }
         
-          res.json({status: 'success', requests: doc.data().incomingRequests});
+          
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -63,6 +70,7 @@ router.post('/', async (req, res) => {
         res.json({status: 'success'});
     } catch (err) {
         console.log('Error: ', err);
+        res.json({status: 'error', error: 'user does not exist'});
     }
 });
 
