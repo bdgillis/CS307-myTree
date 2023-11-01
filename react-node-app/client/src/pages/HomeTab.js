@@ -175,11 +175,14 @@ const HomeTab = () => {
                     <h3>Carbon Score:</h3>
                 )}
                 {!loadingState ? (
-                    (isEmpty(activityHistory)) ? ({}) : (
-                        <>
-                            {}
-                        </>
+                    (isEmpty(activityHistory)) ? (
+                        <h3>No Activity History</h3>
+                    ) : (
+                        <div>
+                            {activityOptions}
+                        </div>
                     )
+                    
                 ) : (
                     <h3></h3>
                 )}
