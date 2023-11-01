@@ -5,6 +5,7 @@ const admin = require("firebase-admin");
 const { getFirestore, Timestamp, FieldValue, Filter} = require('firebase-admin/firestore');
 const db = getFirestore();
 const { query, where, getDocs } = require('firebase-admin/firestore');
+const awardCheck = require('../awardCheck.js')
 
 
 router.post('/', async (req, res) => {
@@ -31,7 +32,10 @@ router.post('/', async (req, res) => {
         });
         
         console.log('Added document with ID: ', docRef.id);
-        res.json({status: 'success', id: docRef.id, score: score});
+
+        awardCheck(req.body.uid);
+
+        res.json({status: 'success', id: docRef.id, score: score, awards: awards});
     } catch (err) {
         console.log('Error: ', err);
     }
