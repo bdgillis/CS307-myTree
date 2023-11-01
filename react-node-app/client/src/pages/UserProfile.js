@@ -28,7 +28,7 @@ function UserProfile({ match }) {
                     //     throw new Error('Network response was not ok');
                     // }
                     //console.log(response)
-                    const response = await fetch('/api/friends/' + username);
+                    const response = await fetch('/api/friends/username=' + username);
                     const body = await response.json();
                     console.log(body);
                     setProfileData(body); // Set the data in the component's state
@@ -109,7 +109,7 @@ function UserProfile({ match }) {
                 <Navbar toggle={toggle} />
             </div>
             <div>
-                <h1>Welcome to {username}'s profile page!</h1>
+                <h1>Welcome to {username}'s profile!</h1>
                 {/* Add user-specific content here */}
             </div>
             <div>
