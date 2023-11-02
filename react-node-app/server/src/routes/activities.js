@@ -12,7 +12,6 @@ router.post('/', async (req, res) => {
     console.log(req.body)
     try {
         const numActRef = await db.collection('users').doc(req.body.uid).get();
-        //I want to get only the number of activities
         const numAct = numActRef.data().numActivities;
         
         const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(`A${numAct + 1}`).set({
@@ -21,19 +20,27 @@ router.post('/', async (req, res) => {
             activityParam: req.body.activityParam,
             timestamp: req.body.timestamp,
         });
-        const actRef = await db.collection('users').doc(req.body.uid).update({
-            numActivities: numAct + 1
-        });
+        
+        const actRef = db.collection('users').doc(req.body.uid).collection('activities');
+        const snapshot = await actRef.get();
+        const activityHistory = {}
+        snapshot.forEach(doc => {
+            activityHistory[doc.id] = doc.data();
+        })
+        
+        const awards = awardCheck(activityHistory);
+        console.log("awards: " + awards);
+
 
         const score = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
         
         const userRef = await db.collection('users').doc(req.body.uid).update({
+            numActivities: numAct + 1,
             carbonScore: FieldValue.increment(score),
+            awards: awards
         });
         
         console.log('Added document with ID: ', docRef.id);
-
-        awardCheck(req.body.uid);
 
         res.json({status: 'success', id: docRef.id, score: score, awards: awards});
     } catch (err) {

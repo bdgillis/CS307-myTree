@@ -30,6 +30,17 @@ router.get('/:uid', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log(req.body)
     try {
+
+        const actRef = db.collection('users').doc(req.body.uid).collection('activities');
+        const snapshot = await actRef.get();
+        const activityHistory = {}
+        snapshot.forEach(doc => {
+            activityHistory[doc.id] = doc.data();
+        })
+        
+        const awards = awardCheck(activityHistory);
+        console.log("awards after edit: " + awards);  
+
         const oldRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(req.body.selectedActivity).get();
 
         const oldScore = calcScore(oldRef.data().activeCategory, oldRef.data().activeActivity, oldRef.data().activityParam);
@@ -44,9 +55,8 @@ router.post('/', async (req, res) => {
         const diff = newScore - oldScore;
         const userRef = await db.collection('users').doc(req.body.uid).update({
             carbonScore: FieldValue.increment(diff),
+            awards: awards
         });
-        
-        awardCheck(req.body.uid);
 
         res.json({status: 'success', score: diff});
 
