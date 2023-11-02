@@ -122,7 +122,7 @@ const FriendRequestsTab = () => {
     
     return (
         <div className="friendRequestsTab">
-            <h2>Friend Requests</h2>
+            <h1>Friend Requests</h1>
             {!isEmpty(incomingRequests) ? (
                 (displayRequests ? (
                     <div>

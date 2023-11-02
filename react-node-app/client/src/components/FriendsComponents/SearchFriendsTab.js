@@ -105,7 +105,6 @@ const SearchFriendsTab = () => {
 
     return (
         <div className="searchFriendsTab">
-            <p>Search Friends</p>
             <h2>Add friends: </h2>
             <input
                 className="inputs"

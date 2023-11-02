@@ -82,8 +82,8 @@ const FriendListTab = () => {
     
     return (
         <div className="searchTab">
-            <h1>Friends </h1>
-            <h2>Friend List : </h2>
+            <h1>Friends List</h1>
+            {/* <h2>Friend List : </h2> */}
             {!isEmpty(friends) ? (
                 (displayFriends ? (
                     <div>

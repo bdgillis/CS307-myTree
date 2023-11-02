@@ -44,4 +44,26 @@ router.get('/username=:username', async (req, res) => {
 
 });
 
+router.get('/activity/:username', async (req, res) => {
+    try {
+        console.log("username: " + req.params.username); 
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
+        console.log(snapshot.docs)
+        const activities = {}; // define empty object
+        
+        console.log(snapshot.docs[0].data());
+        snapshot.forEach(doc => {
+            activities[doc.id] = doc.data(); // add each document to the object
+        });
+        console.log("Returning activties for user: " + req.params.username);
+        console.log(activities);
+        res.json({status: 'success', activities: activities});
+    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+});
+
 module.exports = router;
