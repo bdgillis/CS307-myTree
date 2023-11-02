@@ -105,26 +105,43 @@ const SearchFriendsTab = () => {
 
     return (
         <div className="searchFriendsTab">
-            <h2>Add friends: </h2>
-            <input
-                className="inputs"
-                type="text"
-                id="username"
-                placeholder='Add Friend'
-            ></input>
-            <button onClick={handleSearch}>Search</button>
+            <h1 className='searchFriendHeader'>Add friends </h1>
+            <div className='searchFriendMenu'>
+                <input
+                    className="searchFriendInput"
+                    type="text"
+                    id="username"
+                    placeholder='Add Friend'
+                ></input>
+                <button 
+                    className= 'searchFriendButton' 
+                    onClick={handleSearch}>
+                        Search
+                </button>
+            </div>
+
             {friend ? (
                 <div>
-                    <h3>User Found</h3>
-                    <h4>Username: {friend.user.username}</h4>
-                    {onFriendList ? (
-                        <button>Friend</button>) : (
-                        <button onClick={sendRequest}>Send Friend Request</button>
-                    )}
-                    <button onClick={() => window.location = './profile/' + friend.user.username}>View Profile</button>
+                    <h3 className='searchFriendStatus'>User Found</h3>
+                    <h4 className='searchFriendUsername'>Username: {friend.user.username}</h4>
+                    <div className='searchFriendButtons'>
+                        {onFriendList ? (
+                            <button className='searchFriendButton'>Friend</button>) : (
+                            <button 
+                                className='searchFriendButton' 
+                                onClick={sendRequest}>
+                                    Send Friend Request
+                            </button>
+                        )}
+                        <button 
+                            className='searchFriendButton' 
+                            onClick={() => window.location = './profile/' + friend.user.username}>
+                                View Profile
+                        </button>
+                    </div>
                 </div>
             ) : (username) ? (
-                <h3>User Not Found!</h3>) : (
+                <h3 className='searchFriendStatus'>User Not Found!</h3>) : (
                 <></>
             )}
         </div>

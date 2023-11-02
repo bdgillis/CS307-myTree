@@ -47,8 +47,8 @@ ul.nav {
     border-top-left-radius: 2rem;
   }
   ul.nav li:first-child {
-    border-bottom-left-radius: 2rem;
-    border-top-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
   }
    
   ul.nav li:last-child {
@@ -56,7 +56,6 @@ ul.nav {
     border-top-right-radius: 2rem;
   }
   ul.nav li:nth-child(2) {
-    border-radius: 0;
     border-bottom-right-radius: 2rem;
     border-top-right-radius: 2rem;
   }
@@ -249,4 +248,158 @@ label {
   overflow-x: auto;
   -webkit-text-fill-color: white;
   -webkit-text-stroke: 0.9px black;
+}
+
+.friendProfButton {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.friendName {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 15px;
+}
+
+.friendListHeader {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.friendRequestName {
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 15px;
+}
+
+.friendRequestHeader {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.friendRequestButton {
+  justify-content: center;
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.friendRequestButtons {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.searchFriendInput {
+  border-radius: 4px;
+  background-color: #73ee73;
+  border: none;
+  font-weight: bold; 
+  height: 25px;
+}
+
+.searchFriendButton {
+  justify-content: center;
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.searchFriendHeader {
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.searchFriendMenu {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+
+.searchFriendStatus {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.searchFriendUsername {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
+
+.searchFriendButtons {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }

@@ -61,8 +61,14 @@ const FriendListTab = () => {
                 // console.log(incomingRequests);
                 const displayFriends = friends.map((element) => (
                     <div>
-                        <h3>Friend: {element}</h3>
-                        <button onClick={() => window.location = './profile/' + element}>View Profile</button>
+                        <h3 className='friendName'>
+                            Friend: {element}
+                        </h3>
+                        <button 
+                            className='friendProfButton'
+                            onClick={() => window.location = './profile/' + element}>
+                                View Profile
+                        </button>
                     </div>
                 ));
                 setDisplayFriends(displayFriends);
@@ -82,7 +88,9 @@ const FriendListTab = () => {
     
     return (
         <div className="searchTab">
-            <h1>Friends List</h1>
+            <h1 className='friendListHeader'>
+                Friends List
+            </h1>
             {/* <h2>Friend List : </h2> */}
             {!isEmpty(friends) ? (
                 (displayFriends ? (
@@ -92,7 +100,7 @@ const FriendListTab = () => {
                     <h3>Loading Friends List ... </h3>
                 ))
             ) : (
-                <h3>No Friends</h3>
+                <h3 className='friendName'>No Friends</h3>
             )}
         </div>
     );

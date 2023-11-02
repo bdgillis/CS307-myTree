@@ -100,10 +100,26 @@ const FriendRequestsTab = () => {
             // console.log(incomingRequests);
             const displayRequests = incomingRequests.map((element) => (
                 <div>
-                    <h3>Friend Request from: {element}</h3>
-                    <button onClick={() => acceptRequest(element)}>Accept</button>
-                    <button onClick={() => declineRequest(element)}>Decline</button>
-                    <button onClick={() => window.location = './profile/' + element}>View Profile</button>
+                    <h3 className='friendRequestName'>
+                        Friend Request from: {element}
+                    </h3>
+                    <div className='friendRequestButtons'>
+                        <button 
+                            className='friendRequestButton' 
+                            onClick={() => acceptRequest(element)}>
+                                Accept
+                        </button>
+                        <button 
+                            className='friendRequestButton' 
+                            onClick={() => declineRequest(element)}>
+                                Decline
+                        </button>
+                        <button 
+                            className='friendRequestButton' 
+                            onClick={() => window.location = './profile/' + element}>
+                                View Profile
+                        </button>
+                    </div>
                 </div>
             ));
             setDisplayRequests(displayRequests);
@@ -122,7 +138,7 @@ const FriendRequestsTab = () => {
     
     return (
         <div className="friendRequestsTab">
-            <h1>Friend Requests</h1>
+            <h1 className='friendRequestHeader'>Friend Requests</h1>
             {!isEmpty(incomingRequests) ? (
                 (displayRequests ? (
                     <div>
@@ -131,7 +147,7 @@ const FriendRequestsTab = () => {
                     <h3>Loading Requests ... </h3>
                 ))
             ) : (
-                <h3>No Friend Requests</h3>
+                <h3 className='friendRequestName'>No Friend Requests</h3>
             )}
         </div>
     );

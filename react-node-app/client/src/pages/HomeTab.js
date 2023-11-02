@@ -118,7 +118,7 @@ const HomeTab = () => {
 
     function changeImage() {
         //Change Carbon Score artifically
-        //profileData.carbonScore = -56;
+        //profileData.carbonScore = -0.1;
 
         image = document.getElementById('myTree');
 
