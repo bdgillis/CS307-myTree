@@ -6,18 +6,26 @@
     right: 0;
     left: 0;
     z-index: 1030;
+    padding-top: 80px;
+    padding: inherit;
 }
 
 
 .tree {
+    padding-top: 110px;
     display: flex;
     justify-content: center;
     margin: 0 auto;
 }
 
 .welcome-banner {
+    padding-top: 80px;
     display: flex;
+    position: fixed;
     justify-content: center;
+    top: 0;
+    right: 0;
+    left: 0;
     margin: 0 auto;
 }
 .carbon-score {

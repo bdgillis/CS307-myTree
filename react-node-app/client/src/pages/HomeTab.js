@@ -112,17 +112,35 @@ const HomeTab = () => {
         return true;
     }
 
-    var temp = 1;
+    //var temp = 1;
+    var image
+    var height = 250;
 
     function changeImage() {
-        var image = document.getElementById('myTree');
-        if (temp < 0) {
-            image.src = '../Images/MyTree0.png';
+        //Change Carbon Score artifically
+        //profileData.carbonScore = -56;
+
+        image = document.getElementById('myTree');
+
+        if (profileData.carbonScore < 0) {
+            image.src = require('../Images/MyTree0.png');
+            if (profileData.carbonScore > -100) {
+                image.height = 450 + 2 * profileData.carbonScore;
+            } else {
+                image.height = 250;
+            }
         }
-        else if (temp > 0) {
-            image.src = '../Images/MyTree1.jpg';
+        else if (profileData.carbonScore < 100) {
+            image.src = require('../Images/MyTree1.jpg');
+            //image.height = 450;
+            image.height = 250 + 2 * profileData.carbonScore;
         } else {
-            image.src = '../Images/MyTree2.png';
+            image.src = require('../Images/MyTree2.png');
+            if (profileData.carbonScore < 200) {
+                image.height = 250 + 2 * (profileData.carbonScore - 100);
+            } else {
+                image.height = 450;
+            }
         }
     }
 
@@ -158,25 +176,26 @@ const HomeTab = () => {
             <div className='carbon-score'>
             {profileData ? (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <button style={{ 
-                        marginRight: '20px', 
-                        backgroundColor: '#256ce1', 
-                        color: 'white', 
-                        borderRadius: '50%', 
-                        width: '30px', 
-                        height: '30px' 
-                    }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
-                        ?
-                    </button>
-                    <h3 style={{marginRight: '50px'}}>Carbon Score: {profileData.carbonScore}</h3>
-                    
+                        <button style={{ 
+                            marginRight: '20px', 
+                            backgroundColor: '#256ce1', 
+                            color: 'white', 
+                            borderRadius: '50%', 
+                            width: '30px', 
+                            height: '30px' 
+                        }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
+                            ?
+                        </button>
+                        <h3 style={{marginRight: '50px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                        {changeImage()}
+                        <h3>MyTree's Height: {image.height}</h3>
                     </div>
                 ) : (
-                    <h3>Carbon Score:</h3>
+                    <h3>Carbon Score: </h3>
                 )}
                 {!loadingState ? (
                     (isEmpty(activityHistory)) ? (
-                        <h3>No Activity History</h3>
+                        <h3></h3>
                     ) : (
                         <div>
                             {}
