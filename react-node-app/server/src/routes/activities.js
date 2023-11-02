@@ -13,6 +13,8 @@ router.post('/', async (req, res) => {
     try {
         const numActRef = await db.collection('users').doc(req.body.uid).get();
         const numAct = numActRef.data().numActivities;
+        const weeklyNumAct = numActRef.data().weeklyNumActivities;
+
         
         const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(`A${numAct + 1}`).set({
             activeCategory: req.body.activeCategory,
@@ -37,6 +39,8 @@ router.post('/', async (req, res) => {
         const userRef = await db.collection('users').doc(req.body.uid).update({
             numActivities: numAct + 1,
             carbonScore: FieldValue.increment(score),
+            weeklyNumActivities: weeklyNumAct + 1,
+            weeklyCarbonScore: FieldValue.increment(score),
             awards: awards
         });
         

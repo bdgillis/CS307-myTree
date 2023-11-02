@@ -55,6 +55,7 @@ router.post('/', async (req, res) => {
         const diff = newScore - oldScore;
         const userRef = await db.collection('users').doc(req.body.uid).update({
             carbonScore: FieldValue.increment(diff),
+            weeklyCarbonScore: FieldValue.increment(diff),
             awards: awards
         });
 
