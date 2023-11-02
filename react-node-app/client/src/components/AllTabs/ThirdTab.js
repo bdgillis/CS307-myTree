@@ -53,8 +53,9 @@ const ThirdTab = () => {
                 myScore = profileData.carbonScore;
 
               }
+              let carbonScoreVal = (Math.round(profileData.carbonScore * 100) / 100).toFixed(2);
 
-              const couple = [curUser, profileData.carbonScore];
+              const couple = [curUser, carbonScoreVal];
               scoreData.push(couple);
               
 
@@ -195,7 +196,7 @@ const ThirdTab = () => {
   return (
     <div className="ThirdTab">
       
-      <p>League</p>
+      <p>Leaderboard</p>
       <p className="league-box">My League: {getLeague()}</p>
 
       <p className="box" id="printThat"></p>

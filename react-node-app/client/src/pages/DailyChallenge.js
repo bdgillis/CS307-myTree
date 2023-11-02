@@ -47,7 +47,9 @@ function findSub(categoryChoice) {
 }  
 
 function findTime() {
-	var number = getNumber(1,26);
+	var number = getNumber(1,10);
+	number = Math.round(number * 100 / 100).toFixed(2);
+
 	return number;
 }
 

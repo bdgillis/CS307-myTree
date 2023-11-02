@@ -25,6 +25,7 @@ const FirstTab = () => {
 
 
   useEffect(() => {
+      
     if(finalA === 1) {
       return;
     }
@@ -47,7 +48,8 @@ const FirstTab = () => {
 
             
                 setProfileData(profileData); // Set the data in the component's state
-                const couple = [curUser, profileData.carbonScore];
+                let carbonScoreVal = (Math.round(profileData.carbonScore * 100) / 100).toFixed(2);
+                const couple = [curUser, carbonScoreVal];
                 scoreData.push(couple);
 
               
@@ -148,7 +150,7 @@ const FirstTab = () => {
  
     <div className="FirstTab">
 
-      <p>Users</p>
+      <p>Leaderboard</p>
       {/* First tab content will go here */}
       <p className="box" id="printThis"></p>
 

@@ -29,19 +29,19 @@ const Tabs = () => {
         <li className={activeTab === "tab1" ? "active" : ""}
             onClick={handleTab1}
         >
-            Tab 1
+            Users
         </li>
 
         <li className={activeTab === "tab2" ? "active" : ""}
             onClick={handleTab2}
         >
-            Tab 2
+            Friends
         </li>
 
         <li className={activeTab === "tab3" ? "active" : ""}
             onClick={handleTab3}
         >
-            Tab 3
+            League
         </li>
         
       </ul>
