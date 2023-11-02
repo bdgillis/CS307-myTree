@@ -32,6 +32,7 @@ const ViewProfile = () => {
                     }
                     const profileData = await response.json();
                     setProfileData(profileData); // Set the data in the component's state
+                    
                 } catch (error) {
                     console.error('There was an error:', error);
                 }
@@ -112,6 +113,13 @@ const ViewProfile = () => {
                             <h3>Location: {profileData.hometown}</h3>
                             <h3>About Me: {profileData.bio}</h3>
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
+                            {profileData.awards ? (
+                            <div>
+                                <h3>Awards: </h3>
+                                {profileData.awards[0] ? <img src={require("../Images/transportation_award.png")} title="Award for 3+ Transportation Activities Logged!" /> : null}
+                                {profileData.awards[1] ? <img src={require("../Images/eating_award.png")} title="Award for 3+ Eating Activities Logged!" /> : null}
+                                {profileData.awards[2] ? <img src={require("../Images/household_award.png")} title="Award for 3+ Household Activities Logged!" /> : null}
+                            </div>) : <h3>No awards yet...</h3>}
                         </div>
                     ) : (
                         <ButtonLink to="./quiz" children={"Set up Profile"}></ButtonLink>

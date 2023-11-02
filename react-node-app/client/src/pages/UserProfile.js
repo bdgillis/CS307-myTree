@@ -108,6 +108,14 @@ function UserProfile({ match }) {
                         <h3>Location: {profileData.user.hometown}</h3>
                         <h3>About Me: {profileData.user.bio}</h3>
                         <h3>Favorite Category: {profileData.user.targetCategory}</h3>
+                        {profileData.awards ? (
+                        <div>
+                            <h3>Awards: </h3>
+                            {profileData.awards[0] ? <img src="../Images/transportation_award.png" alt="Award for 3+ Transportation Activities Logged!" /> : null}
+                            {profileData.awards[1] ? <img src="../Images/eating_award.png" alt="Award for 3+ Eating Activities Logged!" /> : null}
+                            {profileData.awards[2] ? <img src="../Images/household_award.png" alt="Award for 3+ Household Activities Logged!" /> : null}
+                        </div>) : <h3>No awards yet...</h3>}
+                        
                     </div>
                 ) : (
                     <h3>Loading data...</h3>
