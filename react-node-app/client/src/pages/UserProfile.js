@@ -41,45 +41,30 @@ function UserProfile({ match }) {
     }, [username]);
 
     useEffect(() => {
-        if (user) {
-            const uid = user.uid;
-            // const dataToSend = { uid };
-            const getUserData = async () => {
+        const getActivities = async () => {
+            if (username) {
                 try {
-                    const response = await fetch(`/api/profile/${uid}`, {
+                    const res = await fetch(`/api/profile/activity/${username}`, {
                         method: 'GET'
                     });
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const userData = await response.json();
-                    setUserData(userData); // Set the data in the component's state
-                } catch (error) {
-                    console.error('There was an error:', error);
+                    const data = await res.json();
+                    console.log(data);
+                    const activities = {};
+                    Object.keys(data.activities).forEach((key) => {
+                        const activity = data.activities[key];
+                        activities[key] = activity;
+                    });
+
+                    setActivityHistory(activities);
+                    setLoadingState(false);
+                } catch (err) {
+                    console.log('Error: ', err);
                 }
             }
-
-            getUserData(); // Call the async function within useEffect
         };
 
-    }, [user]);
-
-    useEffect(() => {
-        const getActivities = async () => {
-            if (profileData && profileData.user && profileData.user.activities) {
-                const activities = {};
-                Object.keys(profileData.user.activities).forEach((key) => {
-                    const activity = profileData.user.activities[key];
-                    activities[key] = activity;
-                });
-                setActivityHistory(activities);
-            }
-            setLoadingState(false);
-
-        }
-
         getActivities(); // Call the async function within useEffect
-    }, [profileData]); // The empty dependency array ensures that useEffect runs only once
+    }, [username]); // The empty dependency array ensures that useEffect runs only once
 
     function isEmpty(obj) {
         for (const prop in obj) {
