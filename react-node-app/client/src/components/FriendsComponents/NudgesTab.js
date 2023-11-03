@@ -102,7 +102,7 @@ const NudgesTab = () => {
                     <h3>Loading Requests ... </h3>
                 ))
             ) : (
-                <h3 className='friendRequestName'>No Friend Requests</h3>
+                <h3 className='friendRequestName'>No Nudges, Nice Job!</h3>
             )}
         </div>
     );
