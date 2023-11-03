@@ -1,10 +1,91 @@
-import React from "react";
+import React, { useEffect, useState, timeout } from 'react'
+import { getAuth } from "firebase/auth";
+
 const CreateTab = () => {
-  return (
-    <div className="createTab">
-      <p>Create Groups</p>
-      {/* Second  tab content will go here */}
-    </div>
-  );
+
+
+    const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const [groupname, setGroupname] = useState(null);
+    const [status, setStatus] = useState(false);
+    const [sent, setSent] = useState(false);
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    useEffect(() => {
+
+        if (user) {
+            const uid = user.uid;
+        }
+
+    }, [user]);
+
+    useEffect(() => {
+        if (user) {
+            const createGroup = async () => {
+                const uid = user.uid;
+                setSent(true);
+                const response = await fetch(`/api/groups/create/${groupname}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uid: uid }),
+                });
+                const body = await response.json();
+                if (body.status === 'success') {
+                    setStatus(true);
+                } else {
+                    setStatus(false);
+                }
+                console.log(body);
+            }
+            createGroup();
+        }
+    }, [groupname]);
+
+    const handleCreate = (e) => {
+        setGroupname(e.target.value);
+        const uid = user.uid;
+
+    };
+
+    return (
+        <div className="createTab">
+            <h1>Create A Group</h1>
+            <h2>Enter Group Name: </h2>
+            <input
+                className="searchFriendInput"
+                type="text"
+                id="username"
+                placeholder='Group Name'
+            ></input>
+            <button
+                className='searchFriendButton'
+                onClick={handleCreate}>
+                Search
+            </button>
+            {sent ? (
+                <div>
+                    {status ? (
+                        <div>
+                            <h3>Group Created!</h3>
+                        </div>
+                    ) : (
+                        <div>
+                            <h3>Group Creation Failed</h3>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <div></div>
+            )}
+            {/* Second  tab content will go here */}
+        </div>
+    );
 };
 export default CreateTab;

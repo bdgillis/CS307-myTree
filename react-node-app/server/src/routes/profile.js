@@ -51,9 +51,11 @@ router.get('/activity/:username', async (req, res) => {
         const snapshot = await docRef.where("username", "==", req.params.username).get();
         console.log(snapshot.docs)
         const activities = {}; // define empty object
-        
-        console.log(snapshot.docs[0].data());
-        snapshot.forEach(doc => {
+        const docId = snapshot.docs[0].id;
+
+        const activityRef = db.collection('users').doc(docId).collection('activities');
+        const activitySnapshot = await activityRef.get();
+        activitySnapshot.forEach(doc => {
             activities[doc.id] = doc.data(); // add each document to the object
         });
         console.log("Returning activties for user: " + req.params.username);
