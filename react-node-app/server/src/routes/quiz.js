@@ -12,10 +12,12 @@ router.post('/', async (req, res) => {
         const docRef = await db.collection('users').doc(req.body.uid).set({
             bio: req.body.bio,
             carbonScore: 0,
+            weeklyCarbonScore: 0,
             hometown: req.body.hometown,
             targetCategory: req.body.activeCategory,
             quizTaken: req.body.quizTaken, 
             numActivities: 0,
+            weeklyNumActivities: 0,
             username: req.body.username,
             incomingRequests: [],
             outgoingRequests: [],
