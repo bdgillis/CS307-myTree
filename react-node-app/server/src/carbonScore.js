@@ -99,6 +99,9 @@ function calcScore(category, activity, param) {
             score = 0;
             break;
     }
+
+    
+    score = Math.round(score * 1000) / 1000;
     return score;
 }
 
