@@ -203,8 +203,8 @@ const HomeTab = () => {
                     
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{marginRight: '25px'}}>Weekly Stats:</h3>
-                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.weeklyCarbonScore}</h3>
-                        <h3>Number of Activities: {profileData.weeklyNumActivities}</h3>
+                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                        <h3>Number of Activities: {profileData.numActivities}</h3>
                     </div>
                     
                     ) : (
