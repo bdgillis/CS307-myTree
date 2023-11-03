@@ -60,5 +60,48 @@ router.get('/uid=:uid', async (req, res) => {
     }
 });
 
+router.get('/activity/:username', async (req, res) => {
+    try {
+        console.log("activity/username")
+
+        console.log("username: " + req.params.username); 
+        const docRef = db.collection('users');
+        const snapshot = await docRef.where("username", "==", req.params.username).get();
+        // console.log(snapshot.docs)
+        const activities = {}; // define empty object
+        const numAct = snapshot.docs[0].data().numActivities;
+        const docId = snapshot.docs[0].id;
+        const currTime = Date.now();
+        // const recentActTime = 0;
+        // const timeSince = 0;
+        // const daysSince = 0;
+
+        const activityRef = db.collection('users').doc(docId).collection('activities');
+        const activitySnapshot = await activityRef.orderBy('timestamp', 'desc').limit(1).get();
+        if (!activitySnapshot.empty) {
+            console.log("activitySnapshot.docs[0].data().timestamp: " + activitySnapshot.docs[0].data().timestamp);
+            const recentActTime = activitySnapshot.docs[0].data().timestamp;
+            const timeSince = currTime - recentActTime;
+            const daysSince = timeSince / 86400000;
+            if (timeSince > 604800000) {
+                res.json({status: 'success', needNudge: true, daysSince: daysSince});
+            } else {
+                res.json({status: 'success', needNudge: false, daysSince: daysSince});
+            }
+        } else {
+            res.json({status: 'success', needNudge: true, daysSince: null});
+
+        }
+
+        console.log("Returning activties for user: " + req.params.username);
+        // console.log(activities);
+        // res.json({status: 'success', activities: activities});
+    
+    } catch (err) {
+        console.log('Error: ', err);
+        res.status(500).json({error: 'Internal server error'})
+    }
+});
+
 
 module.exports = router;

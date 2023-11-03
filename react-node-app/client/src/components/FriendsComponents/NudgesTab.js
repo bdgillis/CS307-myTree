@@ -1,7 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
 
-const FriendRequestsTab = () => {
+const NudgesTab = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
@@ -53,48 +53,6 @@ const FriendRequestsTab = () => {
 
     }, [user]);
 
-    function acceptRequest(targetUsername) {
-        // console.log(friend.id);
-        if (user) {
-            const makeFriends = async () => {
-                const uid = user.uid;
-
-                const response = await fetch(`/api/friendrequests/accept`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ receivingUid: uid, receivingUsername: userUsername, sendingUsername: targetUsername }),
-                });
-                const body = await response.json();
-                console.log(body);
-            }
-            makeFriends();
-            window.location = './friends';
-        }
-    }
-
-    function declineRequest(targetUsername) {
-        // console.log(friend.id);
-        if (user) {
-            const makeFriends = async () => {
-                const uid = user.uid;
-
-                const response = await fetch(`/api/friendrequests/decline`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ receivingUid: uid, receivingUsername: userUsername, sendingUsername: targetUsername }),
-                });
-                const body = await response.json();
-                console.log(body);
-            }
-            makeFriends();
-            window.location = './friends';
-        }
-    }
-
     useEffect(() => {
         if (incomingRequests.length > 0) {
             // console.log(incomingRequests);
@@ -103,23 +61,18 @@ const FriendRequestsTab = () => {
                     <hr />
 
                     <h3 className='friendRequestName'>
-                        Friend Request from: {element}
+                        Nudge from: {element}
                     </h3>
                     <div className='friendRequestButtons'>
                         <button
                             className='friendRequestButton'
-                            onClick={() => acceptRequest(element)}>
-                            Accept
+                            onClick={() => window.location = './activities'}>
+                            Log an Activity
                         </button>
                         <button
                             className='friendRequestButton'
-                            onClick={() => declineRequest(element)}>
-                            Decline
-                        </button>
-                        <button
-                            className='friendRequestButton'
-                            onClick={() => window.location = './profile/' + element}>
-                            View Profile
+                            onClick={() => window.location = './friends'}>
+                            Dismiss
                         </button>
                     </div>
                 </div>
@@ -140,7 +93,7 @@ const FriendRequestsTab = () => {
 
     return (
         <div className="friendRequestsTab">
-            <h1 className='friendRequestHeader'>Friend Requests</h1>
+            <h1 className='friendRequestHeader'>Nudges</h1>
             {!isEmpty(incomingRequests) ? (
                 (displayRequests ? (
                     <div>
@@ -154,4 +107,4 @@ const FriendRequestsTab = () => {
         </div>
     );
 };
-export default FriendRequestsTab;
+export default NudgesTab;
