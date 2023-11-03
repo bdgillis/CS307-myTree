@@ -130,7 +130,12 @@ const ViewProfile = () => {
                 <br /><br />
                 <h2>Activity History</h2>
                 {profileData ? (
-                    <h3>Carbon Score: {profileData.carbonScore}</h3>
+                    <div>
+                        <h3>Carbon Score: {profileData.carbonScore}</h3>
+                        <h3>Weekly Carbon Score: {profileData.weeklyNumActivities}</h3>
+                        
+                    </div>
+                    
                 ) : (
                     <h3>Carbon Score Unavailable</h3>
                 )}
