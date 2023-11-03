@@ -12,10 +12,11 @@ const functions = require('firebase-functions');
 
 router.post('/', async (req, res) => {
     console.log(req.body)
+    console.log("Activities")
     try {
         const numActRef = await db.collection('users').doc(req.body.uid).get();
         const numAct = numActRef.data().numActivities;
-        //const weeklyNumAct = numActRef.data().weeklyNumActivities;
+        const weeklyNumAct = numActRef.data().weeklyNumActivities;
 
         
         const docRef = await db.collection('users').doc(req.body.uid).collection('activities').doc(`A${numAct + 1}`).set({
@@ -37,14 +38,12 @@ router.post('/', async (req, res) => {
 
 
         const score = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
-
-
         
         const userRef = await db.collection('users').doc(req.body.uid).update({
             numActivities: numAct + 1,
             carbonScore: FieldValue.increment(score),
-            //weeklyNumActivities: weeklyNumAct + 1,
-            //weeklyCarbonScore: FieldValue.increment(score),
+            weeklyNumActivities: weeklyNumAct + 1,
+            weeklyCarbonScore: FieldValue.increment(score),
             awards: awards
         });
         

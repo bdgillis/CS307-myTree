@@ -10,6 +10,8 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 // Get User info for user profile
 router.get('/:uid', async (req, res) => {
     try {
+        console.log("profile/uid")
+
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
@@ -27,6 +29,8 @@ router.get('/:uid', async (req, res) => {
 // Get User info for public profile
 router.get('/username=:username', async (req, res) => {
     try {
+        console.log("profile/username")
+
         console.log("username: " + req.params.username);
         const docRef = db.collection('users');
         const snapshot = await docRef.where("username", "==", req.params.username).get();
@@ -46,6 +50,8 @@ router.get('/username=:username', async (req, res) => {
 
 router.get('/activity/:username', async (req, res) => {
     try {
+        console.log("activity/username")
+
         console.log("username: " + req.params.username); 
         const docRef = db.collection('users');
         const snapshot = await docRef.where("username", "==", req.params.username).get();
