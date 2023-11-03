@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { FaBars } from 'react-icons/fa'
 import Dropdown from '../Dropdown/Dropdown'
+import { g_Counter } from '../../pages/notificationPage'
+
 import { 
   Nav, 
   Bars, 
@@ -10,7 +12,9 @@ import {
   NavBtnLink
 } from './NavbarElements'
 
+
 const Navbar = ({toggle}) => {
+
 
 	//const [click, setClick] = useState(false);
 	const [dropdown, setDropdown] = useState(false);
@@ -31,6 +35,7 @@ const Navbar = ({toggle}) => {
 		setDropdown(false);
 	  }
 	};
+
 
 
   return (
@@ -58,6 +63,13 @@ const Navbar = ({toggle}) => {
             	<NavLink to="/daily-challenge" activeStyle>
               		Daily Challenge
             	</NavLink>
+				<NavLink to="/notificationPage" activeStyle>
+					<div className="icon">
+						<img src={require('../../Images/notificationLogo.png')} className="iconImg" witdh={40} height={40} alt=""/>
+						<div className="counter">{g_Counter}</div>
+					</div>
+            	</NavLink>
+				
 
           	</NavMenu>
           	<NavBtn>

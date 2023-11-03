@@ -17,18 +17,21 @@ import Logout from './pages/Logout';
 import ViewProfile from './pages/ViewProfile';
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
 import Notification from './components/Notification';
+import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
 
 
 function App() {
+    
 
     return (
         <div className="App">
-            
+        
             <BrowserRouter>
 
                 <div>
+                
                 
                     <Switch>
                         <Route exact path="/" component={withRouter(home)}/>
@@ -37,6 +40,7 @@ function App() {
                         <Route path = '/homeTab' component={withRouter(HomeTab)} />
                         <Route path = '/log-out' component={withRouter(Logout)} />
                         <Route path = '/activities' component={withRouter(Activities)} />
+                        <Route path = '/NotificationPage' component={withRouter(NotificationPage)}/>
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
@@ -52,7 +56,8 @@ function App() {
 
                     </Switch>
                 </div>
-                <Notification/>
+
+                
 
             </BrowserRouter>
 

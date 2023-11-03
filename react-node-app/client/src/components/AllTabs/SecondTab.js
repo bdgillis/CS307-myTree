@@ -83,6 +83,9 @@ const SecondTab = () => {
                   scoreData.splice(0);
                   console.log(friends.length);
                   console.log(scoreData);
+                  let realScore = (Math.round(uUsername.userDoc.carbonScore * 100) / 100).toFixed(2);
+
+                  scoreData.push([realScore, auth.currentUser.displayName]);
                   uUsername.userDoc.friends.forEach((element) => {
 
                     const answer = getUidFriends(element);
@@ -95,11 +98,11 @@ const SecondTab = () => {
                       const couple = [carbonScoreValue2, element];
                       scoreData.push(couple);
                       
-                      // Expected output: 123
                     });
                     
 
                   });
+
                   
 
                   
