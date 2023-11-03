@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import './Logout.css'
 import { ButtonLink } from '../components/Header';
 import FriendsTabs from '../components/FriendsComponents/FriendsTabs';
+import Notification from '../components/Notification';
 
 
 const Friends = () => {

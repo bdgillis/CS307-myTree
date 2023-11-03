@@ -403,3 +403,19 @@ label {
   justify-content: center;
   margin: 0 auto;
 }
+.counter {
+  width: 5px;
+  height: 5px;
+  background-color: red;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2;
+  bottom: 2;
+
+}
+
