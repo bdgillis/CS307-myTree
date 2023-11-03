@@ -58,28 +58,30 @@ const CreateTab = () => {
 
     return (
         <div className="createTab">
-            <h1>Create A Group</h1>
-            <h2>Enter Group Name: </h2>
-            <input
-                className="searchFriendInput"
-                type="text"
-                id="groupname"
-                placeholder='Group Name'
-            ></input>
-            <button
-                className='searchFriendButton'
-                onClick={handleCreate}>
-                Create Group
-            </button>
+            <h1 className='createGroupHeader'>Create A Group</h1>
+            <h3 className='createGroupSubHeader'>Enter Group Name: </h3>
+            <div className='createGroupMenu'>
+                <input
+                    className="searchFriendInput"
+                    type="text"
+                    id="groupname"
+                    placeholder='Group Name'
+                ></input>
+                <button
+                    className='searchFriendButton'
+                    onClick={handleCreate}>
+                    Create Group
+                </button>
+            </div>
             {sent ? (
                 <div>
                     {status ? (
                         <div>
-                            <h3>Group Created!</h3>
+                            <h3 className='createGroupFooter'>Group Created!</h3>
                         </div>
                     ) : (
                         <div>
-                            <h3>Group Creation Failed</h3>
+                            <h3 className='createGroupFooter'>Group Creation Failed</h3>
                         </div>
                     )}
                 </div>
