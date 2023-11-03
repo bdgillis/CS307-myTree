@@ -85,40 +85,7 @@ const HomeTab = () => {
         };
 
         getActivities(); // Call the async function within useEffect
-    }, [user][loadingState]); // The empty dependency array ensures that useEffect runs only once
-
-    var weeklyCarbonScore1 = 0;
-
-    // useEffect(() => {
-    //     const getWeeklyStats = async () => {
-    //         if (user) {
-    //             const uid = user.uid;
-    //             try {
-    //                 const res = await fetch(`/api/editActivityHistory/${uid}`, {
-    //                     method: 'GET'
-    //                 });
-    //                 const curTime = Date.now();
-    //                 const data = await res.json();
-    //                 console.log(data);
-    //                 const activities = {};
-    //                 Object.keys(data.activities).forEach((key) => {
-    //                     const date = data.activities[key].Date;
-    //                     if (date > (curTime - 604800)) {
-    //                         weeklyCarbonScore1 += data.activities[key];
-    //                     }
-    //                     activities[key] = date;
-    //                 });
-                    
-    //                 setActivityHistory(activities);
-    //                 setLoadingState(false);
-    //             } catch (err) {
-    //                 console.log('Error: ', err);
-    //             }
-    //         }
-    //     };
-
-    //     getWeeklyStats(); // Call the async function within useEffect
-    // }, [user][loadingState]); // The empty dependency array ensures that useEffect runs only once
+    }, [user]); // The empty dependency array ensures that useEffect runs only once
 
     console.log(profileData)
     console.log(activityHistory);
@@ -236,8 +203,8 @@ const HomeTab = () => {
                     
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{marginRight: '25px'}}>Weekly Stats:</h3>
-                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.weeklyCarbonScore}</h3>
-                        <h3>Number of Activities: {profileData.weeklyNumActivities}</h3>
+                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                        <h3>Number of Activities: {profileData.numActivities}</h3>
                     </div>
                     
                     ) : (
