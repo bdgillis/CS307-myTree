@@ -11,6 +11,7 @@ const eatingActivities = ["Takeout", "Meal Protein - Red Meat",
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
 const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
 const finalArray = [];
+var setDone = false;
 
 function getNumber(min, max) {
 	return Math.random() * (max - min) + min;
@@ -97,6 +98,8 @@ function getVal() {
 	return myObject;
 }
 
+
+
 const DailyChallenge = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -105,8 +108,11 @@ const DailyChallenge = () => {
     };
 
 	const finalArr = getVal();
+
+
 	
 
+	
 
   	return (
 		<>
@@ -122,7 +128,7 @@ const DailyChallenge = () => {
 			<h3>{finalArr[3]}</h3>
 
 
-			
+		
 
 		</>
     	
