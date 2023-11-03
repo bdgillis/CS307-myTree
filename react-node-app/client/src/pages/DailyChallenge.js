@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Navbar from '../components/Navbar/Navbar';
+import { NavBtn } from '../components/Navbar/NavbarElements';
 import Sidebar from '../components/Sidebar/Sidebar';
 import './Logout.css'
 
@@ -100,6 +101,9 @@ function getVal() {
 
 
 
+const markDone = () => {
+	document.getElementById("thisBtn").innerHTML = "Done!";
+}
 const DailyChallenge = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -108,7 +112,7 @@ const DailyChallenge = () => {
     };
 
 	const finalArr = getVal();
-
+	
 
 	
 
@@ -126,6 +130,10 @@ const DailyChallenge = () => {
 			<h3>{finalArr[1]}</h3>
 			<h3>{finalArr[2]}</h3>
 			<h3>{finalArr[3]}</h3>
+			<div id="thisBtn">
+				<button  onClick={markDone}>Mark as done!</button>
+			</div>
+		
 
 
 		
