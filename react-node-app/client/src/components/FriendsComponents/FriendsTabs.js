@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FirstTab from "./FriendListTab";
 import SecondTab from "./SearchFriendsTab";
 import ThirdTab from "./FriendRequestsTab";
+import FourthTab from "./NudgesTab";
 
 
 const FriendsTabs = () => {
@@ -19,6 +20,10 @@ const FriendsTabs = () => {
     const handleTab3 = () => {
         // update the state to tab2
         setActiveTab("tab3");
+    };
+    const handleTab4 = () => {
+        // update the state to tab2
+        setActiveTab("tab4");
     };
 
     return (
@@ -42,11 +47,16 @@ const FriendsTabs = () => {
                     onClick={handleTab3}>
                     Friend Requests
                 </li>
+                <li className={activeTab === "tab4" ? "active" : ""}
+                    onClick={handleTab4}>
+                    Nudges
+                </li>
 
             </ul>
             <div className="outlet">
                 {activeTab === "tab1" ? <FirstTab /> :
-                    activeTab === "tab2" ? <SecondTab /> : <ThirdTab />}
+                    activeTab === "tab2" ? <SecondTab /> : 
+                        activeTab === "tab3" ? <ThirdTab /> : <FourthTab />}
             </div>
 
         </div>

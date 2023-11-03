@@ -11,6 +11,7 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 router.get('/:uid', async (req, res) => {
     try {
         console.log("profile/uid")
+        console.log("uid: " + req.params.uid);
 
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();

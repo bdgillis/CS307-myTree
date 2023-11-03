@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 
 
 const FriendListTab = () => {
-    
+
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -57,24 +57,59 @@ const FriendListTab = () => {
 
     useEffect(() => {
         // if (userDoc) {
-            if (friends.length > 0) {
-                // console.log(incomingRequests);
-                const displayFriends = friends.map((element) => (
+        if (friends.length > 0) {
+            // console.log(incomingRequests);
+            
+            const displayFriendsPromises = friends.map( async (element) => {
+                const isNudge = await nudgeNeeded(element);
+                // console.log(isNudge)
+                return{isNudge:isNudge, element: element};
+            });
+
+            Promise.all(displayFriendsPromises).then((renderedFriends) => {
+                const displayFriendsArray = renderedFriends.map((friend) => (
                     <div>
+                        <hr/>
                         <h3 className='friendName'>
-                            Friend: {element}
+                            Friend: {friend.element}
                         </h3>
-                        <button 
+                        <button
                             className='friendProfButton'
-                            onClick={() => window.location = './profile/' + element}>
-                                View Profile
+                            onClick={() => window.location = './profile/' + friend.element}>
+                            View Profile
                         </button>
+                        {friend.isNudge.daysSince ? (
+                            <h4 className='friendName'>Last Activity: {friend.isNudge.daysSince} days ago</h4>
+                        ) : (
+                            <h4 className='friendName'>No Activities!</h4>
+                        )}
+                        {friend.isNudge.needNudge ? (
+                            <button className='friendProfButton'>Nudge</button>
+                        ) : ( 
+                            <div></div>
+                        )
+                        }
+                        
                     </div>
                 ));
-                setDisplayFriends(displayFriends);
-            }
+                setDisplayFriends(displayFriendsArray);
+            });
+                    
+
+            // setDisplayFriends(displayFriends);
+        }
         // }
     }, [friends]);
+
+    const nudgeNeeded = async (targetUsername) => {
+        const response = await fetch(`/api/friends/activity/${targetUsername}`, {
+            method: 'GET'
+        });
+        const body = await response.json();
+        // if (body.status === "success") {
+            return {needNudge: body.needNudge, daysSince: body.daysSince};
+        // }
+    }
 
     function isEmpty(obj) {
         for (const prop in obj) {
@@ -85,7 +120,7 @@ const FriendListTab = () => {
 
         return true;
     }
-    
+
     return (
         <div className="searchTab">
             <h1 className='friendListHeader'>
