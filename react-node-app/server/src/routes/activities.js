@@ -57,10 +57,3 @@ router.post('/', async (req, res) => {
 
 
 module.exports = router;
-
-// exports.resetWeekly = functions.pubsub.schedule('5 * * * *').onRun((context) => {
-//     console.log('This will be run every 5 minutes!');
-//     weeklyNumActivities: 0;
-//     weeklyCarbonScore: 0;
-//     return null;
-// })

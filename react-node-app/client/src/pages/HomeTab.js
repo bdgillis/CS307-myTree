@@ -60,6 +60,9 @@ const HomeTab = () => {
         
     }, [user]);
 
+    var weeklyNumAct = 0;
+    var weeklyCarbonScore = 0;
+
     useEffect(() => {
         const getActivities = async () => {
             if (user) {
@@ -70,10 +73,18 @@ const HomeTab = () => {
                     });
                     const data = await res.json();
                     console.log(data);
+                    var date = Date.now();
                     const activities = {};
                     Object.keys(data.activities).forEach((key) => {
                         const activity = data.activities[key];
                         activities[key] = activity;
+
+                        console.log("here")
+
+                        if ((date - data.activities[key].timestamp) <= 604800) {
+                            weeklyNumAct++;
+                            console.log(""+weeklyNumAct);
+                        }
                     });
                     
                     setActivityHistory(activities);
@@ -180,7 +191,7 @@ const HomeTab = () => {
                         <h3>MyTree's Height: {image.height}</h3>
                     </div>
                 ) : (
-                    <h3>Carbon Score: </h3>
+                    <h3>MyTree's Height: 250 </h3>
                 )}
                 {!loadingState ? (
                     (isEmpty(activityHistory)) ? (
@@ -203,12 +214,12 @@ const HomeTab = () => {
                     
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{marginRight: '25px'}}>Weekly Stats:</h3>
-                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
-                        <h3>Number of Activities: {profileData.numActivities}</h3>
+                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.weeklyCarbonScore}</h3>
+                        <h3>Number of Activities: {profileData.weeklyNumActivities}</h3>
                     </div>
                     
                     ) : (
-                    <h3>Number of Activities:</h3>
+                    <h3>Weekly Stats:</h3>
                 )}
                 
             </div>
@@ -235,7 +246,7 @@ const HomeTab = () => {
                         </button>
                     </div>
                     ) : (
-                    <h3>Number of Activities:</h3>
+                    <h3>All Time Stats:</h3>
                 )}
                 
             </div>
