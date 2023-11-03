@@ -26,6 +26,7 @@ const CreateTab = () => {
 
     useEffect(() => {
         if (user) {
+            console.log("creating")
             const createGroup = async () => {
                 const uid = user.uid;
                 setSent(true);
@@ -49,7 +50,8 @@ const CreateTab = () => {
     }, [groupname]);
 
     const handleCreate = (e) => {
-        setGroupname(e.target.value);
+        console.log(document.getElementById('groupname').value);
+        setGroupname(document.getElementById('groupname').value);
         const uid = user.uid;
 
     };
@@ -61,13 +63,13 @@ const CreateTab = () => {
             <input
                 className="searchFriendInput"
                 type="text"
-                id="username"
+                id="groupname"
                 placeholder='Group Name'
             ></input>
             <button
                 className='searchFriendButton'
                 onClick={handleCreate}>
-                Search
+                Create Group
             </button>
             {sent ? (
                 <div>

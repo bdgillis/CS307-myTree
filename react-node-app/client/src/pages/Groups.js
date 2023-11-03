@@ -24,7 +24,7 @@ const Groups = () => {
 				alignItems: 'center',
 				height: '90vh'
 			}}>
-				<h1>Groups</h1>
+				
 			</div>
 		</>
   )
