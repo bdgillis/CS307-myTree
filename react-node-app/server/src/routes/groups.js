@@ -20,8 +20,11 @@ router.get('/:groupname', async (req, res) => {
         const doc = await group.get();
         if (!doc.exists) {
             console.log('No group with groupname: ' + req.params.groupname);   
-        } 
-        res.json(doc.data().users);
+            res.json({exists: false});
+        } else {
+            console.log('Group with groupname: ' + req.params.groupname + ' exists');
+            res.json({exists: true, data: doc.data().users});
+        }
     } catch (err) {
         console.log('Error: ', err);
     }
@@ -79,6 +82,7 @@ router.post('/join/:groupname', async (req, res) => {
         if (!doc.exists) {
             res.json({status: 'error', error: 'group already exists'});
         } else {
+            console.log("success")
             const docRef = await db.collection('groups').doc(req.params.groupname).update({
                 users: FieldValue.arrayUnion(req.body.uid)
             });

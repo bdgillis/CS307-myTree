@@ -25,7 +25,7 @@ const CreateTab = () => {
     }, [user]);
 
     useEffect(() => {
-        if (user) {
+        if (user && groupname) {
             console.log("creating")
             const createGroup = async () => {
                 const uid = user.uid;
