@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1698635033671" clover="3.2.0">
-  <project timestamp="1698635033671" name="All files">
-    <metrics statements="63" coveredstatements="9" conditionals="29" coveredconditionals="2" methods="1" coveredmethods="1" elements="93" coveredelements="12" complexity="0" loc="63" ncloc="63" packages="1" files="1" classes="1"/>
-    <file name="carbonScore.js" path="/Users/paulkraessig/Purdue/CS307/CS307-myTree/react-node-app/server/carbonScore.js">
-      <metrics statements="63" coveredstatements="9" conditionals="29" coveredconditionals="2" methods="1" coveredmethods="1"/>
-      <line num="5" count="1" type="stmt"/>
-      <line num="6" count="1" type="stmt"/>
-      <line num="7" count="1" type="cond" truecount="1" falsecount="3"/>
-      <line num="9" count="1" type="cond" truecount="1" falsecount="7"/>
-      <line num="11" count="0" type="stmt"/>
-      <line num="12" count="0" type="stmt"/>
+<coverage generated="1698972315324" clover="3.2.0">
+  <project timestamp="1698972315325" name="All files">
+    <metrics statements="77" coveredstatements="47" conditionals="32" coveredconditionals="17" methods="2" coveredmethods="2" elements="111" coveredelements="66" complexity="0" loc="77" ncloc="77" packages="1" files="2" classes="2"/>
+    <file name="awardCheck.js" path="/Users/paulkraessig/Purdue/CS307/CS307-myTree/react-node-app/server/src/awardCheck.js">
+      <metrics statements="13" coveredstatements="13" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+      <line num="5" count="2" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="8" count="2" type="stmt"/>
+      <line num="9" count="12" type="cond" truecount="3" falsecount="0"/>
+      <line num="11" count="4" type="stmt"/>
+      <line num="12" count="4" type="stmt"/>
+      <line num="14" count="4" type="stmt"/>
+      <line num="15" count="4" type="stmt"/>
+      <line num="17" count="4" type="stmt"/>
+      <line num="18" count="4" type="stmt"/>
+      <line num="23" count="2" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+    </file>
+    <file name="carbonScore.js" path="/Users/paulkraessig/Purdue/CS307/CS307-myTree/react-node-app/server/src/carbonScore.js">
+      <metrics statements="64" coveredstatements="34" conditionals="29" coveredconditionals="14" methods="1" coveredmethods="1"/>
+      <line num="5" count="13" type="stmt"/>
+      <line num="6" count="13" type="stmt"/>
+      <line num="7" count="13" type="cond" truecount="4" falsecount="0"/>
+      <line num="9" count="7" type="cond" truecount="7" falsecount="1"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="12" count="1" type="stmt"/>
       <line num="14" count="1" type="stmt"/>
       <line num="15" count="1" type="stmt"/>
-      <line num="17" count="0" type="stmt"/>
-      <line num="18" count="0" type="stmt"/>
-      <line num="20" count="0" type="stmt"/>
-      <line num="21" count="0" type="stmt"/>
-      <line num="23" count="0" type="stmt"/>
-      <line num="24" count="0" type="stmt"/>
-      <line num="26" count="0" type="stmt"/>
-      <line num="27" count="0" type="stmt"/>
-      <line num="29" count="0" type="stmt"/>
-      <line num="30" count="0" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="18" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="27" count="1" type="stmt"/>
+      <line num="29" count="1" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
       <line num="32" count="0" type="stmt"/>
       <line num="33" count="0" type="stmt"/>
-      <line num="35" count="1" type="stmt"/>
-      <line num="38" count="0" type="cond" truecount="0" falsecount="8"/>
+      <line num="35" count="7" type="stmt"/>
+      <line num="38" count="3" type="cond" truecount="2" falsecount="6"/>
       <line num="40" count="0" type="stmt"/>
       <line num="41" count="0" type="stmt"/>
       <line num="43" count="0" type="stmt"/>
@@ -38,12 +54,12 @@
       <line num="53" count="0" type="stmt"/>
       <line num="55" count="0" type="stmt"/>
       <line num="56" count="0" type="stmt"/>
-      <line num="58" count="0" type="stmt"/>
-      <line num="59" count="0" type="stmt"/>
-      <line num="61" count="0" type="stmt"/>
-      <line num="62" count="0" type="stmt"/>
-      <line num="64" count="0" type="stmt"/>
-      <line num="67" count="0" type="cond" truecount="0" falsecount="9"/>
+      <line num="58" count="2" type="stmt"/>
+      <line num="59" count="2" type="stmt"/>
+      <line num="61" count="1" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
+      <line num="64" count="3" type="stmt"/>
+      <line num="67" count="2" type="cond" truecount="1" falsecount="8"/>
       <line num="69" count="0" type="stmt"/>
       <line num="70" count="0" type="stmt"/>
       <line num="72" count="0" type="stmt"/>
@@ -58,15 +74,16 @@
       <line num="85" count="0" type="stmt"/>
       <line num="87" count="0" type="stmt"/>
       <line num="88" count="0" type="stmt"/>
-      <line num="90" count="0" type="stmt"/>
-      <line num="91" count="0" type="stmt"/>
+      <line num="90" count="2" type="stmt"/>
+      <line num="91" count="2" type="stmt"/>
       <line num="93" count="0" type="stmt"/>
       <line num="94" count="0" type="stmt"/>
-      <line num="96" count="0" type="stmt"/>
-      <line num="99" count="0" type="stmt"/>
-      <line num="100" count="0" type="stmt"/>
-      <line num="102" count="1" type="stmt"/>
-      <line num="105" count="1" type="stmt"/>
+      <line num="96" count="2" type="stmt"/>
+      <line num="99" count="1" type="stmt"/>
+      <line num="100" count="1" type="stmt"/>
+      <line num="104" count="13" type="stmt"/>
+      <line num="105" count="13" type="stmt"/>
+      <line num="108" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>
