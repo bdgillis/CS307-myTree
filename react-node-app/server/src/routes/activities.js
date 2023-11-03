@@ -37,6 +37,8 @@ router.post('/', async (req, res) => {
 
 
         const score = calcScore(req.body.activeCategory, req.body.activeActivity, req.body.activityParam);
+
+
         
         const userRef = await db.collection('users').doc(req.body.uid).update({
             numActivities: numAct + 1,
@@ -57,9 +59,9 @@ router.post('/', async (req, res) => {
 
 module.exports = router;
 
-exports.resetWeekly = functions.pubsub.schedule('5 * * * *').onRun((context) => {
-    console.log('This will be run every 5 minutes!');
-    weeklyNumActivities: 0;
-    weeklyCarbonScore: 0;
-    return null;
-})
+// exports.resetWeekly = functions.pubsub.schedule('5 * * * *').onRun((context) => {
+//     console.log('This will be run every 5 minutes!');
+//     weeklyNumActivities: 0;
+//     weeklyCarbonScore: 0;
+//     return null;
+// })
