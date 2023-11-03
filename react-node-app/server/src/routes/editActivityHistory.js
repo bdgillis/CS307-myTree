@@ -9,6 +9,7 @@ const awardCheck = require('../awardCheck.js')
 
 router.get('/:uid', async (req, res) => {
     try {
+        console.log("Activityhistory/uid")
         console.log("uid: " + req.params.uid); 
         const docRef = db.collection('users').doc(req.params.uid).collection('activities');
         const snapshot = await docRef.get();
@@ -29,6 +30,8 @@ router.get('/:uid', async (req, res) => {
 
 router.post('/', async (req, res) => {
     console.log(req.body)
+    console.log("Activityhistory/")
+
     try {
 
         const actRef = db.collection('users').doc(req.body.uid).collection('activities');

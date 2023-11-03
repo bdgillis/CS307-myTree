@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1698972315324" clover="3.2.0">
-  <project timestamp="1698972315325" name="All files">
+<coverage generated="1698986619641" clover="3.2.0">
+  <project timestamp="1698986619641" name="All files">
     <metrics statements="77" coveredstatements="47" conditionals="32" coveredconditionals="17" methods="2" coveredmethods="2" elements="111" coveredelements="66" complexity="0" loc="77" ncloc="77" packages="1" files="2" classes="2"/>
-    <file name="awardCheck.js" path="/Users/paulkraessig/Purdue/CS307/CS307-myTree/react-node-app/server/src/awardCheck.js">
+    <file name="awardCheck.js" path="/Users/briangillis/Documents/Github/CS307-myTree/react-node-app/server/src/awardCheck.js">
       <metrics statements="13" coveredstatements="13" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <line num="5" count="2" type="stmt"/>
       <line num="6" count="2" type="stmt"/>
@@ -18,7 +18,7 @@
       <line num="23" count="2" type="stmt"/>
       <line num="27" count="1" type="stmt"/>
     </file>
-    <file name="carbonScore.js" path="/Users/paulkraessig/Purdue/CS307/CS307-myTree/react-node-app/server/src/carbonScore.js">
+    <file name="carbonScore.js" path="/Users/briangillis/Documents/Github/CS307-myTree/react-node-app/server/src/carbonScore.js">
       <metrics statements="64" coveredstatements="34" conditionals="29" coveredconditionals="14" methods="1" coveredmethods="1"/>
       <line num="5" count="13" type="stmt"/>
       <line num="6" count="13" type="stmt"/>

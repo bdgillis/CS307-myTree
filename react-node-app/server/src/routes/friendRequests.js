@@ -14,6 +14,8 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 //get incoming friend requests for specific user
 router.get('/incoming/:uid', async (req, res) => {
     try {
+        console.log("friendrequest/incoming/uid")
+
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
@@ -35,6 +37,8 @@ router.get('/incoming/:uid', async (req, res) => {
 //get outgoing friend requests for specific user
 router.get('/outgoing', async (req, res) => {
     try {
+        console.log("friendrequest/outgoing")
+
         const user = db.collection('users').doc(req.body.uid);
         const doc = await user.get();
         if (!doc.exists) {
@@ -59,6 +63,7 @@ router.get('/outgoing', async (req, res) => {
 //add this request to the other user's list of incoming requests
 router.post('/', async (req, res) => {
     try {
+        console.log("friendrequest")
 
         console.log(req.body)
         const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
@@ -83,6 +88,8 @@ router.post('/', async (req, res) => {
 //decide on sendng uids in params or body
 router.post('/accept', async (req, res) => {
     try {
+        console.log("friendrequest/acept")
+
         const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
             incomingRequests: FieldValue.arrayRemove(req.body.sendingUsername),
             friends: FieldValue.arrayUnion(req.body.sendingUsername)
@@ -113,6 +120,8 @@ router.post('/accept', async (req, res) => {
 
 router.post('/decline', async (req, res) => {
     try {
+        console.log("friendrequest/decline")
+
         console.log(req.body)
         const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
             incomingRequests: FieldValue.arrayRemove(req.body.sendingUsername),
