@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const calcScore = require('../carbonScore.js')
 const admin = require("firebase-admin");
+const database = admin.firestore();
 const { getFirestore, Timestamp, FieldValue, Filter} = require('firebase-admin/firestore');
 const db = getFirestore();
 const { query, where, getDocs } = require('firebase-admin/firestore');
-const awardCheck = require('../awardCheck.js')
+const awardCheck = require('../awardCheck.js');
+const functions = require('firebase-functions');
 
 
 router.post('/', async (req, res) => {
@@ -52,4 +54,12 @@ router.post('/', async (req, res) => {
     }
 });
 
+
 module.exports = router;
+
+exports.resetWeekly = functions.pubsub.schedule('5 * * * *').onRun((context) => {
+    console.log('This will be run every 5 minutes!');
+    weeklyNumActivities: 0;
+    weeklyCarbonScore: 0;
+    return null;
+})

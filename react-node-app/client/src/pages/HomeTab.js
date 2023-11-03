@@ -176,17 +176,6 @@ const HomeTab = () => {
             <div className='carbon-score'>
             {profileData ? (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <button style={{ 
-                            marginRight: '20px', 
-                            backgroundColor: '#256ce1', 
-                            color: 'white', 
-                            borderRadius: '50%', 
-                            width: '30px', 
-                            height: '30px' 
-                        }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
-                            ?
-                        </button>
-                        <h3 style={{marginRight: '50px'}}>Carbon Score: {profileData.carbonScore}</h3>
                         {changeImage()}
                         <h3>MyTree's Height: {image.height}</h3>
                     </div>
@@ -207,9 +196,44 @@ const HomeTab = () => {
                 )}
                 
             </div>
+
+
             <div className='num-activites'>
                 {!loadingState ? (
-                    <h3>Number of Activities: {profileData.numActivities}</h3>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <h3 style={{marginRight: '25px'}}>Weekly Stats:</h3>
+                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.weeklyCarbonScore}</h3>
+                        <h3>Number of Activities: {profileData.weeklyNumActivities}</h3>
+                    </div>
+                    
+                    ) : (
+                    <h3>Number of Activities:</h3>
+                )}
+                
+            </div>
+
+            <div className='num-activites'>
+                {!loadingState ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <h3 style={{marginRight: '25px'}}>All Time Stats:</h3>
+
+                        <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+
+                        <h3>Number of Activities: {profileData.numActivities}</h3>
+                        <button 
+                            className='learnAboutCarbonScore'
+                            style={{ 
+                                marginLeft: '25px', 
+                                backgroundColor: '#256ce1', 
+                                color: 'white', 
+                                borderRadius: '50%', 
+                                width: '30px', 
+                                height: '30px' 
+                        }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
+                            ?
+                        </button>
+                    </div>
                     ) : (
                     <h3>Number of Activities:</h3>
                 )}
