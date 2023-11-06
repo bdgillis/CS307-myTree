@@ -210,7 +210,7 @@ const HomeTab = () => {
 
 
             <div className='num-activites'>
-                {!loadingState ? (
+                {profileData ? (
                     
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{marginRight: '25px'}}>Weekly Stats:</h3>
@@ -225,7 +225,7 @@ const HomeTab = () => {
             </div>
 
             <div className='num-activites'>
-                {!loadingState ? (
+                {profileData ? (
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{marginRight: '25px'}}>All Time Stats:</h3>
 

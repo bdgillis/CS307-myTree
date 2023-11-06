@@ -23,7 +23,7 @@
 
 /* Tab Navigation */
 ul.nav {
-    width: 60%;
+    width: 61%;
     top: 1.2rem;
     margin: 0 auto 2rem;
     display: flex;
@@ -45,6 +45,8 @@ ul.nav {
     transition: all 0.7s;
     border-bottom-left-radius: 2rem;
     border-top-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top-right-radius: 2rem;
   }
   ul.nav li:first-child {
     border-bottom-right-radius: 2rem;
