@@ -3,10 +3,13 @@ import { getAuth, reauthenticateWithRedirect, TotpMultiFactorGenerator } from "f
 import { onAuthStateChanged } from 'firebase/auth';
 import FirstTab from './FirstTab';
 import { FaIgloo } from 'react-icons/fa';
+
 const scoreData = [];
 var myScore;
 var myScoreUpdated;
 var myLeague;
+export var g_sortedArr = [];
+export var emailArray = [];
 
 
 const ThirdTab = () => {
@@ -31,7 +34,10 @@ const ThirdTab = () => {
 
 
 
+
+
   useEffect(() => {
+    
     if(finalA === 1) {
       return;
     }
@@ -50,13 +56,15 @@ const ThirdTab = () => {
 
               setProfileData(profileData); // Set the data in the component's state
               if(uidComp === user.uid) {
+                console.log(profileData.username);
                 myScore = profileData.carbonScore;
 
               }
               let carbonScoreVal = (Math.round(profileData.carbonScore * 100) / 100).toFixed(2);
 
-              const couple = [curUser, carbonScoreVal];
+              const couple = [curUser, carbonScoreVal, profileData.username];
               scoreData.push(couple);
+              emailArray.push(profileData.username);
               
 
               
@@ -65,12 +73,14 @@ const ThirdTab = () => {
             console.error('There was an error:', error);
           }
         }
+
     }
 
     
 
       const getAllData = async () => {
         scoreData.splice(0);
+        emailArray.splice(0);
         try {
           if(final === 0) {
             return;
@@ -88,7 +98,10 @@ const ThirdTab = () => {
     
           setLoadingState(false);
 
+          let incUID = 0;
+
           allData.users.forEach((userRecord) => {
+            console.log(userRecord.displayName);
             getProfileData(userRecord.uid, userRecord.displayName);
 
           });
@@ -103,6 +116,7 @@ const ThirdTab = () => {
       getAllData();
 
       setAnswer(scoreData);
+      
 
       
 
@@ -163,6 +177,7 @@ const ThirdTab = () => {
       
       let sortedArr = scoreData.sort(sortFunction);
       var prev;
+      let arrayPlace = 0;
 
       for(let i = 0; i < sortedArr.length; i++) {
         
@@ -171,7 +186,9 @@ const ThirdTab = () => {
             
             document.getElementById("printThat").innerHTML = ((number) + ": \t" + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
             var prev = sortedArr[i][1];
+            g_sortedArr[arrayPlace] = sortedArr[i];
             number += 1;
+            arrayPlace += 1;
 
           } else if (number > 1) {
 
@@ -181,7 +198,9 @@ const ThirdTab = () => {
             document.getElementById("printThat").innerHTML += ((number) + ": " + sortedArr[i][0] + ", " + sortedArr[i][1] + "<br/>");
 
             prev = sortedArr[i][1];
+            g_sortedArr[arrayPlace] = sortedArr[i];
             number++;
+            arrayPlace++;
             
           }
         }
@@ -195,6 +214,7 @@ const ThirdTab = () => {
     
   }
   sortArray();
+  console.log(emailArray);
 
 
   return (
