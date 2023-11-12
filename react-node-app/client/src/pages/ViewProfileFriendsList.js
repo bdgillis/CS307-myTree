@@ -1,5 +1,4 @@
 import React, { useEffect, useState, timeout } from 'react'
-import React, { useEffect, useState, timeout } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth } from "firebase/auth";
@@ -8,10 +7,9 @@ import './Logout.css'
 import { ButtonLink } from '../components/Header';
 import FriendsTabs from '../components/FriendsComponents/FriendsTabs';
 import Notification from '../components/Notification';
-import { getAuth } from "firebase/auth";
 
 
-const ViewProfileFriendList = () => {
+const ViewProfileFriendsList = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -132,21 +130,30 @@ const ViewProfileFriendList = () => {
     }
 
     return (
-        <div className="searchTab">
-            <h1 className='friendListHeader'>
-                Friends List
-            </h1>
-            {/* <h2>Friend List : </h2> */}
-            {!isEmpty(friends) ? (
-                (displayFriends ? (
-                    <div>
-                        {displayFriends}
-                    </div>) : (
-                    <h3>Loading Friends List ... </h3>
-                ))
-            ) : (
-                <h3 className='friendName'>No Friends</h3>
-            )}
-        </div>
+        <>
+            <div className="NavMenu">
+                <Sidebar isOpen={isOpen} toggle={toggle} />
+                <Navbar toggle={toggle} />
+            </div>
+
+            <div className="searchTab">
+                <h1 className='friendListHeader'>
+                    Friends List
+                </h1>
+                {/* <h2>Friend List : </h2> */}
+                {!isEmpty(friends) ? (
+                    (displayFriends ? (
+                        <div>
+                            {displayFriends}
+                        </div>) : (
+                        <h3>Loading Friends List ... </h3>
+                    ))
+                ) : (
+                    <h3 className='friendName'>No Friends</h3>
+                )}
+            </div>
+        </>
     );
 }
+
+export default ViewProfileFriendsList;

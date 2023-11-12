@@ -21,6 +21,7 @@ import Notification from './components/Notification';
 import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
+import ViewProfileFriendsList from './pages/ViewProfileFriendsList';
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
                         <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
                         <Route path = '/profile/:username' component={withRouter(UserProfile)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
+                        <Route path = '' component={withRouter(ViewProfileFriendsList)} />
 
                     </Switch>
                 </div>
