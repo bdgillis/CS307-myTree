@@ -30,10 +30,10 @@ const LogoutButton = styled.button `
 
 `
 
-const Logout = () => {
-	const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => {
-      setIsOpen(!isOpen);
+    const Logout = () => {
+	    const [isOpen, setIsOpen] = useState(false);
+        const toggle = () => {
+        setIsOpen(!isOpen);
     };
 
     const logout = async () => {
@@ -46,7 +46,7 @@ const Logout = () => {
             document.getElementById('errfn').innerHTML="Logout failed.";
             console.log(err.message);
         }
-      };
+    };
 
   	return (
         <>

@@ -54,8 +54,6 @@ function App() {
                         <Route path = '/profile/:username' component={withRouter(UserProfile)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
 
-
-
                     </Switch>
                 </div>
 
