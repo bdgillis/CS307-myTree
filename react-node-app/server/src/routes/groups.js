@@ -98,4 +98,19 @@ router.post('/join/:groupname', async (req, res) => {
 
 });
 
+//List groups a user is a member of
+router.get('/user/:uid', async (req, res) => {
+    try{
+        console.log("returning groups for user: " + req.params.uid);
+        const user = await db.collection('users').doc(req.params.uid).get();
+        const groupList = user.data().groups;
+        console.log(user.data().groups)
+        
+        res.json(groupList);
+
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+});
+
 module.exports = router;
