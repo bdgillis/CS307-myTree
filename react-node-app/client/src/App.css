@@ -452,5 +452,12 @@ label {
   margin-bottom: 10px;
 }
 
+.userProfileHeader {
+    height: 190px;
+    display: 'flex';
+    position: fixed;
+    padding-top: 90px;
+}
+
 
 

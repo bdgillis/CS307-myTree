@@ -57,6 +57,9 @@ const Navbar = ({toggle}) => {
             	<NavLink to="/friends" activeStyle>
               		Friends
             	</NavLink>
+				<NavLink to="/leagues" activeStyle>
+					League
+				</NavLink>
             	<NavLink to="/leaderboards" activeStyle>
               		Leaderboards
             	</NavLink>

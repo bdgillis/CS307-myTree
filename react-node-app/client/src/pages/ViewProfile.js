@@ -3,13 +3,55 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
-import './Logout.css'
+import styled from 'styled-components';
+import './Logout.css';
+import '../App.css';
+
+
+
+const FriendsButton = styled.button `
+    border-radius: 4px;
+    background: #256ce1;
+    padding: 7px 15px;
+    color: #fff;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    font-size: 20px;
+	font-weight: bold; 
+
+    margin-left: -18px;
+
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background: #fff;
+        color: #010606;
+    }
+
+`
+
 
 const ViewProfile = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [profileData, setProfileData] = useState(null);
     const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
+
+
+    const changeToFriendList = async () => {
+        try {
+            //alert(auth.currentUser.email)
+            window.location = '/view-profile/Friends-List';    
+        } catch (err) {
+            alert(err)
+            document.getElementById('errfn').innerHTML="Logout failed.";
+            console.log(err.message);
+        }
+    };
+
+
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -103,7 +145,11 @@ const ViewProfile = () => {
             </div>
 
             <div>
-                <h1>User Profile </h1>
+                <div>
+                    <h1>
+                        User Profile 
+                    </h1>
+                </div>
                 {profileData ? (
                     profileData.quizTaken ? (
                         <div>
@@ -113,6 +159,10 @@ const ViewProfile = () => {
                             <h3>Location: {profileData.hometown}</h3>
                             <h3>About Me: {profileData.bio}</h3>
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
+                            <FriendsButton onClick={changeToFriendList}>
+                                Friends
+                            </FriendsButton>
+                            <></>
                             {profileData.awards ? (
                             <div>
                                 <h3>Awards: </h3>

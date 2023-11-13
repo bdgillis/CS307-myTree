@@ -8,6 +8,7 @@ import HomeTab from './pages/HomeTab'
 import Activities from './pages/Activities'
 import Groups from './pages/Groups'
 import Friends from './pages/Friends'
+import Leagues from './pages/Leagues'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
 import ManageAccount from './pages/ManageAccount';
@@ -20,6 +21,7 @@ import Notification from './components/Notification';
 import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
+import ViewProfileFriendsList from './pages/ViewProfileFriendsList';
 
 
 function App() {
@@ -44,6 +46,7 @@ function App() {
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
+                        <Route path = '/leagues' component={withRouter(Leagues)} />
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />
                         <Route path = '/daily-challenge' component={withRouter(DailyChallenge)} />
                         <Route path = '/manage-account' exact component={withRouter(ManageAccount)} />
@@ -51,8 +54,7 @@ function App() {
                         <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
                         <Route path = '/profile/:username' component={withRouter(UserProfile)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
-
-
+                        <Route path = '' component={withRouter(ViewProfileFriendsList)} />
 
                     </Switch>
                 </div>
