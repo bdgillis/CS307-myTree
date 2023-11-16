@@ -1,6 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
 
-import { getAuth } from "firebase/auth";
+import { applyActionCode, getAuth } from "firebase/auth";
+
 
 
 const FriendListTab = () => {
@@ -81,6 +82,11 @@ const FriendListTab = () => {
                             onClick={() => window.location = './profile/' + friend.element}>
                             View Profile
                         </button>
+                        <button
+                            className='friendTreeButton'
+                            onClick={() => window.location = './homeTabNew/' + friend.element}>
+                            View Tree
+                        </button>
                         {friend.isNudge.daysSince ? (
                             <h4 className='friendName'>Last Activity: {friend.isNudge.daysSince} days ago</h4>
                         ) : (
@@ -129,10 +135,11 @@ const FriendListTab = () => {
             <h1 className='friendListHeader'>
                 Friends List
             </h1>
+
             {/* <h2>Friend List : </h2> */}
             {!isEmpty(friends) ? (
                 (displayFriends ? (
-                    <div>
+                    <div className='scrollHere'>
                         {displayFriends}
                     </div>) : (
                     <h3>Loading Friends List ... </h3>
