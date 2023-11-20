@@ -51,6 +51,7 @@ ul.nav {
   ul.nav li:first-child {
     border-bottom-right-radius: 2rem;
     border-top-right-radius: 2rem;
+    overflow-y: scroll;
   }
    
   ul.nav li:last-child {
@@ -238,6 +239,7 @@ label {
   overflow-x: auto;
 
 }
+
 
 .box {
   display: flex;
