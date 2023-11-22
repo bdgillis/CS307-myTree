@@ -8,6 +8,7 @@ import HomeTab from './pages/HomeTab'
 import UserTree from './pages/UserTree';
 import Activities from './pages/Activities'
 import Groups from './pages/Groups'
+import ViewGroup from './pages/ViewGroup'
 import Friends from './pages/Friends'
 import Leagues from './pages/Leagues'
 import Leaderboards from './pages/Leaderboards'
@@ -46,6 +47,7 @@ function App() {
                         <Route path = '/NotificationPage' component={withRouter(NotificationPage)}/>
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
+                        <Route path = '/viewgroup/:groupname' component={withRouter(ViewGroup)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
                         <Route path = '/leagues' component={withRouter(Leagues)} />
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />

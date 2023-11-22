@@ -45,7 +45,7 @@ const MyGroupsTab = () => {
                     <div className='friendRequestButtons'>
                         <button
                             className='friendRequestButton'
-                            onClick={() => window.location = './groups'}>
+                            onClick={() => window.location = './viewgroup/' + element}>
                             View Group
                         </button>
                     </div>
