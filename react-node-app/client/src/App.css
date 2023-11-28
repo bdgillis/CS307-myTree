@@ -51,6 +51,7 @@ ul.nav {
   ul.nav li:first-child {
     border-bottom-right-radius: 2rem;
     border-top-right-radius: 2rem;
+    overflow-y: scroll;
   }
    
   ul.nav li:last-child {
@@ -239,6 +240,7 @@ label {
 
 }
 
+
 .box {
   display: flex;
   flex-direction: column;
@@ -275,6 +277,39 @@ label {
     background: #fff;
     color: #010606;
   }
+}
+
+.friendTreeButton {
+  display: flex;
+  justify-content: center;
+  margin:0 auto;
+  align-items: center;
+  margin-top: 10px;
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+
+}
+
+
+.demo {
+  display: none;
 }
 
 .friendName {
@@ -347,6 +382,31 @@ label {
 }
 
 .searchFriendButton {
+  justify-content: center;
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.thisBtn {
   justify-content: center;
   margin-left: 3.5px;
   margin-right: 3.5px;

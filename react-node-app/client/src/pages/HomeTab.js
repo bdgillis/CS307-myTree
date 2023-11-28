@@ -248,11 +248,11 @@ const HomeTab = () => {
                     ) : (
                     <h3>All Time Stats:</h3>
                 )}
-                
+
             </div>
-
         </>
-
     )
+    
 }
+
 export default HomeTab

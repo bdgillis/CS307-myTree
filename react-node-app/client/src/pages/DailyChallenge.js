@@ -2,11 +2,12 @@ import React, {useState} from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import { NavBtn } from '../components/Navbar/NavbarElements';
 import Sidebar from '../components/Sidebar/Sidebar';
+import '../App.css';
 import './Logout.css'
 
 const arrData = [];
 
-setInterval(findChallenge, 1000 * 60 * 60 * 24);
+setInterval(findChallenge, 1000 * 60);
 const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
 const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
@@ -104,6 +105,7 @@ function getVal() {
 const markDone = () => {
 	document.getElementById("thisBtn").innerHTML = "Done!";
 }
+
 const DailyChallenge = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
@@ -130,8 +132,8 @@ const DailyChallenge = () => {
 			<h3>{finalArr[1]}</h3>
 			<h3>{finalArr[2]}</h3>
 			<h3>{finalArr[3]}</h3>
-			<div id="thisBtn">
-				<button  onClick={markDone}>Mark as done!</button>
+			<div>
+				<button id="thisBtn" onClick={markDone}>Mark as done!</button>
 			</div>
 		
 

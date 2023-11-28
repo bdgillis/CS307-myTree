@@ -63,6 +63,9 @@ const Navbar = ({toggle}) => {
             	<NavLink to="/leaderboards" activeStyle>
               		Leaderboards
             	</NavLink>
+				<NavLink to="/awards" activeStyle>
+					Awards
+				</NavLink>
             	<NavLink to="/daily-challenge" activeStyle>
               		Daily Challenge
             	</NavLink>

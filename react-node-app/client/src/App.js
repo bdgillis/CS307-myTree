@@ -5,6 +5,7 @@ import loginPage from './pages/loginPage';
 import redirectHome from './pages/redirectHome';
 import "./App.css";
 import HomeTab from './pages/HomeTab'
+import UserTree from './pages/UserTree';
 import Activities from './pages/Activities'
 import Groups from './pages/Groups'
 import Friends from './pages/Friends'
@@ -22,6 +23,7 @@ import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
 import ViewProfileFriendsList from './pages/ViewProfileFriendsList';
+import Awards from './pages/Awards';
 
 
 function App() {
@@ -53,7 +55,9 @@ function App() {
                         <Route path = '/quiz' exact component={withRouter(Quiz)} />
                         <Route path = '/view-profile' exact component={withRouter(ViewProfile)} />
                         <Route path = '/profile/:username' component={withRouter(UserProfile)} />
+                        <Route path = '/homeTabNew/:username' component={withRouter(UserTree)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
+                        <Route path = '/awards' component={withRouter(Awards)} />
                         <Route path = '' component={withRouter(ViewProfileFriendsList)} />
 
                     </Switch>
