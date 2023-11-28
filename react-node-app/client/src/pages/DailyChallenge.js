@@ -105,6 +105,7 @@ function getVal() {
 const markDone = () => {
 	document.getElementById("thisBtn").innerHTML = "Done!";
 }
+
 const DailyChallenge = () => {
 
 	const [isOpen, setIsOpen] = useState(false);
