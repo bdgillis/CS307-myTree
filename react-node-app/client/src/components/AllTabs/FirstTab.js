@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getAuth, reauthenticateWithRedirect, TotpMultiFactorGenerator } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
+import './AllTabs.css';
 
 const scoreData = [];
 

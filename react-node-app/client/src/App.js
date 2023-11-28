@@ -24,6 +24,7 @@ import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
 import ViewProfileFriendsList from './pages/ViewProfileFriendsList';
+import Awards from './pages/Awards';
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
                         <Route path = '/profile/:username' component={withRouter(UserProfile)} />
                         <Route path = '/homeTabNew/:username' component={withRouter(UserTree)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
+                        <Route path = '/awards' component={withRouter(Awards)} />
                         <Route path = '' component={withRouter(ViewProfileFriendsList)} />
 
                     </Switch>

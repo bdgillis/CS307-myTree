@@ -29,14 +29,23 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarRoute to='/friends' onClick={toggle}>
                     Friends
                 </SidebarRoute>
+                <SidebarRoute to='/leagues' onClick={toggle}>
+                    League
+                </SidebarRoute>
                 <SidebarRoute to='/leaderboards' onClick={toggle}>
                     Leaderboards
+                </SidebarRoute>
+                <SidebarRoute to='/awards' onClick={toggle}>
+                    Awards
                 </SidebarRoute>
                 <SidebarRoute to='/daily-challenge' onClick={toggle}>
                     Daily Challenge
                 </SidebarRoute>
                 <SidebarRoute to="/view-profile" onClick={toggle}>
                     View Profile
+                </SidebarRoute>
+                <SidebarRoute to='/notificationPage' onClick={toggle}>
+                    Notifications
                 </SidebarRoute>
                 <SidebarRoute to="/manage-account" onClick={toggle}>
                     Manage Account

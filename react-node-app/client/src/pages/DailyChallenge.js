@@ -7,7 +7,7 @@ import './Logout.css'
 
 const arrData = [];
 
-setInterval(findChallenge, 1000 * 60);
+setInterval(findChallenge, 1000 * 60 * 60 * 24);
 const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
 const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
@@ -105,6 +105,7 @@ function getVal() {
 const markDone = () => {
 	document.getElementById("thisBtn").innerHTML = "Done!";
 }
+
 const DailyChallenge = () => {
 
 	const [isOpen, setIsOpen] = useState(false);

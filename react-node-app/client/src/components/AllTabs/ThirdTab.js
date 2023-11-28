@@ -20,8 +20,6 @@ const ThirdTab = () => {
   const [allData2, setAllData2] = useState(true);
   const [answer, setAnswer] = useState(0);
   
-
-
   var uid = "null";
 
   const auth = getAuth();
@@ -31,9 +29,6 @@ const ThirdTab = () => {
 
   var finalA = 0;
   var finalSort = 0;
-
-
-
 
 
   useEffect(() => {

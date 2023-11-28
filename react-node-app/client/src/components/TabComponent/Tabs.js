@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import FirstTab from "../AllTabs/FirstTab";
 import SecondTab from "../AllTabs/SecondTab";
 import ThirdTab from "../AllTabs/ThirdTab";
+import './Tabs.css';
 
 
 
