@@ -1,7 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
 
-const MyGroupsTab = () => {
+const GroupInvitesTab = () => {
 
 
     const [username, setUsername] = useState(null);
@@ -45,7 +45,7 @@ const MyGroupsTab = () => {
                     <div className='friendRequestButtons'>
                         <button
                             className='friendRequestButton'
-                            onClick={() => window.location = './viewgroup/' + element}>
+                            onClick={() => window.location = './groups'}>
                             View Group
                         </button>
                     </div>
@@ -88,4 +88,4 @@ const MyGroupsTab = () => {
         </div>
     );
 };
-export default MyGroupsTab;
+export default GroupInvitesTab;

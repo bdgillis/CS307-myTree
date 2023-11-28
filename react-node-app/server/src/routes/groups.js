@@ -31,6 +31,33 @@ router.get('/:groupname', async (req, res) => {
 
 });
 
+//get group members
+router.get('/:groupname/members', async (req, res) => {
+    try {
+        const group = db.collection('groups').doc(req.params.groupname);
+        const doc = await group.get();
+        if (!doc.exists) {
+            console.log('No group with groupname: ' + req.params.groupname);   
+            res.json({exists: false});
+        } else {
+            console.log('Group with groupname: ' + req.params.groupname + ' exists');
+            const members = [];
+            var counter = 0;
+
+            for (const user of doc.data().users) {
+                const userRef = await db.collection('users').doc(user).get();
+                members[counter++] = userRef.data().username;
+            }
+            const adminRef = await db.collection('users').doc(doc.data().owner).get();
+            const owner = adminRef.data();
+            res.json({exists: true, members: members, owner: owner.username});
+        }
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+
+});
+
 //get all groups
 router.get('/', async (req, res) => {
     try {
