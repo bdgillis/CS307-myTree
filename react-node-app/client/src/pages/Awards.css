@@ -1,0 +1,9 @@
+.awardPage {
+    width: auto;
+    height: 600;
+    overflow: scroll;
+  }
+
+.awardHeight {
+    margin-top: 100px;
+}

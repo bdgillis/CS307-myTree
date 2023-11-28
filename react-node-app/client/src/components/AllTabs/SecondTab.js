@@ -38,29 +38,24 @@ const SecondTab = () => {
     const [sortOnce, setSortOnce] = useState(null);
     const [newFriend, setNewFriend] = useState({});
 
-
-      
-
     useEffect(() => {
-      
-
       async function getUidFriends(userFriend) {
 
         const responseOne = await fetch('/api/friends/username=' + userFriend);
         const body = await responseOne.json();
-
         const responseTwo = await fetch(`/api/friends/uid=${body.id}`, {
           method: 'GET'
         });
+
         if (!responseTwo.ok) {
             throw new Error('Network response was not ok');
         }
+
         const uUsernameTwo = await responseTwo.json();
         return uUsernameTwo;
-        
+  
       };
 
-      
       if (user) {
           const uid = user.uid;
           const getUserUsername = async () => {
@@ -70,10 +65,11 @@ const SecondTab = () => {
             flagOne = 1;
             
               try {
-                  
+
                   const response = await fetch(`/api/friends/uid=${uid}`, {
                       method: 'GET'
                   });
+                  
                   if (!response.ok) {
                       throw new Error('Network response was not ok');
                   }
@@ -104,18 +100,13 @@ const SecondTab = () => {
                       
                     });
                     
-
                   });
 
-                  
-
-                  
               } catch (error) {
                   console.error('There was an error:', error);
               }
           }
           getUserUsername(); // Call the async function within useEffect
-          
           
       }
       console.log(scoreData.length);
@@ -137,18 +128,12 @@ const SecondTab = () => {
 
   }, [user]);
 
-  
-
-  
-
-  
   function isEmpty(obj) {
     for (const prop in obj) {
         if (Object.hasOwn(obj, prop)) {
             return false;
         }
     }
-
     return true;
   }
   

@@ -4,7 +4,8 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
 import './Logout.css';
-import '../App.css';
+//import '../App.css';
+import './Awards.css';
 
 
 const Awards = () => {
@@ -81,9 +82,9 @@ const Awards = () => {
             </div>
         
 
-            <div>
+            <div className='awardPage'>
                 <div>
-                    <h1>
+                    <h1 className='awardHeight'>
                         Awards
                     </h1>
                 </div>
@@ -93,7 +94,6 @@ const Awards = () => {
                             <></>
                             {profileData.awards ? (
                             <div>
-                                <h3>Awards: </h3>
                                 {profileData.awards[0] ? <img src={require("../Images/transportation_award.png")} title="Award for 3+ Transportation Activities Logged!" /> : null}
                                 {profileData.awards[0] ? <button onClick={tButton} id="showHide"
                                     className='learnAboutCarbonScore'

@@ -5,7 +5,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
 import styled from 'styled-components';
 import './Logout.css';
-import '../App.css';
+//import '../App.css';
+import './ManageAccount.css';
 
 
 
@@ -22,7 +23,7 @@ const FriendsButton = styled.button `
     font-size: 20px;
 	font-weight: bold; 
 
-    margin-left: -18px;
+    margin-left: 0px;
 
     &:hover {
         transition: all 0.2s ease-in-out;
@@ -144,7 +145,7 @@ const ViewProfile = () => {
                 <Navbar toggle={toggle} />
             </div>
 
-            <div>
+            <div className='profileStyle'>
                 <div>
                     <h1>
                         User Profile 

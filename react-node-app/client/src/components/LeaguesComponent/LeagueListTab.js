@@ -1,10 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
-
 import { getAuth } from "firebase/auth";
-
-import ThirdTab, { emailArray } from '../AllTabs/ThirdTab';
-
 import { g_sortedArr } from '../AllTabs/ThirdTab';
+import './League.css'
 
 
 
@@ -48,17 +45,14 @@ const LeagueListTab = () => {
                     console.error('There was an error:', error);
                 }
             }
-            // getIncomingRequests();
+
             getUserUsername(); // Call the async function within useEffect
             displayArray();
-            
         }
 
     }, [user]);
 
     function displayArray() {
-            // console.log(incomingRequests);
-
                 const displayFriendsArray = g_sortedArr.map((league) => (
                     <div>
                         <hr/>
@@ -70,31 +64,27 @@ const LeagueListTab = () => {
                             onClick={() => window.location = './profile/' + league[2]}>
                             View Profile
                         </button>
-                        
                     </div>
                 ));
-                setDisplayFriends(displayFriendsArray);
 
+                setDisplayFriends(displayFriendsArray);
     }
 
-
     function isEmpty(obj) {
-        
         for (const prop in obj) {
             if (Object.hasOwn(obj, prop)) {
                 return false;
             }
         }
-
         return true;
     }
 
     return (
-        <div className="searchTab">
-            
+        <div className="searchTab">    
             <h1 className='friendListHeader'>
                 League List
             </h1>
+
             {/* <h2>Friend List : </h2> */}
             {!isEmpty(friends) ? (
 
@@ -102,7 +92,7 @@ const LeagueListTab = () => {
                     <div>
                         {displayFriends}
                     </div>) : (
-                    <h3>Loading League List ... </h3>
+                    <h3>Loading League List ...</h3>
                 ))
             ) : (
                 <h3 className='friendName'>No League</h3>
