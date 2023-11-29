@@ -85,7 +85,7 @@ router.post('/create/:groupname', async (req, res) => {
             res.json({status: 'error', error: 'group already exists'});
         } else {
             const docRef = await db.collection('groups').doc(req.params.groupname).set({
-                owner: req.body.uid
+                admin: req.body.uid
             });
             const userRef = await db.collection('users').doc(req.body.uid).collection('groups').doc(req.params.groupname).set({
                 groups: FieldValue.arrayUnion(req.params.groupname)
