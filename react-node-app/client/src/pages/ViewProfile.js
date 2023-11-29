@@ -213,7 +213,6 @@ const ViewProfile = () => {
                     <h3>Loading data...</h3>
 
                 )}
-                <br /><br />
                 <h2>Carbon Score</h2>
                 {profileData ? (
                     <div className='profileCard'>

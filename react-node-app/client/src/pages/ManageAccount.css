@@ -8,10 +8,7 @@
 }
 
 .profileStyle, .userProfile {
-
-    height: 600px;
     margin-top: 100px;
-    overflow: scroll;
 }
 
 .profileCard {
