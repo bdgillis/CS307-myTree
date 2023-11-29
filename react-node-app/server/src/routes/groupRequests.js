@@ -7,6 +7,8 @@ const db = getFirestore();
 const { query, where, getDocs } = require('firebase-admin/firestore');
 
 
+//A group request is defined as a user requesting to join a group they are not already a part of
+
 //get outgoing group requests for specific user
 router.get('/userRequests', async (req, res) => {
     try {
@@ -31,7 +33,7 @@ router.get('/userRequests', async (req, res) => {
     }
 });
 
-//get incoming friend requests for specific user
+//get incoming group requests for specific group
 router.get('/incoming/:groupname', async (req, res) => {
     try {
         console.log("groupRequests/incoming/:groupname")
@@ -55,7 +57,7 @@ router.get('/incoming/:groupname', async (req, res) => {
 });
 
 
-//send group request
+//send group join request
 router.post('/:groupname', async (req, res) => {
     try {
         console.log("groupRequests/:groupname")
@@ -74,68 +76,5 @@ router.post('/:groupname', async (req, res) => {
     }
 });
 
-//not completely copied from friends yet, need to change
-router.post('/accept', async (req, res) => {
-    try {
-        console.log("groupRequest/accept")
-
-        const receivingRef = await db.collection('users').doc(req.body.uid).update({
-            groupRequests: FieldValue.arrayRemove(req.body.groupname),
-            groups: FieldValue.arrayUnion(req.body.groupname)
-        });
-
-
-        const sendingRef = await db.collection('users');
-        const snapshot = await sendingRef.where("username", "==", req.body.username).get();
-
-        const data = snapshot.docs[0].data();
-        let outgoingRequests = data.outgoingRequests;
-        outgoingRequests = FieldValue.arrayRemove(req.body.receivingUsername)
-        let friends = data.friends;
-        friends = FieldValue.arrayUnion(req.body.receivingUsername)
-
-        const docRef = sendingRef.doc(snapshot.docs[0].id);
-        docRef.update({ outgoingRequests: outgoingRequests, friends: friends })
-            .then(() => {
-                console.log("Document updated successfully.");
-            })
-            .catch((error) => {
-                console.error("Error updating document: ", error);
-            });
-    } catch (err) {
-        console.log('Error: ', err);
-    }
-});
-
-
-//not completely copied from friends yet, need to change
-router.post('/decline', async (req, res) => {
-    try {
-        console.log("friendrequest/decline")
-
-        console.log(req.body)
-        const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
-            incomingRequests: FieldValue.arrayRemove(req.body.sendingUsername),
-        });
-
-        const sendingRef = await db.collection('users');
-        const snapshot = await sendingRef.where("username", "==", req.body.sendingUsername).get();
-
-        const data = snapshot.docs[0].data();
-        let outgoingRequests = data.outgoingRequests;
-        outgoingRequests = FieldValue.arrayRemove(req.body.receivingUsername)
-
-        const docRef = sendingRef.doc(snapshot.docs[0].id);
-        docRef.update({ outgoingRequests: outgoingRequests})
-            .then(() => {
-                console.log("Document updated successfully.");
-            })
-            .catch((error) => {
-                console.error("Error updating document: ", error);
-            });
-    } catch (err) {
-        console.log('Error: ', err);
-    }
-});
 
 module.exports = router;
