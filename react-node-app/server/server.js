@@ -30,6 +30,8 @@ const friendRequestsRouter = require('./src/routes/friendRequests.js');
 const groupInvitesRouter = require('./src/routes/groupInvites.js');
 const groupRequestsRouter = require('./src/routes/groupRequests.js');
 
+const nudgesRouter = require('.src/routes/nudges.js');
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -44,8 +46,8 @@ app.use('/api/friendRequests', friendRequestsRouter);
 app.use('/api/groupInvites', groupInvitesRouter);
 app.use('/api/groupRequests', groupRequestsRouter);
 
+app.use('/api/nudges', nudgesRouter);
 
-        
 
 app.get('/api/FirstTab/', async (req, res) => {
     const total = []; // define empty object

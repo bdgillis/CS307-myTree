@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
 //invite user to group
 router.post('/invite/:groupname', async (req, res) => {
     try {
-        console.log("groupRequests/invite/:groupname")
+        // console.log("groupRequests/invite/:groupname")
 
         console.log(req.body)
         const receivingRef = await db.collection('users').doc(req.body.uid).update({
