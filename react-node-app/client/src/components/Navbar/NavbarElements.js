@@ -106,6 +106,7 @@ export const FriendBtnLink = styled(Link)`
 	font-size: 20px;
 	font-weight: bold; 
 
+	margin-top: 15px;
 	margin-left: 0px;
 
 	&:hover {
