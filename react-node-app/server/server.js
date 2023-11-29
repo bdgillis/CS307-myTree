@@ -44,7 +44,9 @@ app.use('/api/groups', groupsRouter);
 app.use('/api/friendRequests', friendRequestsRouter); 
 app.use('/api/groupInvites', groupInvitesRouter);
 app.use('/api/groupRequests', groupRequestsRouter);
+
 app.use('/api/nudges', nudgesRouter);
+
 
 app.get('/api/FirstTab/', async (req, res) => {
     const total = []; // define empty object
