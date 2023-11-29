@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
+import './ManageAccount.css';
 
 function UserProfile({ match }) {
 
@@ -93,11 +94,8 @@ function UserProfile({ match }) {
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <div>
+            <div className='userProfile'>
                 <h1>Welcome to {username}'s profile!</h1>
-                {/* Add user-specific content here */}
-            </div>
-            <div>
                 <h1>User Profile </h1>
                 {profileData ? (
 
@@ -108,12 +106,12 @@ function UserProfile({ match }) {
                         <h3>Location: {profileData.user.hometown}</h3>
                         <h3>About Me: {profileData.user.bio}</h3>
                         <h3>Favorite Category: {profileData.user.targetCategory}</h3>
-                        {profileData.awards ? (
+                        {profileData.user.awards ? (
                         <div>
                             <h3>Awards: </h3>
-                            {profileData.awards[0] ? <img src="../Images/transportation_award.png" alt="Award for 3+ Transportation Activities Logged!" /> : null}
-                            {profileData.awards[1] ? <img src="../Images/eating_award.png" alt="Award for 3+ Eating Activities Logged!" /> : null}
-                            {profileData.awards[2] ? <img src="../Images/household_award.png" alt="Award for 3+ Household Activities Logged!" /> : null}
+                            {profileData.user.awards[0] ? <img src={require("../Images/transportation.png")} height={200} title="Award for 3+ Transportation Activities Logged!" /> : null}
+                            {profileData.user.awards[1] ? <img src={require("../Images/eating.png")} height={200} title="Award for 3+ Eating Activities Logged!" /> : null}
+                            {profileData.user.awards[2] ? <img src={require("../Images/household.png")} height={200} title="Award for 3+ Household Activities Logged!" /> : null}
                         </div>) : <h3>No awards yet...</h3>}
                         
                     </div>
