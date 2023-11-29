@@ -44,7 +44,7 @@ const ViewProfile = () => {
     const changeToFriendList = async () => {
         try {
             //alert(auth.currentUser.email)
-            window.location = '/view-profile/Friends-List';    
+            window.location = '/friends';    
         } catch (err) {
             alert(err)
             document.getElementById('errfn').innerHTML="Logout failed.";
@@ -117,7 +117,10 @@ const ViewProfile = () => {
     // console.log(profileData)
     // console.log(activityHistory);
 
+    const numFriends = 0;
+
     const activityOptions = Object.keys(activityHistory).map((key) => {
+        //numFriends= numFriends + 1;
         const activity = activityHistory[key];
         //console.log(activity)
         const time = new Date(activity.timestamp).toLocaleString()
@@ -161,7 +164,7 @@ const ViewProfile = () => {
                             <h3>About Me: {profileData.bio}</h3>
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
                             <FriendsButton onClick={changeToFriendList}>
-                                Friends
+                                Friends: {profileData.friends.length}
                             </FriendsButton>
                             <></>
                             {profileData.awards ? (
