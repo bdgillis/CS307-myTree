@@ -167,9 +167,9 @@ const ViewProfile = () => {
                             {profileData.awards ? (
                             <div>
                                 <h3>Awards: </h3>
-                                {profileData.awards[0] ? <img src={require("../Images/transportation_award.png")} title="Award for 3+ Transportation Activities Logged!" /> : null}
-                                {profileData.awards[1] ? <img src={require("../Images/eating_award.png")} title="Award for 3+ Eating Activities Logged!" /> : null}
-                                {profileData.awards[2] ? <img src={require("../Images/household_award.png")} title="Award for 3+ Household Activities Logged!" /> : null}
+                                {profileData.awards[0] ? <img src={require("../Images/transportation.png")} height={200} title="Award for 3+ Transportation Activities Logged!" /> : null}
+                                {profileData.awards[1] ? <img src={require("../Images/eating.png")} height={200} title="Award for 3+ Eating Activities Logged!" /> : null}
+                                {profileData.awards[2] ? <img src={require("../Images/household.png")} height={200} title="Award for 3+ Household Activities Logged!" /> : null}
                             </div>) : <h3>No awards yet...</h3>}
                         </div>
                     ) : (

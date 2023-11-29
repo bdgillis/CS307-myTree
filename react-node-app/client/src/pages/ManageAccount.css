@@ -7,7 +7,7 @@
     z-index: 1030;
 }
 
-.profileStyle {
+.profileStyle, .userProfile {
 
     height: 600px;
     margin-top: 100px;
