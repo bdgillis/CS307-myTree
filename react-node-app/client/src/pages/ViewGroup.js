@@ -14,6 +14,10 @@ function UserProfile({ match }) {
     const [user, setUser] = useState(null);
     const [userData, setUserData] = useState(null);
     const [profileUser, setProfileUser] = useState(null);
+    const [invitee, setInvitee] = useState(null);
+    const [inviteeID, setInviteeID] = useState(null);
+    const [inviteSent, setInviteSent] = useState(false);
+    const [inviteStatus, setInviteStatus] = useState(null);
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -23,13 +27,6 @@ function UserProfile({ match }) {
         if (groupname) {
             const getGroupData = async () => {
                 try {
-                    // const response = await fetch(`/api/profile/username=${username}`, {
-                    //     method: 'GET'
-                    // });
-                    // if (!response.ok) {
-                    //     throw new Error('Network response was not ok');
-                    // }
-                    //console.log(response)
                     const response = await fetch('/api/groups/' + groupname + '/members');
                     const body = await response.json();
                     console.log(body);
@@ -45,31 +42,60 @@ function UserProfile({ match }) {
         }
     }, [groupname]);
 
-    // useEffect(() => {
-    //     const getMembers = async () => {
-    //         if (groupname) {
-    //             try {
-    //                 const res = await fetch(`/api/profile/activity/${username}`, {
-    //                     method: 'GET'
-    //                 });
-    //                 const data = await res.json();
-    //                 console.log(data);
-    //                 const activities = {};
-    //                 Object.keys(data.activities).forEach((key) => {
-    //                     const activity = data.activities[key];
-    //                     activities[key] = activity;
-    //                 });
+    const handleInvite = (e) => {
+        console.log(document.getElementById('groupname').value);
+        setInvitee(document.getElementById('groupname').value);
 
-    //                 setMembers(activities);
-    //                 setLoadingState(false);
-    //             } catch (err) {
-    //                 console.log('Error: ', err);
-    //             }
-    //         }
-    //     };
+    };
 
-    //     getMembers(); // Call the async function within useEffect
-    // }, [groupname]); // The empty dependency array ensures that useEffect runs only once
+    useEffect(() => {
+
+        if (invitee) {
+            console.log("invitee: " + invitee);
+            const getID = async () => {
+                const response = await fetch('/api/friends/username=' + invitee);
+                const body = await response.json();
+                if (body.available) {
+                    //console.log("user does not exist");
+                    setInviteeID(null);
+                    setInviteStatus(false);
+                    setInviteSent(true);
+                } else {
+                    //console.log("user exists");
+                    setInviteeID(body.id);
+                }
+            }
+            getID();
+        }
+    }, [invitee]);
+
+    useEffect(() => {
+        if (inviteeID) {
+            console.log("inviteeID: " + inviteeID);
+
+            const inviteUser = async () => {
+                const response = await fetch('/api/groupInvites/invite/' + groupname, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uid: inviteeID }),
+                });
+                const body = await response.json();
+                console.log(body);
+                setInviteSent(true);
+                if (body.status === 'success') {
+                    setInviteStatus(true);
+                } else {
+                    setInviteStatus(false);
+                }
+            }
+            inviteUser();
+        }
+
+    }, [inviteeID]);
+
+
 
     function isEmpty(obj) {
         for (const prop in obj) {
@@ -101,15 +127,13 @@ function UserProfile({ match }) {
                 <h1>Welcome to {groupname}</h1>
                 {/* Add user-specific content here */}
             </div>
+
             <div>
-                <h1>User Profile </h1>
-                {groupData ? (
+                {!loadingState ? (
 
                     <div>
-                        {/* <h3 id="displayName">Display Name: {user.displayName}</h3> */}
-
                         <h3>Groupname: {groupname}</h3>
-                        
+                        <h2>Group Admin: {groupOwner}</h2>
                     </div>
                 ) : (
                     <h3>Loading data...</h3>
@@ -127,6 +151,37 @@ function UserProfile({ match }) {
                     )
                 ) : (
                     <h3>Loading Members ... </h3>
+                )}
+            </div>
+
+            <div>
+                <input
+                    className="searchFriendInput"
+                    type="text"
+                    id="groupname"
+                    placeholder='Username...'
+                ></input>
+                <button
+                    className='searchFriendButton'
+                    onClick={handleInvite}>
+                    Invite User to Group
+                </button>
+            </div>
+            <div>
+                {inviteSent ? (
+                    <div>
+                        {inviteStatus ? (
+                            <div>
+                                <h3>Invite Sent!</h3>
+                            </div>
+                        ) : (
+                            <div>
+                                <h3>Invite Failed</h3>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div></div>
                 )}
             </div>
         </>
