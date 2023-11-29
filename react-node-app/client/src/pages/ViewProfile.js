@@ -7,6 +7,14 @@ import styled from 'styled-components';
 import './Logout.css';
 //import '../App.css';
 import './ManageAccount.css';
+import { 
+    Nav, 
+    Bars, 
+    NavMenu, 
+    NavLink, 
+    NavBtn, 
+    FriendBtnLink
+  } from '../components/Navbar/NavbarElements'
 
 
 
@@ -163,9 +171,11 @@ const ViewProfile = () => {
                             <h3>Location: {profileData.hometown}</h3>
                             <h3>About Me: {profileData.bio}</h3>
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
-                            <FriendsButton onClick={changeToFriendList}>
+
+                            <FriendBtnLink to='/friends'>
                                 Friends: {profileData.friends.length}
-                            </FriendsButton>
+                            </FriendBtnLink>
+
                             <></>
                             {profileData.awards ? (
                             <div>

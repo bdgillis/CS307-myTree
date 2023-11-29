@@ -92,3 +92,25 @@ export const NavBtnLink = styled(Link)`
     	color: #010606;
   	}
 `;
+
+export const FriendBtnLink = styled(Link)`
+	border-radius: 4px;
+	background: #256ce1;
+	padding: 7px 15px;
+	color: #fff;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+	font-size: 20px;
+	font-weight: bold; 
+
+	margin-left: 0px;
+
+	&:hover {
+		transition: all 0.2s ease-in-out;
+		background: #fff;
+		color: #010606;
+	}
+`;
