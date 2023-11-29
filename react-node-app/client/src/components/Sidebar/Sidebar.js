@@ -1,4 +1,5 @@
 import React from 'react'
+import './Sidebar.css'
 import { 
     SidebarContainer, 
     Icon, 
@@ -11,7 +12,7 @@ import {
 
 const Sidebar = ({isOpen, toggle}) => {
   return (
-    <SidebarContainer isOpen={isOpen} onClick={toggle}>
+    <SidebarContainer className="sidebarStyle" isOpen={isOpen} onClick={toggle}>
         <Icon onClick={toggle}>
             <CloseIcon/>
         </Icon>
