@@ -29,7 +29,7 @@ const groupsRouter = require('./src/routes/groups.js');
 const friendRequestsRouter = require('./src/routes/friendRequests.js');
 const groupInvitesRouter = require('./src/routes/groupInvites.js');
 const groupRequestsRouter = require('./src/routes/groupRequests.js');
-const nudgesRouter = require('.src/routes/nudges.js');
+const nudgesRouter = require('./src/routes/nudges.js');
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
