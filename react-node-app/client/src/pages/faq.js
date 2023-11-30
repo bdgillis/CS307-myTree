@@ -82,7 +82,7 @@ const FAQ = () => {
                         Household activities have relatively small effects on your carbon score, <br />
                         but they sure can add up! 10 cold showers or 5 cold water laundry loads <br />
                         add 0.1 points to your score. Temperature adjustments during the heating season <br />
-                        (+1 degree) adds half a point while during the cooling season (-1 degree)adds <br />
+                        (+1 degree) adds half a point while during the cooling season (-1 degree) adds <br />
                         a full points for every degree. Looking at waste, a standard 32 gallon container of  <br />
                         recycling adds just about a point, while the same amount of trash takes away <br />
                         a quarter of a point. Composting adds a full point for every 25 gallons. Finally, <br />
