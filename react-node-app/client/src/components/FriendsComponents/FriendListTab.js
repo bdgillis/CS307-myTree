@@ -15,7 +15,10 @@ const FriendListTab = () => {
     const [displayFriends, setDisplayFriends] = useState(null);
     const [userUsername, setUserUsername] = useState(null);
     const [userDoc, setUserDoc] = useState(null);
-
+    const [nudgeSent, setNudgeSent] = useState(false);
+    const [nudgeUser, setNudgeUser] = useState(null);
+    const [nudgeUid, setNudgeUid] = useState(null);
+    const [nudgeStatus, setNudgeStatus] = useState(null);
 
 
     const auth = getAuth();
@@ -93,7 +96,11 @@ const FriendListTab = () => {
                             <h4 className='friendName'>No Activities!</h4>
                         )}
                         {friend.isNudge.needNudge ? (
-                            <button className='friendProfButton'>Nudge</button>
+                            !nudgeSent ? (
+                            <button key={friend.element} className='friendProfButton' onClick={handleNudge}>Nudge</button>
+                            ) : (
+                                <h4 className='friendName'>Nudge Sent!</h4>
+                            )
                         ) : ( 
                             <div></div>
                         )
@@ -109,6 +116,41 @@ const FriendListTab = () => {
         }
         // }
     }, [friends]);
+
+    const handleNudge = async (e) => {
+        setNudgeUser(e.target.key);
+    };
+
+    useEffect(() => {
+        if (nudgeUser) {
+            console.log("nudgeUser: " + nudgeUser);
+            const getNudgeUid = async () => {
+                const response = await fetch(`/api/friends/username=${nudgeUser}`, {
+                    method: 'GET'
+                });
+                const body = await response.json();
+                console.log(body);
+                setNudgeUid(body.uid);
+            }
+            getNudgeUid();
+        }
+    }, [nudgeUser]);
+
+    useEffect(() => {
+        if (nudgeUid) {
+            console.log("nudgeUid: " + nudgeUid);
+            const sendNudge = async() => {
+                const response = await fetch(`/api/friends/nudge/${nudgeUid}`, {
+                    method: 'POST'
+                });
+                const body = await response.json();
+                console.log(body);
+                setNudgeSent(true);
+
+            }
+            sendNudge();   
+        }
+    }, [nudgeUid]);
 
     const nudgeNeeded = async (targetUsername) => {
         const response = await fetch(`/api/friends/activity/${targetUsername}`, {

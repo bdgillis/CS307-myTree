@@ -8,6 +8,7 @@ import HomeTab from './pages/HomeTab'
 import UserTree from './pages/UserTree';
 import Activities from './pages/Activities'
 import Groups from './pages/Groups'
+import Goals from './pages/Goals'
 import ViewGroup from './pages/ViewGroup'
 import Friends from './pages/Friends'
 import Leagues from './pages/Leagues'
@@ -25,6 +26,7 @@ import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
 import Awards from './pages/Awards';
+
 
 
 function App() {
@@ -61,6 +63,7 @@ function App() {
                         <Route path = '/homeTabNew/:username' component={withRouter(UserTree)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
                         <Route path = '/awards' component={withRouter(Awards)} />
+                        <Route path = '/goals' component={withRouter(Goals)} />
 
                     </Switch>
                 </div>

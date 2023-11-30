@@ -38,8 +38,8 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarRoute to='/awards' onClick={toggle}>
                     Awards
                 </SidebarRoute>
-                <SidebarRoute to='/daily-challenge' onClick={toggle}>
-                    Daily Challenge
+                <SidebarRoute to='/goals' onClick={toggle}>
+                    Goals
                 </SidebarRoute>
                 <SidebarRoute to="/view-profile" onClick={toggle}>
                     View Profile
