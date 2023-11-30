@@ -4,7 +4,7 @@ import SecondTab from "./DailyChallengeTab";
 import ThirdTab from "./SelectGoalTab";
 
 const GoalsTabs = () => {
-    const [activeTab, setActiveTab] = useState("tab1");
+    const [activeTab, setActiveTab] = useState("tab2");
 
     //  Functions to handle Tab Switching
     const handleTab1 = () => {
@@ -38,7 +38,7 @@ const GoalsTabs = () => {
                 <li className={activeTab === "tab3" ? "active" : ""}
                     onClick={handleTab3}
                 >
-                    Select Goals
+                    Select a Challenge
                 </li>
 
 
