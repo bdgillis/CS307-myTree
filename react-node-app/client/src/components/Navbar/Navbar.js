@@ -72,7 +72,7 @@ const Navbar = ({toggle}) => {
 				<NavLink to="/notificationPage" activeStyle>
 					<div className="icon">
 						<img src={require('../../Images/notificationLogo.png')} className="iconImg" witdh={40} height={40} alt=""/>
-						<div className="counter">{g_Counter}</div>
+						<div className="counter">{window.localStorage.getItem("g_Counter")}</div>
 					</div>
             	</NavLink>
 				

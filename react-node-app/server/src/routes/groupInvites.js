@@ -11,11 +11,11 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 
 
 //get all group invites for specific user
-router.get('/', async (req, res) => {
+router.get('/:uid', async (req, res) => {
     try {
         console.log("groupInvites/")
 
-        const user = db.collection('users').doc(req.body.uid);
+        const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
             console.log('No such document!');
