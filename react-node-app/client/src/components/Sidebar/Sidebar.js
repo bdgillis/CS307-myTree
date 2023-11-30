@@ -38,8 +38,8 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarRoute to='/awards' onClick={toggle}>
                     Awards
                 </SidebarRoute>
-                <SidebarRoute to='/daily-challenge' onClick={toggle}>
-                    Daily Challenge
+                <SidebarRoute to='/goals' onClick={toggle}>
+                    Goals
                 </SidebarRoute>
                 <SidebarRoute to="/view-profile" onClick={toggle}>
                     View Profile
@@ -49,6 +49,9 @@ const Sidebar = ({isOpen, toggle}) => {
                 </SidebarRoute>
                 <SidebarRoute to="/manage-account" onClick={toggle}>
                     Manage Account
+                </SidebarRoute>
+                <SidebarRoute to="/climate-dashboard" onClick={toggle}>
+                    Climate Dashboard
                 </SidebarRoute>
                 <SidebarRoute to="/log-out" onClick={toggle}>
                     Log Out

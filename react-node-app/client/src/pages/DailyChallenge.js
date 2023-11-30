@@ -7,7 +7,7 @@ import './Logout.css'
 
 const arrData = [];
 
-setInterval(findChallenge, 1000 * 60 * 60 * 24);
+
 const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
 const eatingActivities = ["Takeout", "Meal Protein - Red Meat", 
 	  "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
@@ -65,8 +65,10 @@ function findSuffix(spec_cat) {
 	}
 	return suffix;
 }
+setInterval(findChallenge, 1000 * 60 * 60 * 24);
 
 function findChallenge() {
+	localStorage.setItem('isDone', "Click to mark done!");
 	console.log("hello");
 	const category = ['transportation', 'eating', 'household'];
 	let categoryChoice;
@@ -92,18 +94,28 @@ function findChallenge() {
 
 }
 
-findChallenge();
-
 function getVal() {
 	var myObject = JSON.parse(localStorage.getItem('myObject'));
+	
 	console.log(myObject);
 	return myObject;
 }
 
 
 
+function getStatus() {
+	var isDone = localStorage.getItem('isDone');
+	return isDone;
+
+}
+
 const markDone = () => {
-	document.getElementById("thisBtn").innerHTML = "Done!";
+
+	localStorage.setItem('isDone', "Done!");
+	const textInput = getStatus();
+	console.log(textInput);
+	document.getElementById("thisBtn").innerHTML = textInput;
+
 }
 
 const DailyChallenge = () => {
@@ -115,11 +127,6 @@ const DailyChallenge = () => {
 
 	const finalArr = getVal();
 	
-
-	
-
-	
-
   	return (
 		<>
 			<div className='NavMenu'>
@@ -133,7 +140,7 @@ const DailyChallenge = () => {
 			<h3>{finalArr[2]}</h3>
 			<h3>{finalArr[3]}</h3>
 			<div>
-				<button id="thisBtn" onClick={markDone}>Mark as done!</button>
+				<button id="thisBtn" onClick={markDone}>{localStorage.getItem('isDone')}</button>
 			</div>
 		
 

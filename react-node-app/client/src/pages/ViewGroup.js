@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import GroupInvitesTab from '../components/GroupsComponents/GroupInvitesTab';
+
 import { getAuth } from "firebase/auth";
+
+import UserTree from './UserTree';
+
 
 
 function GroupProfile({ match }) {
@@ -31,6 +35,8 @@ function GroupProfile({ match }) {
     };
 
     useEffect(() => {
+        
+
         if (groupname) {
             const getGroupData = async () => {
                 try {
@@ -44,6 +50,7 @@ function GroupProfile({ match }) {
                     }
 
                     setMembers(body.members);
+
                     setGroupBio(body.bio);
                     setLoadingState(false);
                 } catch (error) {
@@ -121,11 +128,22 @@ function GroupProfile({ match }) {
 
     const memberDisplay = Object.keys(members).map((key) => {
         const member = members[key];
+        
         //const time = new Date(member.timestamp).toLocaleString()
         return (
-            <h3 key={key} value={key}>
-                {member}
-            </h3>
+            <div>
+                <h3 key={key} value={key}>
+                    {member}
+                    <button
+                        className='groupTreeButton'
+                        onClick={() => window.location = '/homeTabNew/' + member}>
+                        View Tree
+                    </button>
+                
+                </h3>
+            </div>
+            
+            
         );
     });
 
@@ -174,6 +192,10 @@ function GroupProfile({ match }) {
                 ) : (
                     <h3>Loading Members ... </h3>
                 )}
+
+            
+
+        
             </div>
 
             <div>

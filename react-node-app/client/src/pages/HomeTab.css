@@ -40,4 +40,21 @@
     margin: 0 auto;
 }
 
+.Background {
+    border-radius: 10px;
+    padding: 7px 15px;
+    background-color: #90ee90;
+}
+
+.Background3 {
+    border-radius: 10px;
+    padding: 20px 20px;
+    background-color: #90ee90;
+}
+
+.header {
+    display: flex;
+    margin: 0 auto;
+}
+
 

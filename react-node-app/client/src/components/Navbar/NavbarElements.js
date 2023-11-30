@@ -38,7 +38,7 @@ export const Bars = styled(FaBars)`
 	display: none;
   	color: #fff;
 
-  	@media screen and (max-width: 1100px) {
+  	@media screen and (max-width: 1150px) {
     	display: block;
     	position: absolute;
     	top: 12px;
@@ -54,7 +54,7 @@ export const NavMenu = styled.div`
   	align-items: center;
   	margin-right: -24px;
 
-  	@media screen and (max-width: 1100px) {
+  	@media screen and (max-width: 1150px) {
    		display: none;
   	}
 `;
@@ -66,7 +66,7 @@ export const NavBtn = styled.nav`
 
   
 
-  	@media screen and (max-width: 1100px) {
+  	@media screen and (max-width: 1150px) {
     	display: none;
   	}
 `;
@@ -106,6 +106,7 @@ export const FriendBtnLink = styled(Link)`
 	font-size: 20px;
 	font-weight: bold; 
 
+	margin-top: 15px;
 	margin-left: 0px;
 
 	&:hover {
