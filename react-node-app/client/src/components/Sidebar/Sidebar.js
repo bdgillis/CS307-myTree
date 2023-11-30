@@ -50,6 +50,9 @@ const Sidebar = ({isOpen, toggle}) => {
                 <SidebarRoute to="/manage-account" onClick={toggle}>
                     Manage Account
                 </SidebarRoute>
+                <SidebarRoute to="/climate-dashboard" onClick={toggle}>
+                    Climate Dashboard
+                </SidebarRoute>
                 <SidebarRoute to="/log-out" onClick={toggle}>
                     Log Out
                 </SidebarRoute>

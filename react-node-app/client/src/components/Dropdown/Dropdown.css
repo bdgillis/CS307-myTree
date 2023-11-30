@@ -24,10 +24,10 @@
   .dropdown-link {
     display: block;
     height: 100%;
-    width: 85%;
+    width: 100%;
     text-decoration: none;
     color: #fff;
-    padding: 12px;
+    padding: 12px 8px;
     font-size: 16px;
     font-weight: bold; 
   }

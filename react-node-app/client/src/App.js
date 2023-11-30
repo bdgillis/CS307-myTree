@@ -14,6 +14,7 @@ import Friends from './pages/Friends'
 import Leagues from './pages/Leagues'
 import Leaderboards from './pages/Leaderboards'
 import DailyChallenge from './pages/DailyChallenge';
+import ClimateDashboard from './pages/ClimateDashboard';
 import ManageAccount from './pages/ManageAccount';
 import EditActivityHistory from './pages/EditActivityHistory';
 import Quiz from './pages/Quiz'
@@ -24,7 +25,6 @@ import Notification from './components/Notification';
 import NotificationPage from './pages/notificationPage';
 import UserProfile from './pages/UserProfile';
 import FAQ from './pages/faq';
-import ViewProfileFriendsList from './pages/ViewProfileFriendsList';
 import Awards from './pages/Awards';
 
 
@@ -46,6 +46,7 @@ function App() {
                         <Route path="/redirectHome" component={withRouter(redirectHome)}/>
                         <Route path = '/homeTab' component={withRouter(HomeTab)} />
                         <Route path = '/log-out' component={withRouter(Logout)} />
+                        <Route path = '/climate-dashboard' component={withRouter(ClimateDashboard)} />
                         <Route path = '/activities' component={withRouter(Activities)} />
                         <Route path = '/NotificationPage' component={withRouter(NotificationPage)}/>
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
@@ -62,7 +63,6 @@ function App() {
                         <Route path = '/homeTabNew/:username' component={withRouter(UserTree)} />
                         <Route path = '/faq' component={withRouter(FAQ)} />
                         <Route path = '/awards' component={withRouter(Awards)} />
-                        {/* <Route path = '' component={withRouter(ViewProfileFriendsList)} /> */}
                         <Route path = '/goals' component={withRouter(Goals)} />
 
                     </Switch>
