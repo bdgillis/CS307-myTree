@@ -1,5 +1,5 @@
 import React, { useEffect, useState, timeout } from 'react'
-import { getAuth } from "firebase/auth";
+import { getAuth, reload } from "firebase/auth";
 import { onAuthStateChanged } from 'firebase/auth';
 import { Friends } from '../../pages/Friends';
 const scoreData = [];
@@ -7,15 +7,15 @@ var stopMore;
 var flagOne;
 
 function sortFunction(a, b) {
-  if (a[1] === b[1]) {
-    if (a[0] === b[0]) {
+  if (a[0] === b[0]) {
+    if (a[1] === b[1]) {
       return 0;
     } else {
-      return (a[0] < b[0]) ? -1 : 1;
+      return (a[1] < b[1]) ? -1 : 1;
     }
   }
   else {
-    return b[1]-a[1];
+    return b[0]-a[0];
   }
 }
 
@@ -34,11 +34,13 @@ const SecondTab = () => {
     const auth = getAuth();
     const user = auth.currentUser;
     var uid = "null";
-    const [final, setFinal] = useState(null);
-    const [sortOnce, setSortOnce] = useState(null);
-    const [newFriend, setNewFriend] = useState({});
+
+
 
     useEffect(() => {
+      function runThis() {
+
+      
       async function getUidFriends(userFriend) {
 
         const responseOne = await fetch('/api/friends/username=' + userFriend);
@@ -54,7 +56,7 @@ const SecondTab = () => {
         const uUsernameTwo = await responseTwo.json();
         return uUsernameTwo;
   
-      };
+      }
 
       if (user) {
           const uid = user.uid;
@@ -95,12 +97,12 @@ const SecondTab = () => {
 
                       let carbonScoreValue = value.userDoc.carbonScore;
                       let carbonScoreValue2 = (Math.round(carbonScoreValue * 100) / 100).toFixed(2);
-                      const couple = [carbonScoreValue2, element];
+                      let couple = [carbonScoreValue2, element];
                       scoreData.push(couple);
                       
-                    });
+                    })
                     
-                  });
+                  })
 
               } catch (error) {
                   console.error('There was an error:', error);
@@ -109,7 +111,7 @@ const SecondTab = () => {
           getUserUsername(); // Call the async function within useEffect
           
       }
-      console.log(scoreData.length);
+
       scoreData.sort(sortFunction);
       let number = 1;
 
@@ -125,17 +127,12 @@ const SecondTab = () => {
           number++;
         }
       }
-
-  }, [user]);
-
-  function isEmpty(obj) {
-    for (const prop in obj) {
-        if (Object.hasOwn(obj, prop)) {
-            return false;
-        }
     }
-    return true;
-  }
+    runThis();
+
+
+  }, []);
+
   
   return (
     <div className="SecondTab">

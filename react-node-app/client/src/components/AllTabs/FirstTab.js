@@ -132,6 +132,7 @@ const FirstTab = () => {
       scoreData.sort(sortFunction);
       
       var sortedArr = scoreData.sort(sortFunction);
+      console.log(sortedArr.length);
 
       for(let i = 0; i < sortedArr.length; i++) {
         if(i === 0) {

@@ -5,8 +5,26 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
 import styled from 'styled-components';
 import './Logout.css';
-//import '../App.css';
+import '../App.css';
 import './ManageAccount.css';
+import {
+    MDBCard,
+    MDBCardHeader,
+    MDBCardBody,
+    MDBCardTitle,
+    MDBCardText,
+    MDBCardFooter,
+    MDBBtn
+  } from 'mdb-react-ui-kit';
+  
+import { 
+    Nav, 
+    Bars, 
+    NavMenu, 
+    NavLink, 
+    NavBtn, 
+    FriendBtnLink
+  } from '../components/Navbar/NavbarElements'
 
 
 
@@ -33,6 +51,14 @@ const FriendsButton = styled.button `
 
 `
 
+const Divider = () => {
+    return (
+        <hr
+            style={{ borderTop: "2px solid grey" }}
+        ></hr>
+    );
+};
+
 
 const ViewProfile = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +70,7 @@ const ViewProfile = () => {
     const changeToFriendList = async () => {
         try {
             //alert(auth.currentUser.email)
-            window.location = '/view-profile/Friends-List';    
+            window.location = '/friends';    
         } catch (err) {
             alert(err)
             document.getElementById('errfn').innerHTML="Logout failed.";
@@ -117,7 +143,10 @@ const ViewProfile = () => {
     // console.log(profileData)
     // console.log(activityHistory);
 
+    const numFriends = 0;
+
     const activityOptions = Object.keys(activityHistory).map((key) => {
+        //numFriends= numFriends + 1;
         const activity = activityHistory[key];
         //console.log(activity)
         const time = new Date(activity.timestamp).toLocaleString()
@@ -153,16 +182,22 @@ const ViewProfile = () => {
                 </div>
                 {profileData ? (
                     profileData.quizTaken ? (
-                        <div>
+                        <div className='profileCard'>
                             <h3 id="displayName">Display Name: {user.displayName}</h3>
-
+                            <Divider />
                             <h3>Username: {profileData.username}</h3>
+                            <Divider />
                             <h3>Location: {profileData.hometown}</h3>
+                            <Divider />
                             <h3>About Me: {profileData.bio}</h3>
+                            <Divider />
                             <h3>Favorite Category: {profileData.targetCategory}</h3>
-                            <FriendsButton onClick={changeToFriendList}>
-                                Friends
-                            </FriendsButton>
+                            <Divider />
+                            <FriendBtnLink to='/friends'>
+                                Friends: {profileData.friends.length}
+                            </FriendBtnLink>
+                            <Divider />
+
                             <></>
                             {profileData.awards ? (
                             <div>
@@ -178,11 +213,11 @@ const ViewProfile = () => {
                     <h3>Loading data...</h3>
 
                 )}
-                <br /><br />
-                <h2>Activity History</h2>
+                <h2>Carbon Score</h2>
                 {profileData ? (
-                    <div>
+                    <div className='profileCard'>
                         <h3>Carbon Score: {profileData.carbonScore}</h3>
+                        <Divider />
                         <h3>Weekly Carbon Score: {profileData.weeklyNumActivities}</h3>
                         
                     </div>
@@ -194,9 +229,13 @@ const ViewProfile = () => {
                     (isEmpty(activityHistory)) ? (
                         <ButtonLink to="./activities" children={"Enter Your First Activity!"}></ButtonLink>
                     ) : (
-                        <div>
+                        <>
+                        <h2>Activity History</h2>
+                        <div className='profileCard'>
                             {activityOptions}
                         </div>
+                        </>
+
                     )
                 ) : (
                     <h3>Loading Activity History ... </h3>
