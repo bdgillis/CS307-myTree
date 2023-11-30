@@ -94,7 +94,7 @@ const Awards = () => {
                             <></>
                             {profileData.awards ? (
                             <div>
-                                {profileData.awards[0] ? <img src={require("../Images/transportation.png")} title="Award for 3+ Transportation Activities Logged!" /> : null}
+                                {profileData.awards[0] ? <img src={require("../Images/transportation.png")} height={500} title="Award for 3+ Transportation Activities Logged!" /> : null}
                                 {profileData.awards[0] ? <button onClick={tButton} id="showHide"
                                     className='learnAboutCarbonScore'
                                     style={{ 
@@ -114,7 +114,7 @@ const Awards = () => {
 
                         
 
-                                {profileData.awards[1] ? <img src={require("../Images/eating.png")} title="Award for 3+ Eating Activities Logged!" /> : null}
+                                {profileData.awards[1] ? <img src={require("../Images/eating.png")} height={500} title="Award for 3+ Eating Activities Logged!" /> : null}
                                 
                                 {profileData.awards[1] ? <button onClick={eButton} id="showHide"
                                     className='learnAboutCarbonScore'
@@ -133,7 +133,7 @@ const Awards = () => {
                 
                                 <br></br>
 
-                                {profileData.awards[2] ? <img src={require("../Images/household.png")} title="Award for 3+ Household Activities Logged!" /> : null}
+                                {profileData.awards[2] ? <img src={require("../Images/household.png")} height={500} title="Award for 3+ Household Activities Logged!" /> : null}
                                 {profileData.awards[2] ? <button onClick={hButton} id="showHide"
                                     className='learnAboutCarbonScore'
                                     style={{ 
