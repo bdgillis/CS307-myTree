@@ -10,6 +10,7 @@ import Activities from './pages/Activities'
 import Groups from './pages/Groups'
 import Goals from './pages/Goals'
 import ViewGroup from './pages/ViewGroup'
+import EditGroup from './pages/EditGroup'
 import Friends from './pages/Friends'
 import Leagues from './pages/Leagues'
 import Leaderboards from './pages/Leaderboards'
@@ -52,6 +53,7 @@ function App() {
                         <Route path = '/edit-history' component={withRouter(EditActivityHistory)} />
                         <Route path = '/groups' component={withRouter(Groups)} />
                         <Route path = '/viewgroup/:groupname' component={withRouter(ViewGroup)} />
+                        <Route path = '/editgroup/:groupname' component={withRouter(EditGroup)} />
                         <Route path = '/friends' component={withRouter(Friends)} />
                         <Route path = '/leagues' component={withRouter(Leagues)} />
                         <Route path = '/leaderboards' component={withRouter(Leaderboards)} />

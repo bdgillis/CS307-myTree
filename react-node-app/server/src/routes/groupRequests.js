@@ -36,19 +36,22 @@ router.get('/userRequests', async (req, res) => {
 //get incoming group requests for specific group
 router.get('/incoming/:groupname', async (req, res) => {
     try {
-        console.log("groupRequests/incoming/:groupname")
-
-        const user = db.collection('groups').doc(req.params.groupname);
-        const doc = await user.get();
+        const group = db.collection('groups').doc(req.params.groupname);
+        const doc = await group.get();
         if (!doc.exists) {
-            console.log('No such document!');
-            res.json({ status: 'error', error: 'group does not exist' });
+            console.log('No group with groupname: ' + req.params.groupname);   
+            res.json({exists: false});
         } else {
-            if (doc.data().incomingRequests == null) {
-                res.json({ status: 'success', incomingRequests: [] });
-            } else {
-                res.json({ status: 'success', incomingRequests: doc.data().incomingRequests });
+            console.log('Group with groupname: ' + req.params.groupname + ' exists');
+            const incomingRequests = [];
+            var counter = 0;
+
+            for (const user of doc.data().incomingRequests) {
+                const userRef = await db.collection('users').doc(user).get();
+                incomingRequests[counter++] = userRef.data().username;
             }
+            
+            res.json({incomingRequests: incomingRequests});
         }
 
     } catch (err) {
@@ -64,7 +67,7 @@ router.post('/:groupname', async (req, res) => {
 
         console.log(req.body)
         const receivingRef = await db.collection('groups').doc(req.params.groupname).update({
-            incomingRequests: FieldValue.arrayUnion(req.body.username)
+            incomingRequests: FieldValue.arrayUnion(req.body.uid)
         });
         const sendingRef = await db.collection('users').doc(req.body.uid).update({
             groupRequests: FieldValue.arrayUnion(req.params.groupname)
@@ -73,6 +76,46 @@ router.post('/:groupname', async (req, res) => {
     } catch (err) {
         console.log('Error: ', err);
         res.json({ status: 'error', error: 'could not request to join group' });
+    }
+});
+
+//accept group join request
+router.post('/accept/:groupname', async (req, res) => {
+    try {
+        console.log("groupRequest/accept")
+
+        const receivingRef = await db.collection('users').doc(req.body.uid).update({
+            groupRequests: FieldValue.arrayRemove(req.params.groupname),
+            groups: FieldValue.arrayUnion(req.params.groupname)
+        });
+
+        const sendingRef = await db.collection('groups').doc(req.params.groupname).update({
+            incomingRequests: FieldValue.arrayRemove(req.body.uid),
+            users: FieldValue.arrayUnion(req.body.uid)
+        });
+        res.json({ status: 'success' });
+    } catch (err) {
+        console.log('Error: ', err);
+        res.json({ status: 'error', error: 'could not accept group request' });
+    }
+});
+
+//decline group join request
+router.post('/decline/:groupname', async (req, res) => {
+    try {
+        console.log("groupRequest/decline")
+
+        const receivingRef = await db.collection('users').doc(req.body.uid).update({
+            groupRequests: FieldValue.arrayRemove(req.params.groupname)
+        });
+
+        const sendingRef = await db.collection('groups').doc(req.params.groupname).update({
+            incomingRequests: FieldValue.arrayRemove(req.body.uid)
+        });
+        res.json({ status: 'success' });
+    } catch (err) {
+        console.log('Error: ', err);
+        res.json({ status: 'error', error: 'could not decline group request' });
     }
 });
 

@@ -547,5 +547,65 @@ label {
     padding-top: 90px;
 }
 
+.backButton {
+  position: absolute;
+  left: 0;
+  margin-left: 75px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.refreshButton {
+  position: absolute;
+  left: 0;
+  margin-left: 100px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+}
+
+.editBioInput {
+  border-radius: 4px;
+  background-color: #73ee73;
+  border: none;
+  font-weight: bold; 
+  height: 150px;
+}
+
 
 
