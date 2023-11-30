@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import FirstTab from "./FriendListTab";
 import SecondTab from "./SearchFriendsTab";
-import ThirdTab from "./FriendRequestsTab";
-import FourthTab from "./NudgesTab";
+import ThirdTab from "../NotificationComponents/FriendRequestsTab";
+import FourthTab from "../NotificationComponents/NudgesTab";
 
 
 const FriendsTabs = () => {
@@ -17,14 +17,14 @@ const FriendsTabs = () => {
         // update the state to tab2
         setActiveTab("tab2");
     };
-    const handleTab3 = () => {
-        // update the state to tab2
-        setActiveTab("tab3");
-    };
-    const handleTab4 = () => {
-        // update the state to tab2
-        setActiveTab("tab4");
-    };
+    // const handleTab3 = () => {
+    //     // update the state to tab2
+    //     setActiveTab("tab3");
+    // };
+    // const handleTab4 = () => {
+    //     // update the state to tab2
+    //     setActiveTab("tab4");
+    // };
 
     return (
         <div className="Tabs">
@@ -43,14 +43,14 @@ const FriendsTabs = () => {
 
 
                 </li>
-                <li className={activeTab === "tab3" ? "active" : ""}
+                {/* <li className={activeTab === "tab3" ? "active" : ""}
                     onClick={handleTab3}>
                     Friend Requests
                 </li>
                 <li className={activeTab === "tab4" ? "active" : ""}
                     onClick={handleTab4}>
                     Nudges
-                </li>
+                </li> */}
 
             </ul>
             <div className="outlet">

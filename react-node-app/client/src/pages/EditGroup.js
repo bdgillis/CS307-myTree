@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
-import GroupInvitesTab from '../components/GroupsComponents/GroupInvitesTab';
+import GroupInvitesTab from '../components/NotificationComponents/GroupInvitesTab';
 import { getAuth } from "firebase/auth";
 import { get } from 'react-scroll/modules/mixins/scroller';
 

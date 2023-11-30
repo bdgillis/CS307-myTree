@@ -16,10 +16,10 @@ router.get('/:uid', async (req, res) => {
         const user = db.collection('users').doc(req.params.uid);
         const doc = await user.get();
         if (!doc.exists) {
-          // console.log('No such document!');
+          console.log('No such document!');
         } else {
           // console.log("document found")
-          //console.log('Document data:', doc.data());
+          console.log('Document data:', doc.data());
         }
         res.send(doc.data());
     } catch (err) {
