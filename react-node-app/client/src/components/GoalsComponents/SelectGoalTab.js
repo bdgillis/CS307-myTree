@@ -146,7 +146,7 @@ const DailyChallengeTab = () => {
                 <Navbar toggle={toggle} />
             </div>
             <div style={{ 'textAlign': 'center' }} className='logout-container'>
-                <h1>Select a Goal</h1>
+                <h1>Suggested Challenges</h1>
                 <Divider/>
                 {challengeArray.map((challenge, index) => (
                     <>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, timeout } from 'react'
-
+import toast, { Toaster } from 'react-hot-toast';
 import { applyActionCode, getAuth } from "firebase/auth";
 
 
@@ -10,6 +10,9 @@ const FriendListTab = () => {
     const toggle = () => {
         setIsOpen(!isOpen);
     };
+    const notify = () => toast(<ToastDisplay />);
+    const [notification, setNotification] = useState({ title: '', body: '' });
+
 
     const [friends, setFriends] = useState({});
     const [displayFriends, setDisplayFriends] = useState(null);
@@ -21,8 +24,18 @@ const FriendListTab = () => {
     const [nudgeStatus, setNudgeStatus] = useState(null);
 
 
+
     const auth = getAuth();
     const user = auth.currentUser;
+
+    function ToastDisplay() {
+        return (
+            <div>
+                <p><b>{notification?.title}</b></p>
+                <p>{notification?.body}</p>
+            </div>
+        );
+    };
 
     useEffect(() => {
         if (user) {
@@ -63,22 +76,22 @@ const FriendListTab = () => {
         // if (userDoc) {
         if (friends.length > 0) {
             // console.log(incomingRequests);
-            
-            const displayFriendsPromises = friends.map( async (element) => {
+
+            const displayFriendsPromises = friends.map(async (element) => {
                 const isNudge = await nudgeNeeded(element);
                 // console.log(isNudge)
                 console.log(element);
-                return{isNudge:isNudge, element: element};
-            
+                return { isNudge: isNudge, element: element };
+
             });
 
             Promise.all(displayFriendsPromises).then((renderedFriends) => {
                 const displayFriendsArray = renderedFriends.map((friend) => (
                     <div>
-                        <hr/>
+                        <hr />
                         <h3 className='friendName'>
                             Friend: {friend.element}
-                            
+
                         </h3>
                         <button
                             className='friendProfButton'
@@ -96,29 +109,23 @@ const FriendListTab = () => {
                             <h4 className='friendName'>No Activities!</h4>
                         )}
                         {friend.isNudge.needNudge ? (
-                            !nudgeSent ? (
-                            <button key={friend.element} className='friendProfButton' onClick={handleNudge}>Nudge</button>
-                            ) : (
-                                <h4 className='friendName'>Nudge Sent!</h4>
-                            )
-                        ) : ( 
+
+                            <button key={friend.element} className='friendProfButton' onClick={() => handleNudge(friend.element)}>Nudge</button>
+                        ) : (
                             <div></div>
                         )
                         }
-                        
+
                     </div>
                 ));
                 setDisplayFriends(displayFriendsArray);
             });
-                    
-
-            // setDisplayFriends(displayFriends);
         }
-        // }
     }, [friends]);
 
-    const handleNudge = async (e) => {
-        setNudgeUser(e.target.key);
+    function handleNudge(friend) {
+        setNudgeUser(friend);
+        console.log("handle Nudge" + friend)
     };
 
     useEffect(() => {
@@ -130,7 +137,7 @@ const FriendListTab = () => {
                 });
                 const body = await response.json();
                 console.log(body);
-                setNudgeUid(body.uid);
+                setNudgeUid(body.id);
             }
             getNudgeUid();
         }
@@ -138,17 +145,27 @@ const FriendListTab = () => {
 
     useEffect(() => {
         if (nudgeUid) {
+            const uid = user.uid;
             console.log("nudgeUid: " + nudgeUid);
-            const sendNudge = async() => {
-                const response = await fetch(`/api/friends/nudge/${nudgeUid}`, {
-                    method: 'POST'
+            const sendNudge = async () => {
+                const response = await fetch(`/api/nudges/send`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ receivingUid: nudgeUid, sendingUid: uid })
                 });
                 const body = await response.json();
                 console.log(body);
-                setNudgeSent(true);
-
+                if (body.status === 'success') {
+                    setNudgeSent(true);
+                    toast.success('Successfully Nudged!')
+                } else {
+                    setNudgeSent(false);
+                    toast.error('Failed to Nudge!')
+                }
             }
-            sendNudge();   
+            sendNudge();
         }
     }, [nudgeUid]);
 
@@ -158,7 +175,7 @@ const FriendListTab = () => {
         });
         const body = await response.json();
         // if (body.status === "success") {
-            return {needNudge: body.needNudge, daysSince: body.daysSince};
+        return { needNudge: body.needNudge, daysSince: body.daysSince };
         // }
     }
 
@@ -173,23 +190,27 @@ const FriendListTab = () => {
     }
 
     return (
-        <div className="searchTab">
-            <h1 className='friendListHeader'>
-                Friends List
-            </h1>
+        <>
+            <Toaster />
 
-            {/* <h2>Friend List : </h2> */}
-            {!isEmpty(friends) ? (
-                (displayFriends ? (
-                    <div className='scrollHere'>
-                        {displayFriends}
-                    </div>) : (
-                    <h3>Loading Friends List ... </h3>
-                ))
-            ) : (
-                <h3 className='friendName'>No Friends</h3>
-            )}
-        </div>
+            <div className="searchTab">
+                <h1 className='friendListHeader'>
+                    Friends List
+                </h1>
+
+                {/* <h2>Friend List : </h2> */}
+                {!isEmpty(friends) ? (
+                    (displayFriends ? (
+                        <div className='scrollHere'>
+                            {displayFriends}
+                        </div>) : (
+                        <h3>Loading Friends List ... </h3>
+                    ))
+                ) : (
+                    <h3 className='friendName'>No Friends</h3>
+                )}
+            </div>
+        </>
     );
 };
 export default FriendListTab;
