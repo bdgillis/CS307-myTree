@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import GroupInvitesTab from '../components/GroupsComponents/GroupInvitesTab';
+import { getAuth } from "firebase/auth";
 
-function UserProfile({ match }) {
+
+function GroupProfile({ match }) {
 
     const { groupname } = match.params;
     const [isOpen, setIsOpen] = useState(false);
@@ -11,13 +13,18 @@ function UserProfile({ match }) {
     const [members, setMembers] = useState({});
     const [loadingState, setLoadingState] = useState(true);
     const [groupOwner, setGroupOwner] = useState(null);
-    const [user, setUser] = useState(null);
+    const [adminPrivilege, setAdminPrivilege] = useState(false);
     const [userData, setUserData] = useState(null);
     const [profileUser, setProfileUser] = useState(null);
     const [invitee, setInvitee] = useState(null);
     const [inviteeID, setInviteeID] = useState(null);
     const [inviteSent, setInviteSent] = useState(false);
     const [inviteStatus, setInviteStatus] = useState(null);
+    const [groupBio, setGroupBio] = useState("");
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const uid = user?.uid;
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -32,7 +39,12 @@ function UserProfile({ match }) {
                     console.log(body);
                     setGroupOwner(body.owner);
 
+                    if (body.ownerid === user.uid) {
+                        setAdminPrivilege(true);
+                    }
+
                     setMembers(body.members);
+                    setGroupBio(body.bio);
                     setLoadingState(false);
                 } catch (error) {
                     console.error('There was an error:', error);
@@ -40,7 +52,7 @@ function UserProfile({ match }) {
             }
             getGroupData();
         }
-    }, [groupname]);
+    }, [groupname, user]);
 
     const handleInvite = (e) => {
         console.log(document.getElementById('groupname').value);
@@ -125,7 +137,7 @@ function UserProfile({ match }) {
             </div>
             <div>
                 <h1>Welcome to {groupname}</h1>
-                {/* Add user-specific content here */}
+                <h2>{groupBio}</h2>
             </div>
 
             <div>
@@ -139,6 +151,16 @@ function UserProfile({ match }) {
                     <h3>Loading data...</h3>
 
                 )}
+                {
+                    adminPrivilege && (<div className='friendRequestButtons'>
+                    <button
+                        className='friendRequestButton'
+                        onClick={() => window.location = '../editgroup/' + groupname}>
+                        Edit Group
+                    </button>
+                    </div>)
+                }
+
                 <br /><br />
                 <h2>Members</h2>
                 {!loadingState ? (
@@ -188,4 +210,4 @@ function UserProfile({ match }) {
     );
 }
 
-export default UserProfile;
+export default GroupProfile;

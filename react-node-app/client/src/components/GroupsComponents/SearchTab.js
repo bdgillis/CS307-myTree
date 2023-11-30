@@ -42,7 +42,7 @@ const SearchTab = () => {
             if (group) {
                 const joinGroup = async () => {
                     console.log(group);
-                    const response = await fetch(`/api/groups/join/${groupname}`, {
+                    const response = await fetch(`/api/groupRequests/${groupname}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

@@ -50,7 +50,7 @@ router.get('/:groupname/members', async (req, res) => {
             }
             const adminRef = await db.collection('users').doc(doc.data().owner).get();
             const owner = adminRef.data();
-            res.json({exists: true, members: members, owner: owner.username});
+            res.json({exists: true, members: members, owner: owner.username, ownerid: doc.data().owner, bio: doc.data().bio });
         }
     } catch (err) {
         console.log('Error: ', err);
@@ -118,6 +118,49 @@ router.post('/join/:groupname', async (req, res) => {
                 groups: FieldValue.arrayUnion(req.params.groupname)
             });
             res.json({status: 'success', id: docRef.id});
+        }
+
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+
+});
+
+//update group bio
+router.post('/update/:groupname', async (req, res) => {
+    try {
+        const group = db.collection('groups').doc(req.params.groupname);
+        const doc = await group.get();
+        if (!doc.exists) {
+            res.json({status: 'error', error: 'group does not exist'});
+        } else {
+            const docRef = await db.collection('groups').doc(req.params.groupname).update({
+                bio: req.body.bio
+            });
+            res.json({status: 'success'});
+        }
+
+    } catch (err) {
+        console.log('Error: ', err);
+    }
+
+});
+
+//remove member from group
+router.post('/remove/:groupname', async (req, res) => {
+    try {
+        const group = db.collection('groups').doc(req.params.groupname);
+        const doc = await group.get();
+        if (!doc.exists) {
+            res.json({status: 'error', error: 'group does not exist'});
+        } else {
+            const docRef = await db.collection('groups').doc(req.params.groupname).update({
+                users: FieldValue.arrayRemove(req.body.uid)
+            });
+            const userRef = await db.collection('users').doc(req.body.uid).update({
+                groups: FieldValue.arrayRemove(req.params.groupname)
+            });
+            res.json({status: 'success'});
         }
 
     } catch (err) {
