@@ -10,6 +10,11 @@ export const MenuItems = [
       cName: 'dropdown-link'
     },
     {
+      title: 'Climate Dashboard',
+      path: '/climate-dashboard',
+      cName: 'dropdown-link'
+    },
+    {
       title: 'Log out',
       path: '/log-out',
       cName: 'dropdown-link'

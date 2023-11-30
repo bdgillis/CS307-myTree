@@ -3,20 +3,12 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { ButtonLink } from '../components/ActivityComponents/Button';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import './Logout.css';
 import '../App.css';
 import './ManageAccount.css';
-import {
-    MDBCard,
-    MDBCardHeader,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
-    MDBCardFooter,
-    MDBBtn
-  } from 'mdb-react-ui-kit';
-  
+import './HomeTab.css'
 import { 
     Nav, 
     Bars, 
@@ -27,30 +19,6 @@ import {
   } from '../components/Navbar/NavbarElements'
 
 
-
-const FriendsButton = styled.button `
-    border-radius: 4px;
-    background: #256ce1;
-    padding: 7px 15px;
-    color: #fff;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    text-decoration: none;
-    font-size: 20px;
-	font-weight: bold; 
-
-    margin-left: 0px;
-
-    &:hover {
-        transition: all 0.2s ease-in-out;
-        background: #fff;
-        color: #010606;
-    }
-
-`
-
 const Divider = () => {
     return (
         <hr
@@ -60,11 +28,15 @@ const Divider = () => {
 };
 
 
-const ViewProfile = () => {
+
+const ClimateDashboard = () => {
+
     const [isOpen, setIsOpen] = useState(false);
     const [profileData, setProfileData] = useState(null);
     const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
+
+    const history = useHistory();
 
 
     const changeToFriendList = async () => {
@@ -167,6 +139,39 @@ const ViewProfile = () => {
         return true;
     }
 
+    var image
+    var tree_level = 0;
+    var height = 250;
+
+    function changeImage() {
+        //Change Carbon Score artifically
+        //profileData.carbonScore = -0.1;
+
+        image = document.getElementById('myTree');
+
+        if (profileData.carbonScore < 0) {
+            tree_level = 0;
+            if (profileData.carbonScore > -100) {
+                height = 450 + 2 * profileData.carbonScore;
+            } else {
+                height = 250;
+            }
+        }
+        else if (profileData.carbonScore < 100) {
+            tree_level = 1;
+            //image.height = 450;
+            height = 250 + 2 * profileData.carbonScore;
+        } else {
+            tree_level = 2;
+            if (profileData.carbonScore < 200) {
+                height = 250 + 2 * (profileData.carbonScore - 100);
+            } else {
+                height = 450;
+            }
+        }
+    }
+
+
     return (
         <>
             <div className='NavMenu'>
@@ -175,57 +180,85 @@ const ViewProfile = () => {
             </div>
 
             <div className='profileStyle'>
-                <div>
-                    <h1>
-                        User Profile 
-                    </h1>
-                </div>
-                {profileData ? (
-                    profileData.quizTaken ? (
-                        <div className='profileCard'>
-                            <h3 id="displayName">Display Name: {user.displayName}</h3>
-                            <Divider />
-                            <h3>Username: {profileData.username}</h3>
-                            <Divider />
-                            <h3>Location: {profileData.hometown}</h3>
-                            <Divider />
-                            <h3>About Me: {profileData.bio}</h3>
-                            <Divider />
-                            <h3>Favorite Category: {profileData.targetCategory}</h3>
-                            <Divider />
-                            <FriendBtnLink to='/friends'>
-                                Friends: {profileData.friends.length}
-                            </FriendBtnLink>
-                            <Divider />
+                <h2>MyTree's Stats</h2>
+            </div>
+            <div className='num-activites'>
+                    {profileData ? (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {changeImage()}
+                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Height: {height}</h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Level: {tree_level}</h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                            </div>
+                        </>
+                        ) : (
+                        <h3>Stats:</h3>
+                    )}
+            </div>
 
-                            \<>
-                            </>
-                            {profileData.awards ? (
-                            <div>
-                                <h3>Awards: </h3>
-                                {profileData.awards[0] ? <img src={require("../Images/transportation.png")} height={200} title="Award for 3+ Transportation Activities Logged!" /> : null}
-                                {profileData.awards[1] ? <img src={require("../Images/eating.png")} height={200} title="Award for 3+ Eating Activities Logged!" /> : null}
-                                {profileData.awards[2] ? <img src={require("../Images/household.png")} height={200} title="Award for 3+ Household Activities Logged!" /> : null}
-                            </div>) : <h3>No awards yet...</h3>}
-                        </div>
-                    ) : (
-                        <ButtonLink to="./quiz" children={"Set up Profile"}></ButtonLink>
-                    )) : (
-                    <h3>Loading data...</h3>
+            <div className='num-activites'>
+                    {profileData ? (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <FriendBtnLink to='/homeTab'>
+                                    View MyTree
+                                </FriendBtnLink>
+                            </div>
+                        </>
+                        ) : (
+                        <h3>Stats:</h3>
+                    )}
+            </div>
 
-                )}
-                <h2>Carbon Score</h2>
-                {profileData ? (
-                    <div className='profileCard'>
-                        <h3>Carbon Score: {profileData.carbonScore}</h3>
-                        <Divider />
-                        <h3>Weekly Carbon Score: {profileData.weeklyNumActivities}</h3>
+            <div className='header'>
+                <h2>User Stats</h2>
+                <button 
+                        className='learnAboutCarbonScore'
+                        style={{ 
+                            marginLeft: '25px', 
+                            marginTop: '23px', 
+                            backgroundColor: '#256ce1', 
+                            color: 'white', 
+                            borderRadius: '50%', 
+                            width: '30px', 
+                            height: '30px' 
+                    }}title="How is Carbon Score Calculated?" onClick={() => history.push('./faq')}>
+                        ?
+                </button>
+            </div>
+            <div className='Background'>
+                <div className='num-activites'>
+                    {profileData ? (
                         
-                    </div>
+                        <div className='Background' style={{ display: 'flex', alignItems: 'center' }}>
+                            <h3 className='Background' style={{marginRight: '25px'}}>Weekly Stats:</h3>
+                            <h3  className='Background' style={{marginRight: '25px'}}>Carbon Score: {profileData.weeklyCarbonScore}</h3>
+                            <h3>Number of Activities: {profileData.weeklyNumActivities}</h3>
+                        </div>
+                        
+                        ) : (
+                        <h3>Weekly Stats:</h3>
+                    )}
                     
-                ) : (
-                    <h3>Carbon Score Unavailable</h3>
-                )}
+                </div>
+
+                <Divider />
+
+                <div className='num-activites'>
+                    {profileData ? (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <h3 style={{marginRight: '25px'}}>All Time Stats:</h3>
+                            <h3 style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                            <h3>Number of Activities: {profileData.numActivities}</h3>
+                        </div>
+                        ) : (
+                        <h3>All Time Stats:</h3>
+                    )}
+                </div>
+            </div>
+
+            <div className='Headerbuffer'>
                 {!loadingState ? (
                     (isEmpty(activityHistory)) ? (
                         <ButtonLink to="./activities" children={"Enter Your First Activity!"}></ButtonLink>
@@ -245,8 +278,7 @@ const ViewProfile = () => {
             </div>
 
         </>
+  );
+};
 
-    )
-}
-
-export default ViewProfile
+export default ClimateDashboard;
