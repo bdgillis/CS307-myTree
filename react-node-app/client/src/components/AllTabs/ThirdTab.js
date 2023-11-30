@@ -210,6 +210,7 @@ const ThirdTab = () => {
   }
   sortArray();
   console.log(emailArray);
+  localStorage.setItem('sortedArray', JSON.stringify(g_sortedArr));
 
 
   return (

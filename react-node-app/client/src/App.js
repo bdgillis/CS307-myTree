@@ -73,6 +73,7 @@ function App() {
                 
 
             </BrowserRouter>
+            <Notification></Notification>
 
             
 

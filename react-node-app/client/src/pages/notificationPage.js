@@ -54,8 +54,7 @@ const NotificationPage = () => {
             setNotification({title: payload?.notification?.title, body: payload?.notification?.body});
 			let notif = payload.notification.body;
 			console.log(notif);
-            
-			document.getElementById("printNotif").innerHTML = (notif + "<br/>");
+        
 
 
         })
@@ -83,8 +82,7 @@ const NotificationPage = () => {
                 <div>
 				    <h1>Notifications</h1>
                     <ButtonLink className="challenge" to='/daily-challenge' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
-					
-					<p id="printNotif"></p>
+				
                     
             
                 </div>

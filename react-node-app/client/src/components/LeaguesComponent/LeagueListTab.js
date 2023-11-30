@@ -1,6 +1,5 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
-import { g_sortedArr } from '../AllTabs/ThirdTab';
 import './League.css'
 
 
@@ -53,7 +52,8 @@ const LeagueListTab = () => {
     }, [user]);
 
     function displayArray() {
-                const displayFriendsArray = g_sortedArr.map((league) => (
+        var sortedArr = JSON.parse(localStorage.getItem('sortedArray'));
+                const displayFriendsArray = sortedArr.map((league) => (
                     <div>
                         <hr/>
                         <h3 className='friendName'>

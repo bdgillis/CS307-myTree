@@ -113,7 +113,10 @@ const SecondTab = () => {
       scoreData.sort(sortFunction);
       let number = 1;
 
+      localStorage.setItem('dataSorted', JSON.stringify(scoreData.sort(sortFunction)));
+
       for(let i = 0; i < scoreData.length; i++) {
+        
         
         if(i === 0) {
     
@@ -136,6 +139,9 @@ const SecondTab = () => {
     }
     return true;
   }
+
+  var myObject = JSON.parse(localStorage.getItem('dataSorted'));
+  console.log("here: ", myObject);
   
   return (
     <div className="SecondTab">
