@@ -31,6 +31,7 @@ router.post('/set', async (req, res) => {
             parameter: req.body.parameter,
             progress: 0,
             suffix: req.body.suffix,
+            completed: false
         });
         console.log('Added document with ID: ', docRef.id);
         res.json({ status: 'success', id: docRef.id });
