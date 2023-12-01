@@ -261,7 +261,8 @@ const DailyChallengeTab = () => {
             </div>
 
 
-
+            <br></br>
+            <br></br>
 
 
         </>
