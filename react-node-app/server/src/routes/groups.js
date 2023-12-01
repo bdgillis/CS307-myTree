@@ -67,7 +67,11 @@ router.get('/', async (req, res) => {
         snapshot.forEach(doc => {
             groupList.push(doc.data());
         });
-        res.json(groupList);
+        if (groupList == undefined) {
+            res.json([]);
+        }  else {
+            res.json(groupList);
+        }
     } catch (err) {
         console.log('Error: ', err);
     }
