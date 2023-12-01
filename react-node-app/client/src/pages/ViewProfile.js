@@ -65,6 +65,7 @@ const ViewProfile = () => {
     const [profileData, setProfileData] = useState(null);
     const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
+    const [challenge, setChallenge] = useState({});
 
 
     const changeToFriendList = async () => {
@@ -101,6 +102,9 @@ const ViewProfile = () => {
                     }
                     const profileData = await response.json();
                     setProfileData(profileData); // Set the data in the component's state
+                    if (profileData.completedChallenges) {
+                        setChallenge(profileData.completedChallenges);
+                    }
                     
                 } catch (error) {
                     console.error('There was an error:', error);
@@ -153,6 +157,17 @@ const ViewProfile = () => {
         return (
             <h3 key={key} value={key}>
                 {time} - {activity.activeCategory} - {activity.activeActivity} - {activity.activityParam} mi.
+            </h3>
+        );
+    });
+
+    const challengeDisplay = Object.keys(challenge).map((key) => {
+        //numFriends= numFriends + 1;
+        const chall = challenge[key];
+        //console.log(activity)
+        return (
+            <h3 key={key} value={key}>
+                {chall}
             </h3>
         );
     });
@@ -225,6 +240,16 @@ const ViewProfile = () => {
                     
                 ) : (
                     <h3>Carbon Score Unavailable</h3>
+                )}
+                <h2>Challenges Completed</h2>
+                {!isEmpty(challenge) ? (
+                    <div className='profileCard'>
+                        {challengeDisplay}
+                    </div>
+                ) : (
+                    <div className='profileCard'>
+                    <h3>No Challenges Completed</h3>
+                    </div>
                 )}
                 {!loadingState ? (
                     (isEmpty(activityHistory)) ? (

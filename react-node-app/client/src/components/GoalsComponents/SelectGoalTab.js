@@ -68,14 +68,14 @@ function findTime() {
 }
 
 function findSuffix(spec_cat, category) {
-	let paramUnits = null
-	switch(category) {
+    let paramUnits = null
+    switch (category) {
         case "Transportation": {
             paramUnits = "Miles";
             break;
         }
         case "Eating": {
-            switch(spec_cat) {
+            switch (spec_cat) {
                 case "Takeout - Plastic":
                     paramUnits = "Containers";
                     break;
@@ -95,7 +95,7 @@ function findSuffix(spec_cat, category) {
             break;
         }
         case "Household": {
-            switch(spec_cat) {
+            switch (spec_cat) {
                 case "Cold Water Laundry":
                     paramUnits = "Loads";
                     break;
@@ -172,7 +172,10 @@ const DailyChallengeTab = () => {
     };
 
     async function selectChallenge(challenge) {
-        //console.log(challenge);
+        const auth = getAuth();
+        const user = auth.currentUser;
+        console.log(challenge);
+        console.log(user)
         if (user) {
             const uid = user.uid;
             console.log(uid)
@@ -207,22 +210,29 @@ const DailyChallengeTab = () => {
     }
 
     async function handleRep(challenge) {
-            console.log(challenge);
-            const response = await fetch('/api/challenges/set', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ uid:user.uid, category: challenge.category, subCategory: challenge.subCategory, parameter: challenge.timeEnd, suffix: challenge.suffix })
-            });
-            const body = await response.json();
-            console.log(body);
-            if (body.status === 'success') {
-                toast.success("Challenge Selection Set");
-            } else {
-                toast.error("Challenge Selection Failed");
-            }
-        
+        console.log(challenge);
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+        const response = await fetch('/api/challenges/set', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ uid: user.uid, category: challenge.category, subCategory: challenge.subCategory, parameter: challenge.timeEnd, suffix: challenge.suffix })
+        });
+        const body = await response.json();
+        console.log(body);
+        if (body.status === 'success') {
+            toast.success("Challenge Selection Set");
+        } else {
+            toast.error("Challenge Selection Failed");
+        }
+    } else {
+        toast.error("Challenge Selection Failed");
+    
+    }
+
     }
 
     const challengeArray = generateChallenges();

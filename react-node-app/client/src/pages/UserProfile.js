@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import './ManageAccount.css';
+import { ButtonLink } from '../components/ActivityComponents/Button';
+import styled from 'styled-components';
+import './Logout.css';
+import '../App.css';
 
 function UserProfile({ match }) {
 
@@ -16,6 +20,14 @@ function UserProfile({ match }) {
 
     const toggle = () => {
         setIsOpen(!isOpen);
+    };
+
+    const Divider = () => {
+        return (
+            <hr
+                style={{ borderTop: "2px solid grey" }}
+            ></hr>
+        );
     };
 
     useEffect(() => {
@@ -96,35 +108,49 @@ function UserProfile({ match }) {
             </div>
             <div className='userProfile'>
                 <h1>Welcome to {username}'s profile!</h1>
-                <h1>User Profile </h1>
-                {profileData ? (
+                <h2>User Profile </h2>
+                <div className='profileCard'>
+                    
+                    {profileData ? (
 
-                    <div>
-                        {/* <h3 id="displayName">Display Name: {user.displayName}</h3> */}
-
-                        <h3>Username: {profileData.user.username}</h3>
-                        <h3>Location: {profileData.user.hometown}</h3>
-                        <h3>About Me: {profileData.user.bio}</h3>
-                        <h3>Favorite Category: {profileData.user.targetCategory}</h3>
-                        {profileData.user.awards ? (
                         <div>
-                            <h3>Awards: </h3>
-                            {profileData.user.awards[0] ? <img src={require("../Images/transportation.png")} height={200} title="Award for 3+ Transportation Activities Logged!" /> : null}
-                            {profileData.user.awards[1] ? <img src={require("../Images/eating.png")} height={200} title="Award for 3+ Eating Activities Logged!" /> : null}
-                            {profileData.user.awards[2] ? <img src={require("../Images/household.png")} height={200} title="Award for 3+ Household Activities Logged!" /> : null}
-                        </div>) : <h3>No awards yet...</h3>}
-                        
-                    </div>
-                ) : (
-                    <h3>Loading data...</h3>
+                            {/* <h3 id="displayName">Display Name: {user.displayName}</h3> */}
 
-                )}
-                <br /><br />
+                            <h3>Username: {profileData.user.username}</h3>
+                            <Divider />
+                            <h3>Location: {profileData.user.hometown}</h3>
+                            <Divider />
+                            <h3>About Me: {profileData.user.bio}</h3>
+                            <Divider />
+                            <h3>Favorite Category: {profileData.user.targetCategory}</h3>
+                            <Divider />
+                            {profileData.user.awards ? (
+                                <div>
+                                    <h3>Awards: </h3>
+                                    {profileData.user.awards[0] ? <img src={require("../Images/transportation.png")} height={200} title="Award for 3+ Transportation Activities Logged!" /> : null}
+                                    {profileData.user.awards[1] ? <img src={require("../Images/eating.png")} height={200} title="Award for 3+ Eating Activities Logged!" /> : null}
+                                    {profileData.user.awards[2] ? <img src={require("../Images/household.png")} height={200} title="Award for 3+ Household Activities Logged!" /> : null}
+                                </div>) : <h3>No awards yet...</h3>}
+
+                        </div>
+                    ) : (
+                        <h3>Loading data...</h3>
+
+                    )}
+                    <br />
+                </div>
                 <h2>Activity History</h2>
+                <div className='profileCard'>
                 {profileData ? (
+                    <>
                     <h3>Carbon Score: {profileData.user.carbonScore}</h3>
+                    <Divider />
+                    </>
                 ) : (
+                    <>
                     <h3>Carbon Score Unavailable</h3>
+                    <Divider    />
+                    </>
                 )}
                 {!loadingState ? (
                     (isEmpty(activityHistory)) ? (
@@ -137,6 +163,7 @@ function UserProfile({ match }) {
                 ) : (
                     <h3>Loading Activity History ... </h3>
                 )}
+                </div>
             </div>
         </>
     );
