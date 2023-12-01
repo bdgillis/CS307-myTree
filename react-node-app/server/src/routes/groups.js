@@ -88,7 +88,7 @@ router.post('/create/:groupname', async (req, res) => {
                 owner: req.body.uid,
                 users: FieldValue.arrayUnion(req.body.uid)
             });
-            const userRef = await db.collection('users').doc(req.body.uid).collection('groups').doc(req.params.groupname).set({
+            const userRef = await db.collection('users').doc(req.body.uid).update({
                 groups: FieldValue.arrayUnion(req.params.groupname)
             });
             res.json({status: 'success', id: docRef.id});
