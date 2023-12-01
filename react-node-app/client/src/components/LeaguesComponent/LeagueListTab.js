@@ -86,17 +86,14 @@ const LeagueListTab = () => {
             </h1>
 
             {/* <h2>Friend List : </h2> */}
-            {!isEmpty(friends) ? (
-
-                (displayFriends ? (
+            { displayFriends ? (
                     <div>
                         {displayFriends}
-                    </div>) : (
+                    </div>) :
+                (
                     <h3>Loading League List ...</h3>
-                ))
-            ) : (
-                <h3 className='friendName'>No League</h3>
-            )}
+                )
+            }
         </div>
     );
 };
