@@ -37,6 +37,7 @@ const SecondTab = () => {
     const [final, setFinal] = useState(null);
     const [sortOnce, setSortOnce] = useState(null);
     const [newFriend, setNewFriend] = useState({});
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
       async function getUidFriends(userFriend) {
@@ -129,7 +130,7 @@ const SecondTab = () => {
         }
       }
 
-  }, [user]);
+  }, [user, refresh]);
 
   function isEmpty(obj) {
     for (const prop in obj) {
@@ -142,14 +143,25 @@ const SecondTab = () => {
 
   
   return (
-    <div className="SecondTab">
-      <p>Leaderboard</p>
-      {/* Second  tab content will go here */}
+    <>
+      
+      <div className="SecondTab">
+        
+        <p>Leaderboard</p>
+        {/* Second  tab content will go here */}
 
-      <p className="box" id="printScore"></p>
+        <p className="box" id="printScore"></p>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <button 
+                className='refreshButton' 
+                onClick={() => setRefresh(!refresh)}>
+                    Refresh
+            </button>
+        </div>
 
 
-    </div>
+      </div>
+    </>
 
     
   );
