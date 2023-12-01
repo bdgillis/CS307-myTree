@@ -19,10 +19,10 @@ const Divider = () => {
 };
 
 
-const transportationActivities = ["Drive", "Walk", "Run", "Bus"];
-const eatingActivities = ["Takeout", "Meal Protein - Red Meat",
+const transportationActivities = ["Drive - Carpool", "Walk", "Bus"];
+const eatingActivities = ["Takeout - Plastic", "Meal Protein - Red Meat",
     "Meal Protein - Poultry", "Meal Protein - Vegetarian"];
-const householdActivities = ["Cold Water Wash", "Cold Shower", "Temperature Adjustment"];
+const householdActivities = ["Cold Water Laundry", "Recycle", "Cold Shower", "Compost"];
 const finalArray = [];
 var setDone = false;
 
@@ -47,13 +47,13 @@ function shuffle(array) {
 
 function findSub(categoryChoice) {
     let retCat;
-    if (categoryChoice === "transportation") {
+    if (categoryChoice === "Transportation") {
         retCat = shuffle(transportationActivities);
     }
-    else if (categoryChoice === 'eating') {
+    else if (categoryChoice === 'Eating') {
         retCat = shuffle(eatingActivities);
     }
-    else if (categoryChoice === 'household') {
+    else if (categoryChoice === 'Household') {
         retCat = shuffle(householdActivities);
     }
     return retCat;
@@ -67,25 +67,69 @@ function findTime() {
     return number;
 }
 
-function findSuffix(spec_cat) {
-    var suffix;
-    if (spec_cat === 'transportation') {
-        suffix = "miles";
-    } else {
-        suffix = "times today";
+function findSuffix(spec_cat, category) {
+	let paramUnits = null
+	switch(category) {
+        case "Transportation": {
+            paramUnits = "Miles";
+            break;
+        }
+        case "Eating": {
+            switch(spec_cat) {
+                case "Takeout - Plastic":
+                    paramUnits = "Containers";
+                    break;
+                case "Meal Protein - Poultry":
+                    paramUnits = "Servings";
+                    break;
+                case "Meal Protein - Vegetarian":
+                    paramUnits = "Servings";
+                    break;
+                case "Meal Protein - Red Meat":
+                    paramUnits = "Servings";
+                    break;
+                default:
+                    paramUnits = null;
+                    break;
+            }
+            break;
+        }
+        case "Household": {
+            switch(spec_cat) {
+                case "Cold Water Laundry":
+                    paramUnits = "Loads";
+                    break;
+                case "Cold Shower":
+                    paramUnits = "Times today";
+                    break;
+                case "Recycle":
+                    paramUnits = "Gallons";
+                    break;
+                case "Compost":
+                    paramUnits = "Gallons";
+                    break;
+                default:
+                    paramUnits = null;
+                    break;
+            }
+            break;
+        }
+        default:
+            paramUnits = null;
+            break;
     }
-    return suffix;
+    return paramUnits;
 }
 // setInterval(findChallenge, 1000 * 60 * 60 * 24);
 
 function findChallenge(challengeNumber) {
     localStorage.setItem('isDone', "Click to mark done!");
-    console.log("hello");
-    const category = ['transportation', 'eating', 'household'];
+    // console.log("hello");
+    const category = ['Transportation', 'Eating', 'Household'];
     const categoryChoice = shuffle(category);
     const subCategory = findSub(categoryChoice);
     const timeEnd = findTime();
-    const suffix = findSuffix(categoryChoice);
+    const suffix = findSuffix(subCategory, categoryChoice);
 
     return {
         challengeNumber,
@@ -128,6 +172,7 @@ const DailyChallengeTab = () => {
     };
 
     async function selectChallenge(challenge) {
+        //console.log(challenge);
         if (user) {
             const uid = user.uid;
             console.log(uid)
