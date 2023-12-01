@@ -4,6 +4,9 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import GroupInvitesTab from '../components/NotificationComponents/GroupInvitesTab';
 import { getAuth } from "firebase/auth";
 import { get } from 'react-scroll/modules/mixins/scroller';
+import './ManageAccount.css';
+import toast from 'react-hot-toast';
+import { GroupBtnLink, BackBtnLink } from '../components/Navbar/NavbarElements';
 
 
 
@@ -70,8 +73,10 @@ function EditGroup({ match }) {
                 console.log(body);
                 if (body.status === 'success') {
                     setRemoveStatus(true);
+                    toast.success('User Removed!');
                 } else {
                     setRemoveStatus(false);
+                    toast.error('Failed to Remove User!');
                 }
             }
             removeUser();
@@ -113,6 +118,11 @@ function EditGroup({ match }) {
                 });
                 const body = await response.json();
                 console.log(body);
+                if (body.status === 'success') {
+                    toast.success('Request Accepted!');
+                } else {
+                    toast.error('Failed to Accept Request!');
+                }
                 
             }
             acceptUser();
@@ -154,6 +164,11 @@ function EditGroup({ match }) {
                 });
                 const body = await response.json();
                 console.log(body);
+                if (body.status === 'success') {
+                    toast.success('Request Denied!');
+                } else {
+                    toast.error('Failed to Deny Request!');
+                }
                 
             }
             declineUser();
@@ -323,18 +338,19 @@ function EditGroup({ match }) {
                 <Navbar toggle={toggle} />
             </div>
             <div >
-                <button
+                <BackBtnLink to = {'../viewgroup/' + groupname}>Back</BackBtnLink>
+                {/* <button
                     className='backButton'
                     onClick={() => window.location = '../viewgroup/' + groupname}>
                     Back
-                </button>
+                </button> */}
             </div>
-            <div>
+            <div className='profileStyle' style={{textAlign: 'center'}}>
                 <h1>Edit {groupname}</h1>
                 {/* Add user-specific content here */}
             </div>
 
-            <div>
+            <div className='profileCard'>
                 {!loadingState ? (
 
                     <div>
@@ -361,7 +377,7 @@ function EditGroup({ match }) {
                 
 
                 <br /><br />
-                <h2>Members</h2>
+                <h2 style={{textAlign: 'center'}}>Members</h2>
                 {!loadingState ? (
                     (isEmpty(members)) ? (
                         <h3>No Members</h3>
@@ -374,7 +390,7 @@ function EditGroup({ match }) {
                     <h3>Loading Members ... </h3>
                 )}
                 <br /><br />
-                <h2>Requests to Join</h2>
+                <h2 style={{textAlign: 'center'}}>Requests to Join</h2>
                 {!loadingState ? (
                     (isEmpty(groupJoinRequests)) ? (
                         <h3>No requests to join</h3>

@@ -10,22 +10,18 @@ const { query, where, getDocs } = require('firebase-admin/firestore');
 //A group request is defined as a user requesting to join a group they are not already a part of
 
 //get outgoing group requests for specific user
-router.get('/userRequests', async (req, res) => {
+router.get('/userRequests/:uid', async (req, res) => {
     try {
-        console.log("groupRequests/userRequests")
-
-        const user = db.collection('users').doc(req.body.uid);
-        const doc = await user.get();
-        if (!doc.exists) {
-            console.log('No such document!');
-            res.json({ status: 'error', error: 'user does not exist' });
-        } else {
-            if (doc.data().groupRequests == null) {
-                res.json({ status: 'success', groupRequests: [] });
-            } else {
-                res.json({ status: 'success', groupRequests: doc.data().groupRequests });
-            }
+        console.log("returning group requests for user: " + req.params.uid);
+        const user = await db.collection('users').doc(req.params.uid).get();
+        const groupList = user.data().groupRequests;
+        if (groupList == undefined) {
+            res.json([]);
+        }  else {
+            res.json(groupList);
         }
+        
+        
 
 
     } catch (err) {

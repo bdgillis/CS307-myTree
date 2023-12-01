@@ -2,12 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import GroupInvitesTab from '../components/NotificationComponents/GroupInvitesTab';
-
+import './ManageAccount.css';
 import { getAuth } from "firebase/auth";
-
+import toast, {Toaster} from 'react-hot-toast';
 import UserTree from './UserTree';
+import { GroupBtnLink } from '../components/Navbar/NavbarElements';
 
-
+const Divider = () => {
+    return (
+        <hr
+            style={{ borderTop: "2px solid grey" }}
+        ></hr>
+    );
+};
 
 function GroupProfile({ match }) {
 
@@ -25,10 +32,11 @@ function GroupProfile({ match }) {
     const [inviteSent, setInviteSent] = useState(false);
     const [inviteStatus, setInviteStatus] = useState(null);
     const [groupBio, setGroupBio] = useState("");
+    const [invitePrivilege, setInvitePrivilege] = useState(false);
+    const [username, setUsername] = useState(null);
 
     const auth = getAuth();
     const user = auth.currentUser;
-    const uid = user?.uid;
 
     const toggle = () => {
         setIsOpen(!isOpen);
@@ -59,7 +67,7 @@ function GroupProfile({ match }) {
             }
             getGroupData();
         }
-    }, [groupname, user]);
+    }, [groupname]);
 
     const handleInvite = (e) => {
         console.log(document.getElementById('groupname').value);
@@ -89,6 +97,21 @@ function GroupProfile({ match }) {
     }, [invitee]);
 
     useEffect(() => {
+
+        if (user) {
+            const getuname = async () => {
+                const response = await fetch('/api/friends/uid=' + user.uid);
+                const body = await response.json();
+                setUsername(body.username)
+                if (username in members) {
+                    setInvitePrivilege(true);
+                }
+            }
+            getuname();
+        }
+    }, [user]);
+
+    useEffect(() => {
         if (inviteeID) {
             console.log("inviteeID: " + inviteeID);
 
@@ -105,8 +128,10 @@ function GroupProfile({ match }) {
                 setInviteSent(true);
                 if (body.status === 'success') {
                     setInviteStatus(true);
+                    toast.success('Invite Sent!');
                 } else {
                     setInviteStatus(false);
+                    toast.error('Failed to Send Invite!');
                 }
             }
             inviteUser();
@@ -149,21 +174,22 @@ function GroupProfile({ match }) {
 
     return (
         <>
+            <Toaster />
             <div className='NavMenu'>
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <div>
-                <h1>Welcome to {groupname}</h1>
-                <h2>{groupBio}</h2>
+            <div className='profileStyle'>
+                <h1 style={{textAlign: 'center'}}>Welcome to {groupname}</h1>
+                <Divider/>
+                <h2 style={{textAlign: 'center'}}>About us: {groupBio}</h2>
             </div>
 
-            <div>
+            <div className='profileCard'>
                 {!loadingState ? (
 
                     <div>
-                        <h3>Groupname: {groupname}</h3>
-                        <h2>Group Admin: {groupOwner}</h2>
+                        <h3>Group Admin: {groupOwner}</h3>
                     </div>
                 ) : (
                     <h3>Loading data...</h3>
@@ -171,11 +197,12 @@ function GroupProfile({ match }) {
                 )}
                 {
                     adminPrivilege && (<div className='friendRequestButtons'>
-                    <button
+                    <GroupBtnLink to={'../editgroup/' + groupname}>Edit Group</GroupBtnLink>
+                    {/* <button
                         className='friendRequestButton'
                         onClick={() => window.location = '../editgroup/' + groupname}>
                         Edit Group
-                    </button>
+                    </button> */}
                     </div>)
                 }
 
@@ -198,7 +225,7 @@ function GroupProfile({ match }) {
         
             </div>
 
-            <div>
+            {invitePrivilege && <div>
                 <input
                     className="searchFriendInput"
                     type="text"
@@ -210,7 +237,7 @@ function GroupProfile({ match }) {
                     onClick={handleInvite}>
                     Invite User to Group
                 </button>
-            </div>
+            </div>}
             <div>
                 {inviteSent ? (
                     <div>
