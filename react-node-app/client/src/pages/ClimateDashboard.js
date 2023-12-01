@@ -210,6 +210,32 @@ const ClimateDashboard = () => {
                         <h3>Stats:</h3>
                     )}
             </div>
+
+            <div className='num-activites'>
+                    {profileData ? (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {changeImage()}
+                                <h3 className='Background3' style={{marginRight: '25px'}}>
+                                    Increase in average global <br></br> 
+                                    temperture since 1880: 
+                                    <h3><center>99%</center></h3></h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>
+                                    Increase in sea level <br></br> 
+                                    height since 2005: 
+                                    <h3><center>22.8mm</center></h3>
+                                </h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>
+                                    Extent of Sea Ice in<br></br> 
+                                    height since 2005: 
+                                    <h3><center>22.8mm</center></h3>
+                                </h3>
+                            </div>
+                        </>
+                        ) : (
+                        <h3>Stats:</h3>
+                    )}
+            </div>
             <div className='num-activites'>
                     {profileData ? (
                         <>
