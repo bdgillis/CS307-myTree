@@ -8,6 +8,7 @@ import { ButtonLink } from "../components/Header";
 import { notificationDetail } from "../components/Notification";
 import { getAuth } from "firebase/auth";
 import Tabs from "../components/NotificationComponents/NotificationTabs";
+import '../App.css';
 
 
 export var flag = 0;
@@ -115,20 +116,11 @@ const NotificationPage = () => {
 
     onMessageListener()
         .then((payload) => {
-<<<<<<< Updated upstream
 			g_Counter = 1;
             setNotification({title: payload?.notification?.title, body: payload?.notification?.body});
 			let notif = payload.notification.body;
 			console.log(notif);
-        
-=======
-            g_Counter = 1;
-            setNotification({ title: payload?.notification?.title, body: payload?.notification?.body });
-            let notif = payload.notification.body;
-            console.log(notif);
 
-            document.getElementById("printNotif").innerHTML = (notif + "<br/>");
->>>>>>> Stashed changes
 
 
         })
@@ -151,6 +143,11 @@ const NotificationPage = () => {
                     alignItems: 'center',
                 }}> Notifications</h1>
 
+
+                <div className="notifButton">
+                    <ButtonLink className="challenge" to='/daily-challenge' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
+                </div>
+
                 <Tabs />
 
             </div>
@@ -163,15 +160,12 @@ const NotificationPage = () => {
                 height: '90vh'
             }}>
                 <div>
-<<<<<<< Updated upstream
 				    <h1>Notifications</h1>
                     <ButtonLink className="challenge" to='/daily-challenge' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
 				
                     
             
-=======
                     <ButtonLink className="challenge" to='/goals' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
->>>>>>> Stashed changes
                 </div>
 
 

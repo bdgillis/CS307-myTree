@@ -8,6 +8,13 @@
     
   }
 
+  .notifButton {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.5in;
+
+  }
+
 
   .Tabs{
     box-sizing: border-box;
