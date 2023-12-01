@@ -238,7 +238,7 @@ label {
   width:min-content + 1;
   height:fit-content + 1;
   padding: 2px 4px;
-  overflow-y: scroll;
+  overflow-y:hidden;
   overflow-x: auto;
 
 }
@@ -251,7 +251,7 @@ label {
   height:fit-content;
   border: 4px solid blue;
   padding: 2px 4px;
-  overflow-y: scroll;
+  overflow-y: hidden;
   overflow-x: auto;
   -webkit-text-fill-color: white;
   -webkit-text-stroke: 0.9px black;
