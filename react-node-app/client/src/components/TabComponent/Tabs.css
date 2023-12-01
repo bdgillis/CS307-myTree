@@ -1,5 +1,11 @@
-.Tabs {
+/* .Tabs {
     width: auto;
     height: 600px;
     overflow: scroll;
+  } */
+
+  .Tabs {
+    width: auto;
+    height: 50vh;
+    overflow-y: auto;
   }
