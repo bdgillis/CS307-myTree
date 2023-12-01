@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import GroupInvitesTab from '../components/NotificationComponents/GroupInvitesTab';
 import './ManageAccount.css';
 import { getAuth } from "firebase/auth";
-import toast, {Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import UserTree from './UserTree';
 import { GroupBtnLink } from '../components/Navbar/NavbarElements';
 
@@ -35,6 +35,8 @@ function GroupProfile({ match }) {
     const [invitePrivilege, setInvitePrivilege] = useState(false);
     const [username, setUsername] = useState(null);
     const [refresh, setRefresh] = useState(false);
+    const [friends, setFriends] = useState({});
+    const [friend, setFriend] = useState(null);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -44,7 +46,7 @@ function GroupProfile({ match }) {
     };
 
     useEffect(() => {
-        
+
 
         if (groupname) {
             const getGroupData = async () => {
@@ -76,6 +78,12 @@ function GroupProfile({ match }) {
 
     };
 
+    const handleFriendInvite = (e) => {
+        console.log(friends[e]);
+        setFriend(friends[e]);
+        setInvitee(friends[e]);
+    };
+
     useEffect(() => {
 
         if (invitee) {
@@ -104,6 +112,7 @@ function GroupProfile({ match }) {
                 const response = await fetch('/api/friends/uid=' + user.uid);
                 const body = await response.json();
                 setUsername(body.username)
+                setFriends(body.userDoc.friends);
                 if (Object.values(members).includes(body.username)) {
                     setInvitePrivilege(true);
                 }
@@ -140,6 +149,15 @@ function GroupProfile({ match }) {
 
     }, [inviteeID]);
 
+    // create array of options from activityHistory object
+    const friendDisplay = Object.keys(friends).map((key) => {
+        const friend = friends[key];
+        return (
+            <option key={key} value={key}>
+                {friend}
+            </option>
+        );
+    });
 
 
     function isEmpty(obj) {
@@ -154,7 +172,7 @@ function GroupProfile({ match }) {
 
     const memberDisplay = Object.keys(members).map((key) => {
         const member = members[key];
-        
+
         //const time = new Date(member.timestamp).toLocaleString()
         return (
             <div>
@@ -165,11 +183,11 @@ function GroupProfile({ match }) {
                         onClick={() => window.location = '/homeTabNew/' + member}>
                         View Tree
                     </button>
-                
+
                 </h3>
             </div>
-            
-            
+
+
         );
     });
 
@@ -180,17 +198,17 @@ function GroupProfile({ match }) {
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <div style={{position: 'absolute', left: 0, marginTop: '120px', marginLeft: '100px', marginRight: '3.5px'}}>
-                <button 
-                    className='refreshButton' 
+            <div style={{ position: 'absolute', left: 0, marginTop: '120px', marginLeft: '100px', marginRight: '3.5px' }}>
+                <button
+                    className='refreshButton'
                     onClick={() => setRefresh(!refresh)}>
-                        Refresh
+                    Refresh
                 </button>
             </div>
             <div className='profileStyle'>
-                <h1 style={{textAlign: 'center'}}>Welcome to {groupname}</h1>
-                <Divider/>
-                <h2 style={{textAlign: 'center'}}>About us: {groupBio}</h2>
+                <h1 style={{ textAlign: 'center' }}>Welcome to {groupname}</h1>
+                <Divider />
+                <h2 style={{ textAlign: 'center' }}>About us: {groupBio}</h2>
             </div>
 
             <div className='profileCard'>
@@ -205,8 +223,8 @@ function GroupProfile({ match }) {
                 )}
                 {
                     adminPrivilege && (<div className='friendRequestButtons'>
-                    <GroupBtnLink to={'../editgroup/' + groupname}>Edit Group</GroupBtnLink>
-                    {/* <button
+                        <GroupBtnLink to={'../editgroup/' + groupname}>Edit Group</GroupBtnLink>
+                        {/* <button
                         className='friendRequestButton'
                         onClick={() => window.location = '../editgroup/' + groupname}>
                         Edit Group
@@ -228,12 +246,14 @@ function GroupProfile({ match }) {
                     <h3>Loading Members ... </h3>
                 )}
 
-            
 
-        
+
+
             </div>
+            <Divider />
 
             {invitePrivilege && <div>
+                <h3>Invite by Username</h3>
                 <input
                     className="searchFriendInput"
                     type="text"
@@ -245,6 +265,13 @@ function GroupProfile({ match }) {
                     onClick={handleInvite}>
                     Invite User to Group
                 </button>
+                <h3>Invite a Friend</h3>
+                <div>
+                    <select value={friend} onChange={(e) => handleFriendInvite(e.target.value)}>
+                        <option value="">Select a Friend</option>
+                        {friendDisplay}
+                    </select>
+                </div>
             </div>}
             <div>
                 {inviteSent ? (
