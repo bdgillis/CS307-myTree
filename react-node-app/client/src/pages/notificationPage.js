@@ -8,6 +8,7 @@ import { ButtonLink } from "../components/Header";
 import { notificationDetail } from "../components/Notification";
 import { getAuth } from "firebase/auth";
 import Tabs from "../components/NotificationComponents/NotificationTabs";
+import '../App.css';
 
 
 export var flag = 0;
@@ -119,7 +120,6 @@ const NotificationPage = () => {
             setNotification({title: payload?.notification?.title, body: payload?.notification?.body});
 			let notif = payload.notification.body;
 			console.log(notif);
-        
 
 
         })
@@ -141,6 +141,11 @@ const NotificationPage = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}> Notifications</h1>
+
+
+                <div className="notifButton">
+                    <ButtonLink className="challenge" to='/daily-challenge' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
+                </div>
 
                 <Tabs />
 

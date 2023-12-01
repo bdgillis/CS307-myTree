@@ -109,11 +109,11 @@ const SecondTab = () => {
           getUserUsername(); // Call the async function within useEffect
           
       }
+      
       console.log(scoreData.length);
       scoreData.sort(sortFunction);
       let number = 1;
 
-      localStorage.setItem('dataSorted', JSON.stringify(scoreData.sort(sortFunction)));
 
       for(let i = 0; i < scoreData.length; i++) {
         
@@ -140,8 +140,6 @@ const SecondTab = () => {
     return true;
   }
 
-  var myObject = JSON.parse(localStorage.getItem('dataSorted'));
-  console.log("here: ", myObject);
   
   return (
     <div className="SecondTab">
