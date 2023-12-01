@@ -219,16 +219,16 @@ const ClimateDashboard = () => {
                                 <h3 className='Background3' style={{marginRight: '25px'}}>
                                     Increase in average global <br></br> 
                                     temperture since 1880: 
-                                    <h3><center>99%</center></h3></h3>
+                                    <h3><center>0.91° C</center></h3></h3>
                                 <h3 className='Background3' style={{marginRight: '25px'}}>
                                     Increase in sea level <br></br> 
                                     height since 2005: 
                                     <h3><center>22.8mm</center></h3>
                                 </h3>
                                 <h3 className='Background3' style={{marginRight: '25px'}}>
-                                    Extent of Sea Ice in<br></br> 
-                                    height since 2005: 
-                                    <h3><center>22.8mm</center></h3>
+                                    Extent of Sea Ice in <br></br> 
+                                    the since 1980: 
+                                    <h3><center>11.9m km^2</center></h3>
                                 </h3>
                             </div>
                         </>
@@ -241,9 +241,9 @@ const ClimateDashboard = () => {
                         <>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {changeImage()}
-                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Height: {height}</h3>
-                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Level: {tree_level}</h3>
-                                <h3 className='Background3' style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>Tips to Improve Your Carbon Footprint: <br></br>
+                                Turn Off Lights,Take Short and Cold Showers, Take Public or Green Transportation, <br></br> Eat More Plant Based Foods
+                                </h3>
                             </div>
                         </>
                         ) : (
