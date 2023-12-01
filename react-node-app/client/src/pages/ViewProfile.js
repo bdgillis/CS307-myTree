@@ -198,7 +198,7 @@ const ViewProfile = () => {
                             </FriendBtnLink>
                             <Divider />
 
-                            \<>
+                            <>
                             </>
                             {profileData.awards ? (
                             <div>

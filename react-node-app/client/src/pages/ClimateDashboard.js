@@ -180,6 +180,52 @@ const ClimateDashboard = () => {
             </div>
 
             <div className='profileStyle'>
+                <h2>Climate Change Stats</h2>
+            </div>
+            <div className='num-activites'>
+                    {profileData ? (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {changeImage()}
+                                <h3 
+                                    className='Background3' 
+                                    style={{marginRight: '25px'}}
+                                > 
+                                    What is Number 1 Cause of Climate <br></br> 
+                                    Change?
+                                    <h3><strong><center>
+                                        Fossil Fuels
+                                    </center></strong></h3>
+                                </h3>
+                                <h3 
+                                    className='Background3' 
+                                    style={{marginRight: '25px'}}
+                                >
+                                    The Probability that 2023 will <br></br> 
+                                    rank as the warmest year on record
+                                    <h3><center>99%</center></h3></h3>
+                            </div>
+                        </>
+                        ) : (
+                        <h3>Stats:</h3>
+                    )}
+            </div>
+            <div className='num-activites'>
+                    {profileData ? (
+                        <>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                {changeImage()}
+                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Height: {height}</h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>MyTree's Level: {tree_level}</h3>
+                                <h3 className='Background3' style={{marginRight: '25px'}}>Carbon Score: {profileData.carbonScore}</h3>
+                            </div>
+                        </>
+                        ) : (
+                        <h3>Stats:</h3>
+                    )}
+            </div>
+
+            <div className='header'>
                 <h2>MyTree's Stats</h2>
             </div>
             <div className='num-activites'>

@@ -1,5 +1,5 @@
 .sidebarStyle {
 
-    height: 700px;
-    overflow: scroll;
+    height: auto;
+    overflow-y: auto;
   }
