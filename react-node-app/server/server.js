@@ -30,7 +30,7 @@ const friendRequestsRouter = require('./src/routes/friendRequests.js');
 const groupInvitesRouter = require('./src/routes/groupInvites.js');
 const groupRequestsRouter = require('./src/routes/groupRequests.js');
 const nudgesRouter = require('./src/routes/nudges.js');
-
+const challengesRouter = require('./src/routes/challenges.js');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -46,6 +46,7 @@ app.use('/api/groupInvites', groupInvitesRouter);
 app.use('/api/groupRequests', groupRequestsRouter);
 
 app.use('/api/nudges', nudgesRouter);
+app.use('/api/challenges', challengesRouter);
 
 
 app.get('/api/FirstTab/', async (req, res) => {

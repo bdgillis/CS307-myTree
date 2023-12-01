@@ -1,5 +1,7 @@
 .searchTab {
-    width: auto;
-    height: 600px;
-    overflow: scroll;
+    /* width: auto;
+    height: auto;
+    overflow: scroll; */
+    overflow-y: auto;
+
   }

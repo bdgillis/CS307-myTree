@@ -4,6 +4,9 @@ import { NavBtn } from '../Navbar/NavbarElements';
 import Sidebar from '../Sidebar/Sidebar';
 import '../../App.css';
 import '../../pages/Logout.css'
+import toast from 'react-hot-toast';
+import { getAuth } from "firebase/auth";
+import firebase from "firebase/app";
 
 const arrData = [];
 
@@ -100,20 +103,12 @@ function getVal() {
     return myObject;
 }
 
-
+const auth = getAuth();
+const user = auth.currentUser;
 
 function getStatus() {
     var isDone = localStorage.getItem('isDone');
     return isDone;
-
-}
-
-const markDone = () => {
-
-    localStorage.setItem('isDone', "Done!");
-    const textInput = getStatus();
-    console.log(textInput);
-    document.getElementById("thisBtn").innerHTML = textInput;
 
 }
 
@@ -132,8 +127,57 @@ const DailyChallengeTab = () => {
         setIsOpen(!isOpen);
     };
 
-    const selectChallenge = (challenge) => {
-        console.log(challenge);
+    async function selectChallenge(challenge) {
+        if (user) {
+            const uid = user.uid;
+            console.log(uid)
+            const response = await fetch('/api/challenges/get/' + uid, {
+                method: 'GET',
+            });
+            const existBody = await response.json();
+            console.log(existBody);
+            if (existBody.status === 'exists') {
+                // const promise = toast.promise(
+                //     (t) => (
+                //     <span>
+                //         Challenge Already Set, <br/>Would You Like to Replace it?<br/>
+                //         <button onClick={() => handleRep(t, true, challenge)}>
+                //             Yes
+                //         </button>
+                //         <button onClick={() => handleRep(t, false, challenge)}>
+                //             No
+                //         </button>
+                //     </span>
+                // ));
+                const result = window.confirm("Challenge Already Set. Would you like to replace it?");
+                if (result) {
+                    handleRep(challenge);
+                } else {
+                    toast.error("Challenge Selection Cancelled");
+                }
+            } else {
+                handleRep(challenge);
+            }
+        }
+    }
+
+    async function handleRep(challenge) {
+            console.log(challenge);
+            const response = await fetch('/api/challenges/set', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uid:user.uid, category: challenge.category, subCategory: challenge.subCategory, parameter: challenge.timeEnd, suffix: challenge.suffix })
+            });
+            const body = await response.json();
+            console.log(body);
+            if (body.status === 'success') {
+                toast.success("Challenge Selection Set");
+            } else {
+                toast.error("Challenge Selection Failed");
+            }
+        
     }
 
     const challengeArray = generateChallenges();
@@ -147,7 +191,7 @@ const DailyChallengeTab = () => {
             </div>
             <div style={{ 'textAlign': 'center' }} className='logout-container'>
                 <h1>Suggested Challenges</h1>
-                <Divider/>
+                <Divider />
                 {challengeArray.map((challenge, index) => (
                     <>
                         <div key={index}>
@@ -160,7 +204,7 @@ const DailyChallengeTab = () => {
                     </>
                 ))}
             </div>
-            
+
 
 
 
