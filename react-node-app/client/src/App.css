@@ -257,7 +257,7 @@ label {
   -webkit-text-stroke: 0.9px black;
 }
 
-.friendProfButton{
+.friendProfButton, .dailyChallengeButton {
   display: flex;
   justify-content: center;
   margin: 0 auto;

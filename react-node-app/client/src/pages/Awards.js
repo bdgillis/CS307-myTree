@@ -42,6 +42,7 @@ const Awards = () => {
             }
 
             getProfileData(); // Call the async function within useEffect
+
         };
 
     }, [user]);
@@ -92,7 +93,7 @@ const Awards = () => {
                     profileData.quizTaken ? (
                         <div>
                             <></>
-                            {profileData.awards ? (
+                            {(profileData.awards[0] || profileData.awards[1] || profileData.awards[2]) ? (
                             <div>
                                 {profileData.awards[0] ? <img src={require("../Images/transportation.png")} height={500} title="Award for 3+ Transportation Activities Logged!" /> : null}
                                 {profileData.awards[0] ? <button onClick={tButton} id="showHide"

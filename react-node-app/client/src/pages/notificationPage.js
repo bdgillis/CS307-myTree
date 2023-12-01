@@ -144,7 +144,7 @@ const NotificationPage = () => {
 
 
                 <div className="notifButton">
-                    <ButtonLink className="challenge" to='/daily-challenge' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
+                    <ButtonLink className="challenge" to='/goals' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
                 </div>
 
                 <Tabs />

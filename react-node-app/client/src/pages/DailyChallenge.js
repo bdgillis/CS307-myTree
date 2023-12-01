@@ -140,7 +140,7 @@ const DailyChallenge = () => {
 			<h3>{finalArr[2]}</h3>
 			<h3>{finalArr[3]}</h3>
 			<div>
-				<button id="thisBtn" onClick={markDone}>{localStorage.getItem('isDone')}</button>
+				<button className="dailyChallengeButton" id="thisBtn" onClick={markDone}>{localStorage.getItem('isDone')}</button>
 			</div>
 		
 

@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Tabs from '../components/GoalsComponents/GoalsTabs';
 import './Logout.css'
+import '../App.css'
 
 
 const Goals = () => {
