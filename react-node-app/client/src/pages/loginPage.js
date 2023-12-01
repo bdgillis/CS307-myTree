@@ -87,7 +87,7 @@ export default function LoginPage(){
         } else {
           window.location = '/HomeTab'
         }
-        console.log(user);
+        console.log(user.metadata);
 
         // IdP data available using getAdditionalUserInfo(result)
         // ...
@@ -141,13 +141,10 @@ export default function LoginPage(){
 
         <div className="googleAuth">
           <h3> Login with Other Accounts</h3>
-
-          <button className="googleAuthButton" onClick={googleAuth}>Login with Google</button>
-          {/* <button onClick={googleAuth}>Login with Twitter</button>
-          <button onClick={googleAuth}>Login with Github</button> */}
-          <button className="googleAuthButton" onClick={facebookAuth}>Login with Facebook</button>
-
-
+          <div>
+            <button className="googleAuthButton" onClick={googleAuth} style={{marginRight: '10px'}}>Google</button>
+            <button className="googleAuthButton" onClick={facebookAuth} style={{marginRight: '25px'}}>Facebook</button>
+          </div>
         </div>
 
         
