@@ -25,7 +25,7 @@ const GroupInvitesTab = () => {
 
                 }); 
                 const body = await response.json();
-                console.log(body);
+                console.log(body.groupInvites);
                 setGroupInvites(body.groupInvites);
             }
 
@@ -36,7 +36,7 @@ const GroupInvitesTab = () => {
 
     useEffect(() => {
         if (groupInvites.length > 0) {
-            // console.log(incomingRequests);
+            console.log("groupInvites: " + groupInvites);
             const display = groupInvites.map((element) => (
                 <div>
                     <hr />
@@ -64,6 +64,7 @@ const GroupInvitesTab = () => {
                 </div>
             ));
             setDisplayInvites(display);
+            console.log(display);
         }
     }, [userGroups]);
 
@@ -81,7 +82,7 @@ const GroupInvitesTab = () => {
         <div className="friendRequestsTab">
             <h1 className='friendRequestHeader'>My Groups</h1>
             {!isEmpty(groupInvites) ? (
-                (displayInvites ? (
+                (isEmpty(displayInvites) ? (
                     <div>
                         {displayInvites}
                     </div>) : (

@@ -122,7 +122,6 @@ const NotificationPage = () => {
 			console.log(notif);
 
 
-
         })
         .catch((err) => console.log('failed: ', err));
 
@@ -165,7 +164,6 @@ const NotificationPage = () => {
 				
                     
             
-                    <ButtonLink className="challenge" to='/goals' onClick={deleteArray()}>View Your Daily Challenge!</ButtonLink>
                 </div>
 
 
