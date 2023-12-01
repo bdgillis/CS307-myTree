@@ -115,3 +115,56 @@ export const FriendBtnLink = styled(Link)`
 		color: #010606;
 	}
 `;
+
+export const GroupBtnLink = styled(Link)`
+	
+  justify-content: center;
+  margin-left: 3.5px;
+  margin-right: 3.5px;
+
+
+  border-radius: 4px;
+  background: #256ce1;
+  padding: 5px 10px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold; 
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #010606;
+  }
+`;
+
+export const BackBtnLink = styled(Link)`
+	position: absolute;
+	left: 0;
+	margin-top: 120px;
+	margin-left: 75px;
+	margin-right: 3.5px;
+
+
+	border-radius: 4px;
+	background: #256ce1;
+	padding: 5px 10px;
+	color: #fff;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: bold; 
+
+	&:hover {
+	transition: all 0.2s ease-in-out;
+	background: #fff;
+	color: #010606;
+	}
+`;

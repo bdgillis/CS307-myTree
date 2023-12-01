@@ -1,5 +1,6 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
+import toast, { Toaster } from 'react-hot-toast';
 
 const SearchTab = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,8 +50,14 @@ const SearchTab = () => {
                         },
                         body: JSON.stringify({ uid: uid }),
                     });
+                    
                     const body = await response.json();
                     console.log(body);
+                    if (body.status === 'success') {
+                        toast.success('Request to Join Sent!');
+                    } else {
+                        toast.error('Failed to Request to Join Group!');
+                    }
                 }
                 joinGroup();
             }
@@ -97,44 +104,47 @@ const SearchTab = () => {
     }
 
     return (
-        <div className="searchFriendsTab">
-            <h1 className='searchFriendHeader'>Search Groups </h1>
-            <div className='searchFriendMenu'>
-                <input
-                    className="searchFriendInput"
-                    type="text"
-                    id="groupname"
-                    placeholder='Group Name'
-                ></input>
-                <button
-                    className='searchFriendButton'
-                    onClick={handleSearch}>
-                    Search
-                </button>
-            </div>
-
-            {group ? (
-                <div>
-                    {/* <h3 className='searchFriendStatus'>Group Found</h3> */}
-                    <h4 className='searchFriendUsername'>Group: {groupname}</h4>
-                    <div className='searchFriendButtons'>
-                        <button
-                            className='searchFriendButton'
-                            onClick={sendRequest}>
-                            Join Group
-                        </button>
-                        {/* <button
-                            className='searchFriendButton'
-                            onClick={() => window.location = './profile/' + friend.user.username}>
-                            View Profile
-                        </button> */}
-                    </div>
+        <>
+            <Toaster />
+            <div className="searchFriendsTab">
+                <h1 className='searchFriendHeader'>Search Groups </h1>
+                <div className='searchFriendMenu'>
+                    <input
+                        className="searchFriendInput"
+                        type="text"
+                        id="groupname"
+                        placeholder='Group Name'
+                    ></input>
+                    <button
+                        className='searchFriendButton'
+                        onClick={handleSearch}>
+                        Search
+                    </button>
                 </div>
-            ) : (groupname) ? (
-                <h3 className='searchFriendStatus'>Group Not Found!</h3>) : (
-                <></>
-            )}
-        </div>
+
+                {group ? (
+                    <div>
+                        {/* <h3 className='searchFriendStatus'>Group Found</h3> */}
+                        <h4 className='searchFriendUsername'>Group: {groupname}</h4>
+                        <div className='searchFriendButtons'>
+                            <button
+                                className='searchFriendButton'
+                                onClick={sendRequest}>
+                                Join Group
+                            </button>
+                            <button
+                                className='searchFriendButton'
+                                onClick={() => window.location = './viewgroup/' + groupname}>
+                                View Group
+                            </button>
+                        </div>
+                    </div>
+                ) : (groupname) ? (
+                    <h3 className='searchFriendStatus'>Group Not Found!</h3>) : (
+                    <></>
+                )}
+            </div>
+        </>
     );
 };
 export default SearchTab;

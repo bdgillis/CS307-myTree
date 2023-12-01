@@ -1,5 +1,6 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
+import { GroupBtnLink } from '../Navbar/NavbarElements';
 
 const MyGroupsTab = () => {
 
@@ -11,6 +12,8 @@ const MyGroupsTab = () => {
     const [displayRequests, setDisplayRequests] = useState(null);
     const [userGroups, setUserGroups] = useState({});
     const [displayGroups, setDisplayGroups] = useState(null);
+    const [userGroupRequests, setUserGroupRequests] = useState({});
+    const [displayGroupRequests, setDisplayGroupRequests] = useState(null);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -43,17 +46,62 @@ const MyGroupsTab = () => {
                         Groupname: {element}
                     </h3>
                     <div className='friendRequestButtons'>
-                        <button
+                        <GroupBtnLink to={'./viewgroup/' + element}>View Group</GroupBtnLink>
+                        {/* <button
                             className='friendRequestButton'
                             onClick={() => window.location = './viewgroup/' + element}>
                             View Group
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             ));
             setDisplayGroups(displayGroups);
         }
     }, [userGroups]);
+
+
+    useEffect(() => {
+
+        if (user) {
+            const uid = user.uid;
+            console.log("uid: " + uid);
+            const getUserGroupRequests = async () => {
+                const response = await fetch('/api/groupRequests/userRequests/' + uid);
+                const body = await response.json();
+                console.log(body);
+                setUserGroupRequests(body);
+            }
+
+            getUserGroupRequests();
+        }
+
+    }, [user]);
+
+    useEffect(() => {
+        if (userGroupRequests.length > 0) {
+            // console.log(incomingRequests);
+            const displayGroupRequests = userGroupRequests.map((element) => (
+                <div>
+                    <hr />
+
+                    <h3 className='friendRequestName'>
+                        Groupname: {element}
+                    </h3>
+                    <div className='friendRequestButtons'>
+                    <GroupBtnLink to={'./viewgroup/' + element}>View Group</GroupBtnLink>
+                        {/* <button
+                            className='friendRequestButton'
+                            onClick={() => window.location = './viewgroup/' + element}>
+                            View Group
+                        </button> */}
+                    </div>
+                </div>
+            ));
+            setDisplayGroupRequests(displayGroupRequests);
+        }
+    }, [userGroupRequests, user]);
+
+
 
     function isEmpty(obj) {
         for (const prop in obj) {
@@ -66,26 +114,43 @@ const MyGroupsTab = () => {
     }
 
     return (
-        <div className="friendRequestsTab">
-            <h1 className='friendRequestHeader'>My Groups</h1>
-            {!isEmpty(userGroups) ? (
-                (displayGroups ? (
+        <>
+            <div className="friendRequestsTab">
+                <h1 className='friendRequestHeader'>My Groups</h1>
+                {!isEmpty(userGroups) ? (
+                    (displayGroups ? (
+                        <div>
+                            {displayGroups}
+                        </div>) : (
+                        <h3>Loading Groups ... </h3>
+                    ))
+                ) : (
                     <div>
-                        {displayGroups}
-                    </div>) : (
-                    <h3>Loading Groups ... </h3>
-                ))
-            ) : (
-                <div>
-                    <h3 className='friendRequestName'>No Groups</h3>
-                    <button
-                        className='friendRequestButton'
-                        onClick={() => window.location = './HomeTab'}>
-                        Join a Group
-                    </button>
-                </div>
-            )}
-        </div>
+                        <h3 className='friendRequestName'>No Groups</h3>
+                        <button
+                            className='friendRequestButton'
+                            onClick={() => window.location = './HomeTab'}>
+                            Join a Group
+                        </button>
+                    </div>
+                )}
+            </div>
+            <div className="friendRequestsTab">
+                <h1 className='friendRequestHeader'>My Group Requests</h1>
+                {!isEmpty(userGroupRequests) ? (
+                    (displayGroupRequests ? (
+                        <div>
+                            {displayGroupRequests}
+                        </div>) : (
+                        <h3>Loading Groups ... </h3>
+                    ))
+                ) : (
+                    <div>
+                        <h3 className='friendRequestName'>No Pending Group Requests</h3>
+                    </div>
+                )}
+            </div>
+        </>
     );
 };
 export default MyGroupsTab;
