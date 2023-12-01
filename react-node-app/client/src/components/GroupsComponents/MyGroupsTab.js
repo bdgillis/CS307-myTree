@@ -127,11 +127,14 @@ const MyGroupsTab = () => {
                 ) : (
                     <div>
                         <h3 className='friendRequestName'>No Groups</h3>
-                        <button
-                            className='friendRequestButton'
-                            onClick={() => window.location = './HomeTab'}>
-                            Join a Group
-                        </button>
+                        <center>
+                            <button
+                                className='friendRequestButton'
+                                onClick={() => window.location = './groups'}>
+                                Join a Group
+                            </button>
+                        </center>
+
                     </div>
                 )}
             </div>

@@ -99,7 +99,7 @@ const GroupInvitesTab = () => {
                             onClick={() => declineInvite(element)}>
                             Decline
                         </button>
-                        <GroupBtnLink to={'./' + { element }}>
+                        <GroupBtnLink to={'./viewgroup/' + element}>
                             View Group
                         </GroupBtnLink>
                     </div>
@@ -133,9 +133,12 @@ const GroupInvitesTab = () => {
             ) : (
                 <div style={{ textAlign: 'center' }}>
                     <h3 className='friendRequestName'>No Group Invites</h3>
-                    <GroupBtnLink to={'./groups'} >
-                        Join a Group
-                    </GroupBtnLink>
+                    <center>
+                        <GroupBtnLink to={'./groups'} >
+                            Join a Group
+                        </GroupBtnLink>
+                    </center>
+                   
                 </div>
             )}
         </div>
