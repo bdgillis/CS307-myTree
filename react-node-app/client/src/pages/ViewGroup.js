@@ -103,13 +103,13 @@ function GroupProfile({ match }) {
                 const response = await fetch('/api/friends/uid=' + user.uid);
                 const body = await response.json();
                 setUsername(body.username)
-                if (username in members) {
+                if (Object.values(members).includes(body.username)) {
                     setInvitePrivilege(true);
                 }
             }
             getuname();
         }
-    }, [user]);
+    }, [user, members]);
 
     useEffect(() => {
         if (inviteeID) {
