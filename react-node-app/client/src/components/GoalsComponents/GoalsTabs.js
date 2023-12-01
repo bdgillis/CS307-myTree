@@ -27,7 +27,7 @@ const GoalsTabs = () => {
                 <li className={activeTab === "tab1" ? "active" : ""}
                     onClick={handleTab1}
                 >
-                    My Goal
+                    Current Challenge
                 </li>
 
                 <li className={activeTab === "tab2" ? "active" : ""}
@@ -44,7 +44,7 @@ const GoalsTabs = () => {
 
             </ul>
             <div className="outlet">
-                {activeTab === "tab1" ? <FirstTab /> :
+                {activeTab === "tab1" ? <FirstTab changeTab={handleTab3}/> :
                     activeTab === "tab2" ? <SecondTab /> :
                         <ThirdTab />
                 }

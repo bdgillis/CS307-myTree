@@ -67,12 +67,11 @@ router.post('/accept', async (req, res) => {
         const sendingRef = await db.collection('groups').doc(req.body.groupname).update({
             users: FieldValue.arrayUnion(req.body.uid)
         });
-
-        
-
+        res.json({ status: 'success' });
         
     } catch (err) {
         console.log('Error: ', err);
+        res.json({ status: 'error', error: 'could not accept group invite' });
     }
 });
 
@@ -82,12 +81,14 @@ router.post('/decline', async (req, res) => {
         console.log("groupInvites/decline")
 
         console.log(req.body)
-        const receivingRef = await db.collection('users').doc(req.body.receivingUid).update({
-            groupInvites: FieldValue.arrayRemove(req.body.sendingUsername),
+        const receivingRef = await db.collection('users').doc(req.body.uid).update({
+            groupInvites: FieldValue.arrayRemove(req.body.groupname),
         });
+        res.json({ status: 'success' });
 
     } catch (err) {
         console.log('Error: ', err);
+        res.json({ status: 'error', error: 'could not decline group invite' });
     }
 });
 

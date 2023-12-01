@@ -1,5 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
+import toast from 'react-hot-toast';
+import { GroupBtnLink } from '../Navbar/NavbarElements';
 
 const GroupInvitesTab = () => {
 
@@ -14,6 +16,48 @@ const GroupInvitesTab = () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    function acceptInvite(groupname) {
+        const uid = user.uid;
+        const acceptInvite = async () => {
+            const response = await fetch(`/api/groupInvites/accept`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uid: uid, groupname: groupname }),
+            });
+            const body = await response.json();
+            console.log(body);
+            if (body.status === 'success') {
+                toast.success("Invite Accepted");
+            } else {
+                toast.error("Invite Failed");
+            }
+        }
+        acceptInvite();
+    }
+
+    function declineInvite(groupname) {
+        const uid = user.uid;
+        const acceptInvite = async () => {
+            const response = await fetch(`/api/groupInvites/decline`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uid: uid, groupname: groupname }),
+            });
+            const body = await response.json();
+            console.log(body);
+            if (body.status === 'success') {
+                toast.error("Invite Declined");
+            } else {
+                toast.error("Error: Invite Decline Failed");
+            }
+        }
+        acceptInvite();
+    }
+
     useEffect(() => {
 
         if (user) {
@@ -23,7 +67,7 @@ const GroupInvitesTab = () => {
                 const response = await fetch('/api/groupInvites/' + uid, {
                     method: 'GET',
 
-                }); 
+                });
                 const body = await response.json();
                 console.log(body.groupInvites);
                 setGroupInvites(body.groupInvites);
@@ -47,26 +91,24 @@ const GroupInvitesTab = () => {
                     <div className='friendRequestButtons'>
                         <button
                             className='friendRequestButton'
-                            onClick={() => window.location = './' + {element}}>
+                            onClick={() => acceptInvite(element)}>
                             Accept
                         </button>
                         <button
                             className='friendRequestButton'
-                            onClick={() => window.location = './' + {element}}>
+                            onClick={() => declineInvite(element)}>
                             Decline
                         </button>
-                        <button
-                            className='friendRequestButton'
-                            onClick={() => window.location = './' + {element}}>
+                        <GroupBtnLink to={'./' + { element }}>
                             View Group
-                        </button>
+                        </GroupBtnLink>
                     </div>
                 </div>
             ));
             setDisplayInvites(display);
             console.log(display);
         }
-    }, [userGroups]);
+    }, [groupInvites]);
 
     function isEmpty(obj) {
         for (const prop in obj) {
@@ -79,23 +121,21 @@ const GroupInvitesTab = () => {
     }
 
     return (
-        <div className="friendRequestsTab">
+        <div className="searchTab">
             <h1 className='friendRequestHeader'>My Groups</h1>
             {!isEmpty(groupInvites) ? (
-                (isEmpty(displayInvites) ? (
+                (!isEmpty(displayInvites) ? (
                     <div>
                         {displayInvites}
                     </div>) : (
                     <h3>Loading Groups ... </h3>
                 ))
             ) : (
-                <div>
+                <div style={{ textAlign: 'center' }}>
                     <h3 className='friendRequestName'>No Group Invites</h3>
-                    <button
-                        className='friendRequestButton'
-                        onClick={() => window.location = './groups'}>
+                    <GroupBtnLink to={'./groups'} >
                         Join a Group
-                    </button>
+                    </GroupBtnLink>
                 </div>
             )}
         </div>

@@ -1,8 +1,13 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
+import { Button } from 'react-scroll';
 
-const MyGoalTab = () => {
+const MyGoalTab = ({ changeTab }) => {
 
+    const redirect = () => {
+        // Call the changeTab function passed as a prop
+        changeTab();
+    };
 
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => {
@@ -12,83 +17,69 @@ const MyGoalTab = () => {
     const [groupname, setGroupname] = useState(null);
     const [status, setStatus] = useState(false);
     const [sent, setSent] = useState(false);
+    const [uid, setUid] = useState(null);
+    const [challenge, setChallenge] = useState(null);
 
     const auth = getAuth();
     const user = auth.currentUser;
 
+    const Divider = () => {
+        return (
+            <hr
+                style={{ borderTop: "2px solid grey" }}
+            ></hr>
+        );
+    };
+
     useEffect(() => {
 
         if (user) {
-            const uid = user.uid;
+             setUid (user.uid);
         }
 
     }, [user]);
 
     useEffect(() => {
-        if (user && groupname) {
-            console.log("creating")
-            const createGroup = async () => {
-                const uid = user.uid;
+
+        if (uid) {
+            console.log("getting challenge" + uid)
+            const getChallenge = async () => {
                 setSent(true);
-                const response = await fetch(`/api/groups/create/${groupname}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ uid: uid }),
+                const response = await fetch(`/api/challenges/get/` + uid, {
+                    method: 'GET',
                 });
                 const body = await response.json();
-                if (body.status === 'success') {
-                    setStatus(true);
+                if (body.status === 'exists') {
+                    setChallenge(body.challenge);
                 } else {
-                    setStatus(false);
+                    setChallenge(null);
                 }
                 console.log(body);
             }
-            createGroup();
+            getChallenge();
         }
-    }, [groupname]);
 
-    const handleCreate = (e) => {
-        console.log(document.getElementById('groupname').value);
-        setGroupname(document.getElementById('groupname').value);
-        const uid = user.uid;
-
-    };
+    }, [uid]);
 
     return (
-        <div className="createTab">
-            <h1 className='createGroupHeader'>Create A Group</h1>
-            <h3 className='createGroupSubHeader'>Enter Group Name: </h3>
-            <div className='createGroupMenu'>
-                <input
-                    className="searchFriendInput"
-                    type="text"
-                    id="groupname"
-                    placeholder='Group Name'
-                ></input>
-                <button
-                    className='searchFriendButton'
-                    onClick={handleCreate}>
-                    Create Group
-                </button>
-            </div>
-            {sent ? (
+        <div style={{ textAlign: 'center' }}className="searchTab">
+            <h1 className='createGroupHeader'>Current Challenge</h1>
+            <Divider />
+            {challenge ? (
                 <div>
-                    {status ? (
-                        <div>
-                            <h3 className='createGroupFooter'>Group Created!</h3>
-                        </div>
-                    ) : (
-                        <div>
-                            <h3 className='createGroupFooter'>Group Creation Failed</h3>
-                        </div>
-                    )}
+                    <h2>Category: {challenge.category}</h2>
+                    <h3>{challenge.subCategory} {challenge.parameter} {challenge.suffix}</h3>
+                    <h3>Progress: {challenge.progress} / {challenge.parameter} {challenge.suffix}</h3>
+                    <Divider />
+                    <Button onClick={redirect}>Change Challenge</Button>
+
                 </div>
             ) : (
-                <div></div>
+                <div>
+                    <h2>No Challenge Set</h2>
+                    <Button onClick={redirect}>Create Challenge</Button>
+                </div>
             )}
-            {/* Second  tab content will go here */}
         </div>
     );
 };
