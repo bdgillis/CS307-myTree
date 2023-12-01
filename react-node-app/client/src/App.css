@@ -582,9 +582,8 @@ label {
 }
 
 .refreshButton {
-  position: absolute;
-  left: 0;
-  margin-left: 100px;
+  justify-content: center;
+  margin-left: 3.5px;
   margin-right: 3.5px;
 
 

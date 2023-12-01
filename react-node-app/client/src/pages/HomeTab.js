@@ -14,6 +14,7 @@ const HomeTab = () => {
     const [activityHistory, setActivityHistory] = useState({});
     const [loadingState, setLoadingState] = useState(true);
     const [imageSrc, setImageSrc] = useState('../Images/MyTree1.jpg');
+    const [refresh, setRefresh] = useState(false);
 
     const history = useHistory();
 
@@ -58,7 +59,7 @@ const HomeTab = () => {
         };
 
         
-    }, [user]);
+    }, [user, refresh]);
 
     var weeklyNumAct = 0;
     var weeklyCarbonScore = 0;
@@ -96,7 +97,7 @@ const HomeTab = () => {
         };
 
         getActivities(); // Call the async function within useEffect
-    }, [user]); // The empty dependency array ensures that useEffect runs only once
+    }, [user, refresh]); // The empty dependency array ensures that useEffect runs only once
 
     console.log(profileData)
     console.log(activityHistory);
@@ -172,6 +173,13 @@ const HomeTab = () => {
                     id="welcome-msg" 
                 >
                 </h1>
+            </div>
+            <div>
+                <button style={{position: 'absolute', left: 0, marginTop: '80px', marginLeft: '100px', marginRight: '3.5px'}}
+                    className='refreshButton' 
+                    onClick={() => setRefresh(!refresh)}>
+                        Refresh
+                </button>
             </div>
             
 

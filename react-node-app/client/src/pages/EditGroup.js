@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { get } from 'react-scroll/modules/mixins/scroller';
 import './ManageAccount.css';
 import toast from 'react-hot-toast';
-import { GroupBtnLink, BackBtnLink } from '../components/Navbar/NavbarElements';
+import { BackBtnLink, RefreshBtnLink } from '../components/Navbar/NavbarElements';
 
 
 
@@ -27,6 +27,8 @@ function EditGroup({ match }) {
     const [groupBio, setGroupBio] = useState("");
     const [sendingBio, setSendingBio] = useState(false);
     const [groupJoinRequests, setGroupJoinRequests] = useState({});
+
+    const [refresh, setRefresh] = useState(false);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -184,7 +186,7 @@ function EditGroup({ match }) {
         //     setRemoveUser(document.getElementById('groupname').value);
         // }
         if (member === groupOwner) {
-            alert("You cannot remove yourself as the group owner!");
+            toast.error("You cannot remove yourself as the group owner!");
         } else {
             setRemoveUser(member);
         }
@@ -225,6 +227,13 @@ function EditGroup({ match }) {
                         },
                         body: JSON.stringify({ bio: groupBio }),
                     });
+                    const body = await response.json();
+                    console.log(body);
+                    if (body.status === 'success') {
+                        toast.success('Bio Updated!');
+                    } else {
+                        toast.error('Failed to Update Bio!');
+                    }
     
                     setSendingBio(false);
                 } catch (err) {
@@ -257,7 +266,7 @@ function EditGroup({ match }) {
             }
             getGroupData();
         }
-    }, [groupname]);
+    }, [groupname, refresh]);
 
     useEffect(() => {
         if (groupname) {
@@ -273,7 +282,7 @@ function EditGroup({ match }) {
             }
             getGroupRequests();
         }
-    }, [groupname]);
+    }, [groupname, refresh]);
 
     const memberDisplay = Object.keys(members).map((key) => {
         const member = members[key];
@@ -337,14 +346,16 @@ function EditGroup({ match }) {
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
             </div>
-            <div >
+            <div style={{position: 'absolute', left: 0, marginTop: '120px', marginLeft: '100px', marginRight: '3.5px'}}>
                 <BackBtnLink to = {'../viewgroup/' + groupname}>Back</BackBtnLink>
-                {/* <button
-                    className='backButton'
-                    onClick={() => window.location = '../viewgroup/' + groupname}>
-                    Back
-                </button> */}
+                
+                <button 
+                    className='refreshButton' 
+                    onClick={() => setRefresh(!refresh)}>
+                        Refresh
+                </button>
             </div>
+            
             <div className='profileStyle' style={{textAlign: 'center'}}>
                 <h1>Edit {groupname}</h1>
                 {/* Add user-specific content here */}
@@ -403,37 +414,6 @@ function EditGroup({ match }) {
                     <h3>Loading join Requests ... </h3>
                 )}
             </div>
-
-            {/* <div>
-                <input
-                    className="searchFriendInput"
-                    type="text"
-                    id="groupname"
-                    placeholder='Username...'
-                ></input>
-                <button
-                    className='searchFriendButton'
-                    onClick={handleInvite}>
-                    Invite User to Group
-                </button>
-            </div>
-            <div>
-                {inviteSent ? (
-                    <div>
-                        {inviteStatus ? (
-                            <div>
-                                <h3>Invite Sent!</h3>
-                            </div>
-                        ) : (
-                            <div>
-                                <h3>Invite Failed</h3>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <div></div>
-                )}
-            </div> */}
         </>
     );
 }

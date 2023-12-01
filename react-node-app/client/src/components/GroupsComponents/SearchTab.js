@@ -1,6 +1,7 @@
 import React, { useEffect, useState, timeout } from 'react'
 import { getAuth } from "firebase/auth";
 import toast, { Toaster } from 'react-hot-toast';
+import { GroupBtnLink } from '../Navbar/NavbarElements';
 
 const SearchTab = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -132,11 +133,8 @@ const SearchTab = () => {
                                 onClick={sendRequest}>
                                 Join Group
                             </button>
-                            <button
-                                className='searchFriendButton'
-                                onClick={() => window.location = './viewgroup/' + groupname}>
-                                View Group
-                            </button>
+                            <GroupBtnLink to={'./viewgroup/' + groupname}>View Group</GroupBtnLink>
+                            
                         </div>
                     </div>
                 ) : (groupname) ? (

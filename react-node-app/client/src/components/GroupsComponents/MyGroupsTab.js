@@ -39,7 +39,7 @@ const MyGroupsTab = () => {
         if (userGroups.length > 0) {
             // console.log(incomingRequests);
             const displayGroups = userGroups.map((element) => (
-                <div>
+                <>
                     <hr />
 
                     <h3 className='friendRequestName'>
@@ -53,7 +53,7 @@ const MyGroupsTab = () => {
                             View Group
                         </button> */}
                     </div>
-                </div>
+                </>
             ));
             setDisplayGroups(displayGroups);
         }
