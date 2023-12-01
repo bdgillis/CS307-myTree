@@ -80,7 +80,7 @@ const LeagueListTab = () => {
     }
 
     return (
-        <div className="searchTab">    
+        <div className="leagueList">    
             <h1 className='friendListHeader'>
                 League List
             </h1>
@@ -94,6 +94,8 @@ const LeagueListTab = () => {
                     <h3>Loading League List ...</h3>
                 )
             }
+            <br></br>
+            <br></br>
         </div>
     );
 };

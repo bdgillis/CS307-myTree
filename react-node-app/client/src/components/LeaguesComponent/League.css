@@ -1,5 +1,5 @@
-/* .searchTab {
+.leagueList {
     width: auto;
-    height: 600px;
-    overflow: scroll;
-  } */
+    height: 89vh;
+    overflow-y: auto;
+}
