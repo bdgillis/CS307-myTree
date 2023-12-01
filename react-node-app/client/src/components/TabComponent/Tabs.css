@@ -1,8 +1,5 @@
 .Tabs {
-    /* width: auto;
-    
-    overflow: scroll; */
-    overflow-y: scroll;
-    height: auto; 
-
+    width: auto;
+    height: 600px;
+    overflow: scroll;
   }
