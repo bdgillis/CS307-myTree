@@ -210,6 +210,8 @@ const FriendListTab = () => {
                     <h3 className='friendName'>No Friends</h3>
                 )}
             </div>
+            <br></br>
+            <br></br>
         </>
     );
 };
