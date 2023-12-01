@@ -38,11 +38,12 @@ router.post('/', async (req, res) => {
         const chalRef = db.collection('users').doc(req.body.uid).collection('challenge');
         const chalSnapshot = await chalRef.get();
         const challenge = {}
-        chalSnapshot.forEach(doc => {
-            challenge[0]=(doc.data());
-        })
-        console.log(challenge[0]);
-        if (challenge.length != 0) {
+        if (!chalSnapshot.empty) {
+            chalSnapshot.forEach(doc => {
+                challenge[0] = (doc.data());
+            })
+            console.log(challenge[0]);
+            // if (challenge.length != 0) {
             const challengeCompleted = challengeCheck(req.body, challenge[0]);
             console.log(challengeCompleted);
 
