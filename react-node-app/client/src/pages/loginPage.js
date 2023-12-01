@@ -6,11 +6,12 @@ import Header from '../components/Header';
 
 
 import {
+    getAuth,
     signInWithEmailAndPassword,
-    
     GoogleAuthProvider,
     signInWithPopup,
-    onAuthStateChanged
+    onAuthStateChanged,
+    FacebookAuthProvider
 } from "firebase/auth";
 
 import { auth } from '../firebase';
@@ -68,6 +69,41 @@ export default function LoginPage(){
         });
     }
 
+  const facebookAuth = async () => {
+    console.log("here");
+    const fbauth = getAuth();
+    const fbAuthProvider = new FacebookAuthProvider(); //Facebook Auth
+    signInWithPopup(fbauth, fbAuthProvider)
+      .then((result) => {
+        console.log("here2");
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        console.log("here3");
+        // The signed-in user info.
+        const user = result.user;
+        if (user.metadata.creationTime == user.metadata.lastSignInTime) {
+          window.location = '/quiz'
+        } else {
+          window.location = '/HomeTab'
+        }
+        console.log(user);
+
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+        // ...
+        console.log(error);
+      });
+  }
 
   return (
     
@@ -109,6 +145,8 @@ export default function LoginPage(){
           <button className="googleAuthButton" onClick={googleAuth}>Login with Google</button>
           {/* <button onClick={googleAuth}>Login with Twitter</button>
           <button onClick={googleAuth}>Login with Github</button> */}
+          <button className="googleAuthButton" onClick={facebookAuth}>Login with Facebook</button>
+
 
         </div>
 
