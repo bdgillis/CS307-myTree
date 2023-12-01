@@ -34,6 +34,7 @@ function GroupProfile({ match }) {
     const [groupBio, setGroupBio] = useState("");
     const [invitePrivilege, setInvitePrivilege] = useState(false);
     const [username, setUsername] = useState(null);
+    const [refresh, setRefresh] = useState(false);
 
     const auth = getAuth();
     const user = auth.currentUser;
@@ -178,6 +179,13 @@ function GroupProfile({ match }) {
             <div className='NavMenu'>
                 <Sidebar isOpen={isOpen} toggle={toggle} />
                 <Navbar toggle={toggle} />
+            </div>
+            <div style={{position: 'absolute', left: 0, marginTop: '120px', marginLeft: '100px', marginRight: '3.5px'}}>
+                <button 
+                    className='refreshButton' 
+                    onClick={() => setRefresh(!refresh)}>
+                        Refresh
+                </button>
             </div>
             <div className='profileStyle'>
                 <h1 style={{textAlign: 'center'}}>Welcome to {groupname}</h1>
