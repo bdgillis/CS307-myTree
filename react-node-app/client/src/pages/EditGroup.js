@@ -302,7 +302,7 @@ function EditGroup({ match }) {
         );
     });
 
-    const requestDisplay = Object.keys(members).map((key) => {
+    const requestDisplay = Object.keys(groupJoinRequests).map((key) => {
         const member = groupJoinRequests[key];
         //const time = new Date(member.timestamp).toLocaleString()
         return (
