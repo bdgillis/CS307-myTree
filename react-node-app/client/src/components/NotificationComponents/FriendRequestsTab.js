@@ -1,4 +1,5 @@
 import React, { useEffect, useState, timeout } from 'react'
+import { GroupBtnLink } from '../Navbar/NavbarElements';
 import { getAuth } from "firebase/auth";
 
 const FriendRequestsTab = () => {
@@ -70,7 +71,7 @@ const FriendRequestsTab = () => {
                 console.log(body);
             }
             makeFriends();
-            window.location = './friends';
+            
         }
     }
 
@@ -106,11 +107,10 @@ const FriendRequestsTab = () => {
                         Friend Request from: {element}
                     </h3>
                     <div className='friendRequestButtons'>
-                        <button
-                            className='friendRequestButton'
-                            onClick={() => acceptRequest(element)}>
-                            Accept
-                        </button>
+                    <GroupBtnLink
+                            onClick={() => acceptRequest(element)}
+                            to={'./friends'}>Accept</GroupBtnLink>
+
                         <button
                             className='friendRequestButton'
                             onClick={() => declineRequest(element)}>
