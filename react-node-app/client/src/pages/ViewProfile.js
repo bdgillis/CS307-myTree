@@ -152,11 +152,82 @@ const ViewProfile = () => {
     const activityOptions = Object.keys(activityHistory).map((key) => {
         //numFriends= numFriends + 1;
         const activity = activityHistory[key];
+        let paramUnits = null;
+        switch(activity.activeCategory) {
+            case "Transportation": {
+                paramUnits = "Miles";
+                break;
+            }
+            case "Eating": {
+                switch(activity.activeActivity) {
+                    case "Takeout - Styrofoam":
+                        paramUnits = "Containers";
+                        break;
+                    case "Takeout - Plastic":
+                        paramUnits = "Containers";
+                        break;
+                    case "Meal Protein - Poultry":
+                        paramUnits = "Servings";
+                        break;
+                    case "Meal Protein - Vegetarian":
+                        paramUnits = "Servings";
+                        break;
+                    case "Meal Protein - Red Meat":
+                        paramUnits = "Servings";
+                        break;
+                    case "Shopping - Farmer's Market/Co-op":
+                        paramUnits = "Trips this week";
+                        break;
+                    case "Shopping - Grocery Store":
+                        paramUnits = "Trips this week";
+                        break;
+                    default:
+                        paramUnits = null;
+                        break;
+                }
+                break;
+            }
+            case "Household": {
+                switch(activity.activeActivity) {
+                    case "Cold Water Laundry":
+                        paramUnits = "Loads";
+                        break;
+                    case "Cold Shower":
+                        paramUnits = "Times today";
+                        break;
+                    case "Temperature Adjustment - Heating":
+                        paramUnits = "Degrees";
+                        break;
+                    case "Temperature Adjustment - Cooling":
+                        paramUnits = "Degrees";
+                        break;
+                    case "Recycle":
+                        paramUnits = "Gallons";
+                        break;
+                    case "Compost":
+                        paramUnits = "Gallons";
+                        break;
+                    case "Trash":
+                        paramUnits = "Gallons";
+                        break;
+                    case "Electricity Consumption":
+                        paramUnits = "Kilowatt/hours this week";
+                        break;
+                    default:
+                        paramUnits = null;
+                        break;
+                }
+                break;
+            }
+            default:
+                paramUnits = null;
+                break;
+        }
         //console.log(activity)
         const time = new Date(activity.timestamp).toLocaleString()
         return (
             <h3 key={key} value={key}>
-                {time} - {activity.activeCategory} - {activity.activeActivity} - {activity.activityParam} mi.
+                {time} - {activity.activeCategory} - {activity.activeActivity} - {activity.activityParam} {paramUnits}
             </h3>
         );
     });
