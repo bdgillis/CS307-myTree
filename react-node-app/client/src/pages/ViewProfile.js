@@ -234,7 +234,7 @@ const ViewProfile = () => {
                     <div className='profileCard'>
                         <h3>Carbon Score: {profileData.carbonScore}</h3>
                         <Divider />
-                        <h3>Weekly Carbon Score: {profileData.weeklyNumActivities}</h3>
+                        <h3>Weekly Carbon Score: {profileData.weeklyCarbonScore}</h3>
                         
                     </div>
                     

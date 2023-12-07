@@ -67,7 +67,7 @@ const Navbar = ({toggle}) => {
 					Awards
 				</NavLink>
             	<NavLink to="/goals" activeStyle>
-              		Goals
+              		Challenges
             	</NavLink>
 				<NavLink to="/notificationPage" activeStyle>
 					<div className="icon">
