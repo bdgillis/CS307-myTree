@@ -71,7 +71,7 @@ const MyGoalTab = ({ changeTab }) => {
                     <h3>{challenge.subCategory} {challenge.parameter} {challenge.suffix}</h3>
                     <h3>Progress: {challenge.progress} / {challenge.parameter} {challenge.suffix}</h3>
                     <Divider />
-                    <Button onClick={redirect}>Change Challenge</Button>
+                    <button className="friendRequestButton" onClick={redirect}>Change Challenge</button>
 
                 </div>
             ) : (
